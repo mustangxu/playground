@@ -92,8 +92,6 @@ public class StopWatchFrame extends JFrame {
                     ex.printStackTrace();
                 }
 
-                System.out.println(InvokerDigger.dig());
-
                 StopWatchFrame.this.running = false;
                 StopWatchFrame.this.buttonPause
                     .setEnabled(StopWatchFrame.this.running);
