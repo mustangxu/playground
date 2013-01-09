@@ -9,7 +9,6 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * @author ijay
- * 
  */
 public class MainClass {
     public static void main(String[] args) {
@@ -19,7 +18,7 @@ public class MainClass {
             queue.add(i);
         }
 
-        ProducerThread producer = new ProducerThread(queue, 6000);
+        ProducerThread producer = new ProducerThread(queue, 5000);
         ConsumeThread consumer = new ConsumeThread(queue, 500);
 
         producer.start();

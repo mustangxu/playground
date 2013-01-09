@@ -9,11 +9,10 @@ import java.util.List;
 
 /**
  * @author ijay
- * 
  */
 public class MainClass {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         List<Integer> queue = new LinkedList<Integer>();
 
         for (int i = 0; i < 10; i++) {
@@ -21,25 +20,15 @@ public class MainClass {
             System.out.println(i);
         }
 
-        for (Integer i : queue) {
-            System.out.println(i);
-        }
+//        for (Integer i : queue) {
+//            System.out.println(i);
+//        }
 
-        String ss = "";
-        for (int i = 0; i < Integer.MAX_VALUE; i++) {
-            ss += ss;
-        }
-
-        String[] strs = {"a", "b"};
-        for (String s : strs) {
-            System.out.println("s = " + s + s + s + s + s + s + s + s + s + s +
-                    s);
-        }
-
-        ProducerThread producer = new ProducerThread(queue, 10, 6000);
+        ProducerThread producer = new ProducerThread(queue, 10, 5000);
         ConsumerThread consumer = new ConsumerThread(queue, 500);
 
         producer.start();
+        Thread.sleep(1000L);
         consumer.start();
     }
 }

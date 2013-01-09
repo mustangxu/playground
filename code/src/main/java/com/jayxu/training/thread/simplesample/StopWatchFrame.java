@@ -42,6 +42,7 @@ public class StopWatchFrame extends JFrame {
             @Override
             public void run() {
                 while (!this.isInterrupted()) {
+                    System.out.println("Checking running...");
                     if (StopWatchFrame.this.running) {
                         SwingUtilities.invokeLater(new Runnable() {
 
@@ -53,11 +54,13 @@ public class StopWatchFrame extends JFrame {
                         });
                     }
 
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                        this.interrupt();
+                    if (!this.isInterrupted()) {
+                        try {
+                            Thread.sleep(5000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                            this.interrupt();
+                        }
                     }
                 }
             }
@@ -86,12 +89,6 @@ public class StopWatchFrame extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    throw new Exception();
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-
                 StopWatchFrame.this.running = false;
                 StopWatchFrame.this.buttonPause
                     .setEnabled(StopWatchFrame.this.running);
