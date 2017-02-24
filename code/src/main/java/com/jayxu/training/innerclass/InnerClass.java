@@ -20,8 +20,8 @@ public class InnerClass {
             /*
              * (non-Javadoc)
              * @see
-             * com.nazca.training.innerclass.InnerClass#repeat(java.lang.Runnable
-             * , int)
+             * com.nazca.training.innerclass.InnerClass#repeat(java.lang.
+             * Runnable, int)
              */
             @Override
             public void repeat(Runnable runnable, int times) {
@@ -30,14 +30,7 @@ public class InnerClass {
 
         };
 
-        Runnable runnable = new Runnable() {
-
-            @Override
-            public void run() {
-                System.out.println("hello world");
-            }
-
-        };
+        Runnable runnable = () -> System.out.println("hello world");
         new InnerClass().repeat(runnable, 10);
     }
 }

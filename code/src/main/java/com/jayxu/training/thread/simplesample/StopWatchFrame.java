@@ -6,8 +6,6 @@ package com.jayxu.training.thread.simplesample;
 
 import java.awt.BorderLayout;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Date;
 
 import javax.swing.JButton;
@@ -44,14 +42,9 @@ public class StopWatchFrame extends JFrame {
                 while (!this.isInterrupted()) {
                     System.out.println("Checking running...");
                     if (StopWatchFrame.this.running) {
-                        SwingUtilities.invokeLater(new Runnable() {
-
-                            @Override
-                            public void run() {
-                                StopWatchFrame.this.label.setText(new Date()
-                                    .toString());
-                            }
-                        });
+                        SwingUtilities
+                            .invokeLater(() -> StopWatchFrame.this.label
+                                .setText(new Date().toString()));
                     }
 
                     if (!this.isInterrupted()) {
@@ -69,13 +62,7 @@ public class StopWatchFrame extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                new StopWatchFrame().setVisible(true);
-            }
-        });
+        SwingUtilities.invokeLater(() -> new StopWatchFrame().setVisible(true));
     }
 
     private void initComponents() {
@@ -85,46 +72,34 @@ public class StopWatchFrame extends JFrame {
         this.buttonStop = new JButton("Stop");
 
         JPanel panelBottom = new JPanel();
-        this.buttonPause.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                StopWatchFrame.this.running = false;
-                StopWatchFrame.this.buttonPause
-                    .setEnabled(StopWatchFrame.this.running);
-                StopWatchFrame.this.buttonResume
-                    .setEnabled(!StopWatchFrame.this.running);
-                StopWatchFrame.this.buttonStop
-                    .setEnabled(StopWatchFrame.this.running);
-            }
+        this.buttonPause.addActionListener(e -> {
+            StopWatchFrame.this.running = false;
+            StopWatchFrame.this.buttonPause
+                .setEnabled(StopWatchFrame.this.running);
+            StopWatchFrame.this.buttonResume
+                .setEnabled(!StopWatchFrame.this.running);
+            StopWatchFrame.this.buttonStop
+                .setEnabled(StopWatchFrame.this.running);
         });
         panelBottom.add(this.buttonPause);
 
-        this.buttonResume.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                StopWatchFrame.this.running = true;
-                StopWatchFrame.this.buttonPause
-                    .setEnabled(StopWatchFrame.this.running);
-                StopWatchFrame.this.buttonResume
-                    .setEnabled(!StopWatchFrame.this.running);
-                StopWatchFrame.this.buttonStop
-                    .setEnabled(StopWatchFrame.this.running);
-            }
+        this.buttonResume.addActionListener(e -> {
+            StopWatchFrame.this.running = true;
+            StopWatchFrame.this.buttonPause
+                .setEnabled(StopWatchFrame.this.running);
+            StopWatchFrame.this.buttonResume
+                .setEnabled(!StopWatchFrame.this.running);
+            StopWatchFrame.this.buttonStop
+                .setEnabled(StopWatchFrame.this.running);
         });
         this.buttonResume.setEnabled(false);
         panelBottom.add(this.buttonResume);
 
-        this.buttonStop.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                StopWatchFrame.this.mainThread.interrupt();
-                StopWatchFrame.this.buttonPause.setEnabled(false);
-                StopWatchFrame.this.buttonResume.setEnabled(false);
-                StopWatchFrame.this.buttonStop.setEnabled(false);
-            }
+        this.buttonStop.addActionListener(e -> {
+            StopWatchFrame.this.mainThread.interrupt();
+            StopWatchFrame.this.buttonPause.setEnabled(false);
+            StopWatchFrame.this.buttonResume.setEnabled(false);
+            StopWatchFrame.this.buttonStop.setEnabled(false);
         });
         panelBottom.add(this.buttonStop);
 
@@ -137,10 +112,10 @@ public class StopWatchFrame extends JFrame {
         this.setTitle("Stop Watch");
         this.setSize(600, 200);
         this.setLocation(
-            (Toolkit.getDefaultToolkit().getScreenSize().width - this
-                .getWidth()) / 2,
-            (Toolkit.getDefaultToolkit().getScreenSize().height - this
-                .getHeight()) / 2);
+            (Toolkit.getDefaultToolkit().getScreenSize().width
+                - this.getWidth()) / 2,
+            (Toolkit.getDefaultToolkit().getScreenSize().height
+                - this.getHeight()) / 2);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 }

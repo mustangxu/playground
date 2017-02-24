@@ -15,7 +15,6 @@ import java.io.OutputStreamWriter;
 
 /**
  * @author ijay
- * 
  */
 public class FileCapitalizer {
     public static void main(String[] args) {
@@ -28,10 +27,10 @@ public class FileCapitalizer {
             File target = new File(
                 "/Users/ijay/Documents/workspace/advanced_java_training/src/com/nazca/training/io/target.txt");
 
-            r = new BufferedReader(new InputStreamReader(new FileInputStream(
-                original)));
-            w = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
-                target, false)));
+            r = new BufferedReader(
+                new InputStreamReader(new FileInputStream(original)));
+            w = new BufferedWriter(
+                new OutputStreamWriter(new FileOutputStream(target, false)));
 
             if (!target.exists()) {
                 target.createNewFile();

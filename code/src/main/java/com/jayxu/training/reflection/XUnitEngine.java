@@ -13,7 +13,6 @@ import java.lang.reflect.Method;
 
 /**
  * @author ijay
- * 
  */
 public class XUnitEngine {
 
@@ -21,9 +20,8 @@ public class XUnitEngine {
             IllegalArgumentException, IllegalAccessException,
             InvocationTargetException, InstantiationException {
         XUnitClassLoader classLoader = new XUnitClassLoader();
-        Class<?> c =
-                classLoader.loadClass(
-                "/Users/ijay/Documents/workspace/advanced_java_training/bin/com/nazca/training/reflection/MathTest.class");
+        Class<?> c = classLoader.loadClass(
+            "/Users/ijay/Documents/workspace/advanced_java_training/bin/com/nazca/training/reflection/MathTest.class");
 
         Method[] methods = c.getMethods();
         for (Method m : methods) {
@@ -36,7 +34,8 @@ public class XUnitEngine {
     private static class XUnitClassLoader extends ClassLoader {
 
         @Override
-        protected Class<?> findClass(String name) throws ClassNotFoundException {
+        protected Class<?> findClass(String name)
+                throws ClassNotFoundException {
             File file = new File(name);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             FileInputStream fis = null;
@@ -59,7 +58,7 @@ public class XUnitEngine {
                 byte[] array = baos.toByteArray();
 
                 return this.defineClass(this.convertClassName(name), array, 0,
-                        array.length);
+                    array.length);
             } catch (Exception ex) {
                 ex.printStackTrace();
                 throw new ClassNotFoundException();

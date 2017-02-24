@@ -6,8 +6,6 @@ package com.jayxu.training.thread.concurrentsample;
 
 import java.awt.BorderLayout;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Random;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -16,12 +14,12 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
 /**
  * @author ijay
- * 
  */
 public class LotteryFrame extends JFrame {
     private static final long serialVersionUID = -8186549854034665566L;
@@ -52,13 +50,8 @@ public class LotteryFrame extends JFrame {
                 while (true) {
                     LotteryFrame.this.readLockA.lock();
 
-                    SwingUtilities.invokeLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            LotteryFrame.this.label.setText(""
-                                + LotteryFrame.this.r.nextInt(100));
-                        }
-                    });
+                    SwingUtilities.invokeLater(() -> LotteryFrame.this.label
+                        .setText("" + LotteryFrame.this.r.nextInt(100)));
 
                     LotteryFrame.this.readLockA.unlock();
 
@@ -74,13 +67,7 @@ public class LotteryFrame extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                new LotteryFrame().setVisible(true);
-            }
-        });
+        SwingUtilities.invokeLater(() -> new LotteryFrame().setVisible(true));
     }
 
     private void initComponents() {
@@ -89,63 +76,51 @@ public class LotteryFrame extends JFrame {
         this.buttonRead = new JButton("Read");
 
         JPanel panelBottom = new JPanel();
-        this.buttonWrite.addActionListener(new ActionListener() {
-
+        this.buttonWrite.addActionListener(e -> new Thread() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                new Thread() {
-                    @Override
-                    public void run() {
-                        LotteryFrame.this.writeLock.lock();
+            public void run() {
+                LotteryFrame.this.writeLock.lock();
 
-                        try {
-                            sleep(5000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
 
-                        LotteryFrame.this.writeLock.unlock();
-                    }
-                }.start();
+                LotteryFrame.this.writeLock.unlock();
             }
-        });
+        }.start());
         panelBottom.add(this.buttonWrite);
 
-        this.buttonRead.addActionListener(new ActionListener() {
-
+        this.buttonRead.addActionListener(e -> new Thread() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                new Thread() {
-                    @Override
-                    public void run() {
-                        LotteryFrame.this.readLockB.lock();
+            public void run() {
+                LotteryFrame.this.readLockB.lock();
 
-                        try {
-                            sleep(5000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
 
-                        LotteryFrame.this.readLockB.unlock();
-                    }
-                }.start();
+                LotteryFrame.this.readLockB.unlock();
             }
-        });
+        }.start());
         panelBottom.add(this.buttonRead);
 
         this.add(panelBottom, BorderLayout.SOUTH);
 
-        this.label.setHorizontalAlignment(JLabel.CENTER);
+        this.label.setHorizontalAlignment(SwingConstants.CENTER);
         this.label.setFont(this.label.getFont().deriveFont(32F));
         this.add(this.label, BorderLayout.CENTER);
 
         this.setTitle("Stop Watch");
         this.setSize(600, 200);
         this.setLocation(
-            (Toolkit.getDefaultToolkit().getScreenSize().width - this
-                .getWidth()) / 2,
-            (Toolkit.getDefaultToolkit().getScreenSize().height - this
-                .getHeight()) / 2);
+            (Toolkit.getDefaultToolkit().getScreenSize().width
+                - this.getWidth()) / 2,
+            (Toolkit.getDefaultToolkit().getScreenSize().height
+                - this.getHeight()) / 2);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 }
