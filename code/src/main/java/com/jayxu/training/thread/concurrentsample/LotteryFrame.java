@@ -1,6 +1,5 @@
 /**
- * Copyright(c) 2007-2009 by Yingzhi Tech
- * All Rights Reserved
+ * Authored by jayxu @2021
  */
 package com.jayxu.training.thread.concurrentsample;
 
@@ -18,9 +17,6 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
-/**
- * @author ijay
- */
 public class LotteryFrame extends JFrame {
 	private static final long serialVersionUID = -8186549854034665566L;
 

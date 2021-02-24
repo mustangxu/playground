@@ -1,3 +1,6 @@
+/**
+ * Authored by jayxu @2021
+ */
 package com.jayxu.playground.nativemem;
 
 import jdk.incubator.foreign.MemorySegment;

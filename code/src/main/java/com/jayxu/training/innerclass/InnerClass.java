@@ -1,11 +1,8 @@
 /**
- * Copyright(c) 2011-2011 by Jay Xu All Rights Reserved
+ * Authored by jayxu @2021
  */
 package com.jayxu.training.innerclass;
 
-/**
- * @author ijay
- */
 public class InnerClass {
 	public void repeat(Runnable runnable, int times) {
 		for (var i = 0; i < times; i++) {

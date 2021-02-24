@@ -1,27 +1,23 @@
 /**
- * Copyright(c) 2007-2009 by Yingzhi Tech
- * All Rights Reserved
+ * Authored by jayxu @2021
  */
 package com.jayxu.training.thread.concurrentsample;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-/**
- * @author ijay
- */
 public class MainClass {
-    public static void main(String[] args) {
-        BlockingQueue<Integer> queue = new LinkedBlockingQueue<Integer>(10);
+	public static void main(String[] args) {
+		BlockingQueue<Integer> queue = new LinkedBlockingQueue<>(10);
 
-        for (int i = 0; i < 10; i++) {
-            queue.add(i);
-        }
+		for (var i = 0; i < 10; i++) {
+			queue.add(i);
+		}
 
-        ProducerThread producer = new ProducerThread(queue, 5000);
-        ConsumeThread consumer = new ConsumeThread(queue, 500);
+		var producer = new ProducerThread(queue, 5000);
+		var consumer = new ConsumeThread(queue, 500);
 
-        producer.start();
-        consumer.start();
-    }
+		producer.start();
+		consumer.start();
+	}
 }

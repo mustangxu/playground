@@ -1,6 +1,5 @@
 /**
- * Copyright(c) 2007-2009 by Yingzhi Tech
- * All Rights Reserved
+ * Authored by jayxu @2021
  */
 package com.jayxu.training.dynamicproxy;
 
@@ -10,10 +9,6 @@ import java.util.Arrays;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-/**
- * @author ijay
- *
- */
 public class DynamicProxyTest {
 	public static void main(String[] args) {
 		InvocationHandler handler = (proxy, method, arg) -> {
@@ -21,9 +16,11 @@ public class DynamicProxyTest {
 			var annotations = method.getParameterAnnotations();
 
 			for (var i = 0; i < annotations.length; i++) {
-				if (Arrays.stream(annotations[i]).anyMatch(it -> it.annotationType().equals(NotNull.class))
+				if (Arrays.stream(annotations[i]).anyMatch(
+						it -> it.annotationType().equals(NotNull.class))
 						&& arg[i] == null) {
-					throw new IllegalArgumentException("NULL parameter not allowed");
+					throw new IllegalArgumentException(
+							"NULL parameter not allowed");
 				}
 			}
 
@@ -35,7 +32,8 @@ public class DynamicProxyTest {
 			};
 		};
 
-		var service = (Service) Proxy.newProxyInstance(DynamicProxyTest.class.getClassLoader(),
+		var service = (Service) Proxy.newProxyInstance(
+				DynamicProxyTest.class.getClassLoader(),
 				new Class<?>[] { Service.class }, handler);
 
 		System.out.println(service);

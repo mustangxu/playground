@@ -1,6 +1,5 @@
 /**
- * Copyright(c) 2007-2009 by Yingzhi Tech
- * All Rights Reserved
+ * Authored by jayxu @2021
  */
 package com.jayxu.training.reflection;
 
@@ -8,9 +7,6 @@ import java.util.Arrays;
 
 import org.apache.commons.io.IOUtils;
 
-/**
- * @author ijay
- */
 public class XUnitEngine {
 
 	public static void main(String[] args) throws Exception {

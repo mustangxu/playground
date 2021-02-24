@@ -1,5 +1,5 @@
 /**
- *
+ * Authored by jayxu @2021
  */
 package com.jayxu.training.io;
 
@@ -11,9 +11,6 @@ import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
-/**
- * @author ijay
- */
 public class FileCapitalizer {
 	public static void main(String[] args) throws Exception {
 		var original = new File(FileCapitalizer.class.getClassLoader()
