@@ -13,9 +13,7 @@ import com.alibaba.excel.EasyExcelFactory;
 
 public class ExcelDemo {
 	public static void main(String[] args) {
-//        doReadNumbers("demo.xlsx", 7).forEach(System.out::println);
-
-		ExcelDemo.doReadNumbers("excel/11-BCHA.xlsx", 50, 4, 5).stream()
+		ExcelDemo.doReadNumbers("excel/demo.xlsx", 7).stream()
 				.map(o -> Arrays.stream(o).map(BigDecimal::toPlainString)
 						.collect(Collectors.joining("\t")))
 				.forEach(System.out::println);

@@ -7,8 +7,9 @@ public class InnerClass {
 	public void repeat(Runnable runnable, int times) {
 		for (var i = 0; i < times; i++) {
 			runnable.run();
-			runnable.toString();
 		}
+
+		System.out.println(runnable + " done");
 	}
 
 	public static void main(String[] args) {
@@ -22,6 +23,8 @@ public class InnerClass {
 		};
 
 		Runnable runnable = () -> System.out.println("hello world");
-		new InnerClass().repeat(runnable, 10);
+		new InnerClass().repeat(runnable, 3);
+
+		c.repeat(runnable, 3);
 	}
 }
