@@ -1,2 +1,2 @@
-java-training
+Jay's code playground
 =============

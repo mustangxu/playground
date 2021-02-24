@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+
+<ruleset name="Custom Rules"
+	xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
+	<description>PMD rules</description>
+
+	<!-- Exclude test classes -->
+	<exclude-pattern>.*/src/test/.*</exclude-pattern>
+	<!-- Exclude target folder that may contain generated sources -->
+	<exclude-pattern>.*/target/.*</exclude-pattern>
+
+	<rule ref="rulesets/java/empty.xml">
+	</rule>
+	<rule ref="rulesets/java/braces.xml" />
+	<rule ref="rulesets/java/clone.xml">
+	</rule>
+	<rule ref="rulesets/java/controversial.xml">
+	</rule>
+	<rule ref="rulesets/java/design.xml">
+	</rule>
+	<rule ref="rulesets/java/design.xml/CloseResource">
+	</rule>
+	<rule ref="rulesets/java/finalizers.xml" />
+	<rule ref="rulesets/java/imports.xml">
+	</rule>
+	<rule ref="rulesets/java/javabeans.xml">
+	</rule>
+	<rule ref="rulesets/java/logging-java.xml">
+	</rule>
+	<rule ref="rulesets/java/migrating.xml">
+	</rule>
+	<rule ref="rulesets/java/optimizations.xml">
+	</rule>
+	<rule ref="rulesets/java/strictexception.xml">
+	</rule>
+	<rule ref="rulesets/java/strings.xml">
+	</rule>
+	<rule ref="rulesets/java/typeresolution.xml">
+	</rule>
+	<rule ref="rulesets/java/unusedcode.xml">
+	</rule>
+</ruleset>

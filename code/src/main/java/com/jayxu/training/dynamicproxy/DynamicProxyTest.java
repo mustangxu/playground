@@ -4,60 +4,43 @@
  */
 package com.jayxu.training.dynamicproxy;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.Arrays;
+
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
  * @author ijay
- * 
+ *
  */
 public class DynamicProxyTest {
-    public static void main(String[] args) throws IllegalArgumentException,
-            InstantiationException, IllegalAccessException, SecurityException,
-            InvocationTargetException, NoSuchMethodException {
-        InvocationHandler handler = new InvocationHandler() {
-            private ServiceImpl impl = new ServiceImpl();
+	public static void main(String[] args) {
+		InvocationHandler handler = (proxy, method, arg) -> {
+			var impl = new ServiceImpl();
+			var annotations = method.getParameterAnnotations();
 
-            @Override
-            public Object invoke(Object proxy, Method method, Object[] args)
-                    throws Throwable {
-                Annotation[][] annotations = method.getParameterAnnotations();
-                for (int i = 0; i < annotations.length; i++) {
-                    for (int j = 0; j < annotations[i].length; j++) {
-                        if (annotations[i][j].annotationType().equals(
-                            NotNull.class)
-                            && args[i] == null) {
+			for (var i = 0; i < annotations.length; i++) {
+				if (Arrays.stream(annotations[i]).anyMatch(it -> it.annotationType().equals(NotNull.class))
+						&& arg[i] == null) {
+					throw new IllegalArgumentException("NULL parameter not allowed");
+				}
+			}
 
-                            throw new IllegalArgumentException(
-                                "NULL parameter not allowed");
-                        }
-                    }
-                }
+			return switch (method.getName()) {
+				case "toString" -> ToStringBuilder.reflectionToString(proxy);
+				case "hashCode" -> 12 + 12;
+				case "add" -> impl.add((Integer) arg[0], (Integer) arg[1]);
+				default -> method.invoke(proxy, arg);
+			};
+		};
 
-                if ("hashCode".equals(method.getName())) {
-                    return 12 + 12;
-                } else if ("add".equals(method.getName())) {
-                    return this.impl.add((Integer) args[0], (Integer) args[1]);
-                } else {
-                    return method.invoke(proxy, args);
-                }
-            }
-        };
+		var service = (Service) Proxy.newProxyInstance(DynamicProxyTest.class.getClassLoader(),
+				new Class<?>[] { Service.class }, handler);
 
-        Class<?> proxy = Proxy.getProxyClass(DynamicProxyTest.class
-            .getClassLoader(), Service.class);
-        System.out.println(proxy);
-        Constructor<?> constructor = proxy
-            .getConstructor(new Class[] { InvocationHandler.class });
-        Service service = (Service) constructor
-            .newInstance(new Object[] { handler });
-
-        System.out.println("" + service.add(12, 23));
-        System.out.println("".hashCode() + ", " + service.hashCode(""));
-        System.out.println("" + service.hashCode(null));
-    }
+		System.out.println(service);
+		System.out.println("" + service.add(12, 23));
+		System.out.println("".hashCode() + ", " + service.hashCode(""));
+		System.out.println("" + service.hashCode(null));
+	}
 }
