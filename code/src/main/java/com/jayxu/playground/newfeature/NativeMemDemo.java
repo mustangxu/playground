@@ -1,7 +1,7 @@
 /**
  * Authored by jayxu @2021
  */
-package com.jayxu.playground.nativemem;
+package com.jayxu.playground.newfeature;
 
 import jdk.incubator.foreign.MemorySegment;
 

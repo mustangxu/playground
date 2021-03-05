@@ -43,8 +43,9 @@ public class Permutation<T> {
 	public static void main(String[] args) {
 		var w = new StopWatch();
 		w.start();
-		var res = new Permutation<>(new Integer[] { 1, 2, 3, 4, 5, 6 })
-				.getPermutation();
+		var res = new Permutation<>(
+				new Integer[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 })
+						.getPermutation();
 		w.stop();
 
 		System.out.println(res.size() + ", " + w);
