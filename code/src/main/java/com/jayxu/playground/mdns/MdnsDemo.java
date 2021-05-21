@@ -14,66 +14,66 @@ import javax.jmdns.ServiceInfo;
 import javax.jmdns.ServiceListener;
 
 public class MdnsDemo {
-	private static final String SERVICE = "_http._tcp.local.";
+    private static final String SERVICE = "_http._tcp.local.";
 
-	public static void main(String[] args) throws Exception {
-		var pool = Executors.newFixedThreadPool(2);
-		var server = pool.submit(MdnsDemo::startServer);
-		pool.submit(MdnsDemo::startClient);
+    public static void main(String[] args) throws Exception {
+        var pool = Executors.newFixedThreadPool(2);
+        var server = pool.submit(MdnsDemo::startServer);
+        pool.submit(MdnsDemo::startClient);
 
-		Thread.sleep(10_000);
-		server.get().unregisterAllServices();
-		System.out.println("Done");
-	}
+        Thread.sleep(10_000);
+        server.get().unregisterAllServices();
+        System.out.println("Done");
+    }
 
-	private static JmDNS startClient() {
-		System.out.println(Thread.currentThread().getName());
+    private static JmDNS startClient() {
+        System.out.println(Thread.currentThread().getName());
 
-		try {
-			// Create a JmDNS instance
-			var host = InetAddress.getLocalHost();
-			System.out.println(host);
-			var jmdns = JmDNS.create(host);
+        try {
+            // Create a JmDNS instance
+            var host = InetAddress.getLocalHost();
+            System.out.println(host);
+            var jmdns = JmDNS.create(host);
 
-			// Add a service listener
-			jmdns.addServiceListener(MdnsDemo.SERVICE, new ServiceListener() {
-				@Override
-				public void serviceAdded(ServiceEvent event) {
-					System.out.println("Service added: " + event.getInfo());
-				}
+            // Add a service listener
+            jmdns.addServiceListener(MdnsDemo.SERVICE, new ServiceListener() {
+                @Override
+                public void serviceAdded(ServiceEvent event) {
+                    System.out.println("Service added: " + event.getInfo());
+                }
 
-				@Override
-				public void serviceRemoved(ServiceEvent event) {
-					System.out.println("Service removed: " + event.getInfo());
-				}
+                @Override
+                public void serviceRemoved(ServiceEvent event) {
+                    System.out.println("Service removed: " + event.getInfo());
+                }
 
-				@Override
-				public void serviceResolved(ServiceEvent event) {
-					System.out.println("Service resolved: " + event.getInfo());
-				}
-			});
+                @Override
+                public void serviceResolved(ServiceEvent event) {
+                    System.out.println("Service resolved: " + event.getInfo());
+                }
+            });
 
-			return jmdns;
-		} catch (IOException e) {
-			throw new UncheckedIOException(e);
-		}
-	}
+            return jmdns;
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+    }
 
-	private static JmDNS startServer() {
-		System.out.println(Thread.currentThread().getName());
+    private static JmDNS startServer() {
+        System.out.println(Thread.currentThread().getName());
 
-		try {
-			// Create a JmDNS instance
-			var jmdns = JmDNS.create(InetAddress.getLocalHost());
+        try {
+            // Create a JmDNS instance
+            var jmdns = JmDNS.create(InetAddress.getLocalHost());
 
-			// Register a service
-			var serviceInfo = ServiceInfo.create(MdnsDemo.SERVICE, "example",
-					1234, "path=index.html");
-			jmdns.registerService(serviceInfo);
+            // Register a service
+            var serviceInfo = ServiceInfo.create(MdnsDemo.SERVICE, "example",
+                1234, "path=index.html");
+            jmdns.registerService(serviceInfo);
 
-			return jmdns;
-		} catch (IOException e) {
-			throw new UncheckedIOException(e);
-		}
-	}
+            return jmdns;
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+    }
 }
