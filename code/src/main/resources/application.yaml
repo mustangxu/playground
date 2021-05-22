@@ -2,10 +2,10 @@ server:
   port: 8000
 spring:
   datasource:
-    url: jdbc:mysql://127.0.0.1/playground
+    url: jdbc:mysql://172.16.2.50/playground
 #    url: jdbc:h2:~/h2/playground
     hikari:
-      username: root
+      username: demo
       password: xujiajing
   jpa:
     generate-ddl: true

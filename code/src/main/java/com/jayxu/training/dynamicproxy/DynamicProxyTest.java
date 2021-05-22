@@ -7,8 +7,6 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
 import java.util.Arrays;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-
 public class DynamicProxyTest {
     public static void main(String[] args) {
         InvocationHandler handler = (proxy, method, arg) -> {
@@ -16,21 +14,21 @@ public class DynamicProxyTest {
             var annotations = method.getParameterAnnotations();
 
             for (var i = 0; i < annotations.length; i++) {
-                if (Arrays.stream(annotations[i]).anyMatch(
-                    it -> it.annotationType().equals(NotNull.class))
+                if (Arrays.stream(annotations[i])
+                    .anyMatch(it -> it.annotationType().equals(NotNull.class))
                     && arg[i] == null) {
                     throw new IllegalArgumentException(
                         "NULL parameter not allowed");
                 }
             }
 
-//            return null;
-            return switch (method.getName()) {
-                case "toString" -> ToStringBuilder.reflectionToString(proxy);
-                case "hashCode" -> 12 + 12;
-                case "add" -> impl.add((Integer) arg[0], (Integer) arg[1]);
-                default -> method.invoke(proxy, arg);
-            };
+            return null;
+//            return switch (method.getName()) {
+//                case "toString" -> ToStringBuilder.reflectionToString(proxy);
+//                case "hashCode" -> 12 + 12;
+//                case "add" -> impl.add((Integer) arg[0], (Integer) arg[1]);
+//                default -> method.invoke(proxy, arg);
+//            };
         };
 
         var service = (Service) Proxy.newProxyInstance(

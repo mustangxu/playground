@@ -1,5 +1,5 @@
 module com.jayxu.playground {
-    requires jdk.incubator.foreign;
+//    requires jdk.incubator.foreign;
     requires java.persistence;
     requires java.desktop;
     requires aws.lambda.java.core;
