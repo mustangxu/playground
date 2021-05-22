@@ -42,7 +42,7 @@
 		<url>https://github.com/mustangxu/playground/issues</url>
 	</issueManagement>
 	<properties>
-		<java.version>16</java.version>
+		<java.version>15</java.version>
 		<graalvm.version>21.1.0</graalvm.version>
 	</properties>
 	<dependencies>
