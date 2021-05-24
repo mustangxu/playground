@@ -13,7 +13,6 @@
 		<version>1.0</version>
 	</parent>
 	<dependencies>
-    <!-- https://mvnrepository.com/artifact/com.amazonaws/aws-lambda-java-core -->
 		<dependency>
 			<groupId>com.amazonaws</groupId>
 			<artifactId>aws-lambda-java-core</artifactId>
@@ -34,14 +33,11 @@
 			<artifactId>commons-io</artifactId>
 			<version>1.3.2</version>
 		</dependency>
-        <!-- https://mvnrepository.com/artifact/org.jmdns/jmdns -->
 		<dependency>
 			<groupId>org.jmdns</groupId>
 			<artifactId>jmdns</artifactId>
 			<version>3.5.6</version>
 		</dependency>
-        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
-<!-- https://mvnrepository.com/artifact/org.graalvm.sdk/graal-sdk -->
 		<dependency>
 			<groupId>org.graalvm.sdk</groupId>
 			<artifactId>graal-sdk</artifactId>
@@ -94,4 +90,17 @@
 			<artifactId>spring-boot-starter-undertow</artifactId>
 		</dependency>
 	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>dockerfile-maven-plugin</artifactId>
+				<configuration>
+					<dockerfile>Dockerfile</dockerfile>
+					<repository>jayxu/java-playground</repository>
+					<tag>${project.version}</tag>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>
