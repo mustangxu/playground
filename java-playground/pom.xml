@@ -98,7 +98,7 @@
 				<configuration>
 					<dockerfile>Dockerfile</dockerfile>
 					<repository>jayxu/java-playground</repository>
-					<tag>${project.version}</tag>
+					<tag>${project.version}-${git.commit.id.abbrev}</tag>
 				</configuration>
 			</plugin>
 		</plugins>

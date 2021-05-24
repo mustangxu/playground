@@ -42,6 +42,15 @@
 					</layers>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>pl.project13.maven</groupId>
+				<artifactId>git-commit-id-plugin</artifactId>
+				<configuration>
+					<useNativeGit>true</useNativeGit>
+					<!-- <runOnlyOnce>true</runOnlyOnce> -->
+					<!-- <generateGitPropertiesFile>true</generateGitPropertiesFile> -->
+				</configuration>
+			</plugin>
 		</plugins>
 		<pluginManagement>
 			<plugins>
