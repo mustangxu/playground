@@ -8,3 +8,7 @@ playground.iml
 .idea
 .eclipse-pmd
 dependency-reduced-pom.xml
+.classpath
+.project
+.settings
+java-newfeature/target

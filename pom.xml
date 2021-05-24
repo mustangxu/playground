@@ -1,0 +1,62 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.jayxu.playground</groupId>
+	<artifactId>playground-parent</artifactId>
+	<version>1.0</version>
+	<url>https://github.com/mustangxu/playground</url>
+	<scm>
+		<url>https://github.com/mustangxu/playground.git</url>
+	</scm>
+	<issueManagement>
+		<system>Github</system>
+		<url>https://github.com/mustangxu/playground/issues</url>
+	</issueManagement>
+	<properties>
+		<graalvm.version>21.1.0</graalvm.version>
+	</properties>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.5.0</version>
+	</parent>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<compilerArgs>
+                        <!-- <arg>-\-enable-preview</arg> -->
+					</compilerArgs>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<layers>
+						<enabled>true</enabled>
+					</layers>
+				</configuration>
+			</plugin>
+            <!-- https://mvnrepository.com/artifact/com.spotify/docker-maven-plugin -->
+            <!-- <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.2.2</version>
+                <configuration>
+                    <imageName>jayxu/playground</imageName>
+                    <dockerDirectory>docker</dockerDirectory>
+                </configuration>
+            </plugin> -->
+		</plugins>
+	</build>
+	<packaging>pom</packaging>
+	<modules>
+		<module>java-playground</module>
+		<!-- <module>java-newfeature</module> -->
+	</modules>
+</project>
