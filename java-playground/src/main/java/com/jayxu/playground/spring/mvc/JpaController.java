@@ -17,7 +17,7 @@ public class JpaController {
     private UserService service;
 
     @RequestMapping("/users/{id}")
-    public User getUserById(@PathVariable String id) {
+    public User getUserById(@PathVariable int id) {
         return this.service.getOrAddUser(id);
     }
 }

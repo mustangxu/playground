@@ -5,6 +5,7 @@ package com.jayxu.playground.spring.service;
 
 import javax.transaction.Transactional;
 
+import org.apache.commons.codec.digest.Md5Crypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,10 +18,11 @@ public class UserService {
     @Autowired
     private UserRepository dao;
 
-    public User getOrAddUser(String id) {
+    public User getOrAddUser(int id) {
         return this.dao.findById(id).orElseGet(() -> {
-            var user = new User(id, "jayxu" + System.currentTimeMillis(),
-                "password");
+            var ts = "" + System.currentTimeMillis();
+            var user = new User(id, "jayxu" + ts,
+                Md5Crypt.md5Crypt(ts.getBytes()));
             return this.dao.save(user);
         });
     }

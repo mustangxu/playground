@@ -7,5 +7,5 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.jayxu.playground.spring.model.User;
 
-public interface UserRepository extends CrudRepository<User, String> {
+public interface UserRepository extends CrudRepository<User, Integer> {
 }

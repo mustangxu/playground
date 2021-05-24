@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @Table(indexes = { @Index(columnList = "username") })
 public class User {
     @Id
-    private String id;
+    private Integer id;
     @Column(length = 32,
             nullable = false)
     private String username;
@@ -23,17 +23,17 @@ public class User {
     public User() {
     }
 
-    public User(String id, String username, String password) {
+    public User(Integer id, String username, String password) {
         this.id = id;
         this.username = username;
         this.password = password;
     }
 
-    public String getId() {
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
