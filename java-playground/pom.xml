@@ -100,7 +100,7 @@
 				<artifactId>dockerfile-maven-plugin</artifactId>
 				<configuration>
 					<dockerfile>Dockerfile</dockerfile>
-					<repository>jayxu/java-playground</repository>
+					<repository>mustangxu/playground</repository>
 					<tag>${project.version}-${git.commit.id.abbrev}</tag>
 				</configuration>
 			</plugin>
