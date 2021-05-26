@@ -59,6 +59,6 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>java-playground</module>
-		<module>java-newfeature</module>
+		<!-- <module>java-newfeature</module> -->
 	</modules>
 </project>
