@@ -1,5 +1,5 @@
 #FROM apache/skywalking-base
-FROM adoptopenjdk/openjdk16-openj9:alpine-jre
+FROM adoptopenjdk/openjdk15-openj9:alpine-jre
 WORKDIR /app
 EXPOSE 8000
 ARG JAR_FILE=java-playground-1.0.jar

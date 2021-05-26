@@ -3,7 +3,7 @@ WORKDIR /app
 ADD . /app
 RUN --mount=type=cache,target=/root/.m2 mvn -DskipTests clean package
 
-FROM adoptopenjdk/openjdk16-openj9:alpine-jre
+FROM adoptopenjdk/openjdk15-openj9:alpine-jre
 WORKDIR /app
 EXPOSE 8000
 COPY --from=build /app/java-playground/target/java-playground-1.0.jar app.jar
