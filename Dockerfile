@@ -1,7 +1,8 @@
 FROM maven:3.8.1-adoptopenjdk-15 as build
 WORKDIR /app
 ADD . /app
-RUN --mount=type=cache,target=/root/.m2 mvn -T1C -DskipTests package
+#--mount=type=cache,target=/root/.m2
+RUN mvn -DskipTests clean package
 
 FROM adoptopenjdk/openjdk16-openj9:alpine-jre
 WORKDIR /app
