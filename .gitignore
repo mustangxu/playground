@@ -13,3 +13,4 @@ dependency-reduced-pom.xml
 .settings
 java-newfeature/target
 java-playground/docker/agent/logs
+target
