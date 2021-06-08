@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.Objects;
 
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
@@ -15,11 +16,8 @@ import org.hibernate.usertype.UserType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.base.Objects;
-
 public class AgeType implements UserType {
-    private static final Logger log = LoggerFactory
-        .getLogger(AgeType.class);
+    private static final Logger log = LoggerFactory.getLogger(AgeType.class);
 
     @Override
     public int[] sqlTypes() {
@@ -33,7 +31,7 @@ public class AgeType implements UserType {
 
     @Override
     public boolean equals(Object x, Object y) throws HibernateException {
-        return Objects.equal(x, y);
+        return Objects.equals(x, y);
     }
 
     @Override
