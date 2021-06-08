@@ -23,10 +23,12 @@ public class UserService {
     private UserRepository dao;
 
     public User getOrAddUser(int id) {
+        var ts = "" + System.currentTimeMillis();
+        UserService.log.info(ts);
+
         return this.dao.findById(id).orElseGet(() -> {
-            var ts = "" + System.currentTimeMillis();
             var user = new User(id, "jayxu" + ts,
-                Md5Crypt.md5Crypt(ts.getBytes()));
+                Md5Crypt.md5Crypt(ts.getBytes()), Long.valueOf(18));
 
             user = this.dao.save(user);
             UserService.log.info("User {} added", id);
