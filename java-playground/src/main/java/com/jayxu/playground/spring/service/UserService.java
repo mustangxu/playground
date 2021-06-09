@@ -28,7 +28,7 @@ public class UserService {
 
         return this.dao.findById(id).orElseGet(() -> {
             var user = new User(id, "jayxu" + ts,
-                Md5Crypt.md5Crypt(ts.getBytes()), Long.valueOf(18));
+                Md5Crypt.md5Crypt(ts.getBytes()), (long) 18);
 
             user = this.dao.save(user);
             UserService.log.info("User {} added", id);
