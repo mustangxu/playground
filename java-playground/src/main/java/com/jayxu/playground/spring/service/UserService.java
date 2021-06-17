@@ -14,6 +14,9 @@ import org.springframework.stereotype.Service;
 import com.jayxu.playground.spring.dao.UserRepository;
 import com.jayxu.playground.spring.model.User;
 
+/**
+ * @author xujiajing
+ */
 @Service
 @Transactional
 public class UserService {
