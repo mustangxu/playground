@@ -7,7 +7,7 @@ import jdk.incubator.foreign.MemorySegment;
 
 public class NativeMemDemo {
     public static void main(String[] args) {
-        var address = MemorySegment.allocateNative(4).baseAddress();
+        var address = MemorySegment.allocateNative(4).address();
         System.out.println(address.toString());
     }
 }
