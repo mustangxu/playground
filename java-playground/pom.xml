@@ -23,17 +23,17 @@
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>easyexcel</artifactId>
-			<version>2.2.7</version>
+			<version>2.2.10</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
-			<version>2.8.0</version>
+			<version>2.11.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jmdns</groupId>
 			<artifactId>jmdns</artifactId>
-			<version>3.5.6</version>
+			<version>3.5.7</version>
 		</dependency>
 		<dependency>
 			<groupId>org.graalvm.sdk</groupId>
@@ -117,10 +117,11 @@
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-keyvalue</artifactId>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.graphql-java-kickstart/graphql-spring-boot-starter -->
 		<dependency>
-			<groupId>com.graphql-java</groupId>
+			<groupId>com.graphql-java-kickstart</groupId>
 			<artifactId>graphql-spring-boot-starter</artifactId>
-			<version>5.0.2</version>
+			<version>11.1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.codehaus.groovy</groupId>

@@ -13,8 +13,8 @@
 		<url>https://github.com/mustangxu/playground/issues</url>
 	</issueManagement>
 	<properties>
-		<graalvm.version>21.1.0</graalvm.version>
-		<skywalking.version>8.5.0</skywalking.version>
+		<graalvm.version>21.2.0</graalvm.version>
+		<skywalking.version>8.6.0</skywalking.version>
 	</properties>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -26,7 +26,7 @@
 			<dependency>
 				<groupId>org.springframework.data</groupId>
 				<artifactId>spring-data-bom</artifactId>
-				<version>2021.0.1</version>
+				<version>2021.0.3</version>
 				<scope>import</scope>
 				<type>pom</type>
 			</dependency>
