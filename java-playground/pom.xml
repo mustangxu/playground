@@ -177,18 +177,4 @@
 			</plugin>
 		</plugins>
 	</build>
-	<!-- <pluginRepositories>
-		<pluginRepository>
-			<id>bintray</id>
-			<url>https://dl.bintray.com/groovy/maven</url>
-		</pluginRepository>
-		<pluginRepository>
-			<id>jcenter</id>
-			<url>http://jcenter.bintray.com</url>
-		</pluginRepository>
-		<pluginRepository>
-			<id>spring-milestones</id>
-			<url>https://repo.spring.io/milestone</url>
-		</pluginRepository>
-	</pluginRepositories> -->
 </project>
