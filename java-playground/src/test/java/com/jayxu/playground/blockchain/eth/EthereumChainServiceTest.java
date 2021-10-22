@@ -3,14 +3,12 @@
  */
 package com.jayxu.playground.blockchain.eth;
 
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 /**
  * @author xujiajing
  */
-@SpringBootTest
+//@SpringBootTest
 public class EthereumChainServiceTest {
     @Autowired
     private EthereumChainService service;
@@ -21,7 +19,7 @@ public class EthereumChainServiceTest {
      *
      * @throws Exception
      */
-    @Test
+//    @Test
     void testGetHeight() throws Exception {
         System.out.println(this.service.getHeight());
     }

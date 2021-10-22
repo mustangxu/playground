@@ -14,19 +14,19 @@
 	</issueManagement>
 	<properties>
 		<graalvm.version>21.2.0</graalvm.version>
-		<skywalking.version>8.6.0</skywalking.version>
+		<skywalking.version>8.7.0</skywalking.version>
 	</properties>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.5.4</version>
+		<version>2.5.6</version>
 	</parent>
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
 				<groupId>org.springframework.data</groupId>
 				<artifactId>spring-data-bom</artifactId>
-				<version>2021.0.4</version>
+				<version>2021.0.5</version>
 				<scope>import</scope>
 				<type>pom</type>
 			</dependency>

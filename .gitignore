@@ -16,3 +16,4 @@ java-playground/docker/agent/logs
 target
 java-playground/java-playground.iml
 playground-parent.iml
+.factorypath
