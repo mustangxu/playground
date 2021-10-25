@@ -11,10 +11,8 @@ import javax.persistence.Table
 import javax.validation.constraints.NotBlank
 
 import org.hibernate.annotations.Type
-import org.springframework.vault.repository.mapping.Secret
 
 @Entity
-@Secret
 @Table(indexes = [ @Index(columnList = "username") ])
 public class User implements Serializable {
     @Id

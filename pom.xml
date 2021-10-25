@@ -13,7 +13,7 @@
 		<url>https://github.com/mustangxu/playground/issues</url>
 	</issueManagement>
 	<properties>
-		<graalvm.version>21.2.0</graalvm.version>
+		<graalvm.version>21.3.0</graalvm.version>
 		<skywalking.version>8.7.0</skywalking.version>
 	</properties>
 	<parent>
