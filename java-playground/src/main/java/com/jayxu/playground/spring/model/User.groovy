@@ -17,18 +17,18 @@ import org.hibernate.annotations.Type
 public class User implements Serializable {
     @Id
     @org.springframework.data.annotation.Id
-    Integer id
-    @Column(length = 32, nullable = false)
+    Long id
+    @Column(length = 36, nullable = false)
     @NotBlank
     String username
     @Column(length = 48, nullable = false)
     @NotBlank
     String password
     @Type(type = "com.jayxu.playground.spring.model.AgeType")
-    Long age
+    Integer age
 
-    public User(Integer id = null, String username = null, String password = null,
-    Long age = null) {
+    public User(Long id = null, String username = null, String password = null,
+    Integer age = null) {
         this.id = id
         this.username = username
         this.password = password

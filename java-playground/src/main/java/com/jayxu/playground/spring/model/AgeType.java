@@ -48,8 +48,8 @@ public class AgeType implements UserType {
             return null;
         }
 
-        AgeType.log.info("Age: {}", v);
-        return rs.getLong(names[0]);
+        AgeType.log.debug("Age: {}", v);
+        return rs.getInt(names[0]);
     }
 
     @Override
@@ -59,7 +59,7 @@ public class AgeType implements UserType {
         if (value == null) {
             st.setNull(index, Types.INTEGER);
         } else {
-            st.setInt(index, ((Long) value).intValue());
+            st.setInt(index, (Integer) value);
         }
     }
 
