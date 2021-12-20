@@ -17,3 +17,6 @@ target
 java-playground/java-playground.iml
 playground-parent.iml
 .factorypath
+*.dmp
+*.trc
+javacore.20210916.184011.77530.0002.txt
