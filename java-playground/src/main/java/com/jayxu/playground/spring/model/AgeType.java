@@ -25,7 +25,7 @@ public class AgeType implements UserType {
     }
 
     @Override
-    public Class returnedClass() {
+    public Class<Long> returnedClass() {
         return Long.class;
     }
 
