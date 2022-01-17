@@ -1,5 +1,5 @@
 #FROM apache/skywalking-base
-FROM eclipse-temurin:17-jre-alpine
+FROM bellsoft/liberica-openjre-alpine-musl:17
 WORKDIR /app
 EXPOSE 8000
 ADD target/java-playground-1.0.jar app.jar
