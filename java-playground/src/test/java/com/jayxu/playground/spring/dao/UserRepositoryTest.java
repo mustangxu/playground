@@ -22,6 +22,14 @@ class UserRepositoryTest {
         Assertions.assertEquals(1, users.size(), "count");
     }
 
+    @Test
+    void testUpdateUser() {
+        this.dao.findById(1L).ifPresent(u -> {
+            u.setAge(33);
+            this.dao.save(u);
+        });
+    }
+
 //    @Test
     void testAddUsers() {
         var count = 1_000;

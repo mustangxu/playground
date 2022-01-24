@@ -8,12 +8,13 @@ import javax.persistence.Entity
 import javax.persistence.Id
 import javax.persistence.Index
 import javax.persistence.Table
+import javax.persistence.Version
 import javax.validation.constraints.NotBlank
 
 import org.hibernate.annotations.Type
 
 @Entity
-@Table(indexes = [ @Index(columnList = "username") ])
+@Table(name = "users" ,indexes = [ @Index(columnList = "username") ])
 public class User implements Serializable {
     @Id
     @org.springframework.data.annotation.Id
@@ -26,6 +27,8 @@ public class User implements Serializable {
     String password
     @Type(type = "com.jayxu.playground.spring.model.AgeType")
     Integer age
+    @Version
+    Integer version
 
     public User(Long id = null, String username = null, String password = null,
     Integer age = null) {
