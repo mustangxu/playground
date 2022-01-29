@@ -11,16 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class DefaultController {
-//    @Autowired
-//    private EsRepository repo;
 
     @RequestMapping("/hello")
     public String helloWorld() {
         return "world";
     }
 
-    @RequestMapping("/es")
-    public void es() {
-//        System.out.println(this.repo.existsById("gxCxcnsBQljjZybgzoxW"));
-    }
 }
