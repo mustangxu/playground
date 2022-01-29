@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Pageable;
 
 import com.jayxu.playground.spring.model.User;
 
@@ -49,9 +48,4 @@ class UserRepositoryTest {
         Assertions.assertEquals(count, added, "added");
     }
 
-    @Test
-    void testFindTopByOrderById() {
-        this.dao.findByOrderById(Pageable.ofSize(5)).stream().map(User::getId)
-            .forEach(System.out::println);
-    }
 }
