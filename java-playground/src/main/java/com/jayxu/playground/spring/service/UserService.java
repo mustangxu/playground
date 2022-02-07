@@ -30,7 +30,6 @@ public class UserService {
 
     public User getOrAddUser(long id) {
         var ts = "" + System.currentTimeMillis();
-        UserService.log.info(ts);
 
         return this.dao.findById(id).orElseGet(() -> {
             var user = new User(id, "jayxu" + ts,

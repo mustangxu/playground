@@ -3,6 +3,7 @@
  */
 package com.jayxu.playground.spring.model
 
+import javax.persistence.Cacheable
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.Id
@@ -11,10 +12,10 @@ import javax.persistence.Table
 import javax.persistence.Version
 import javax.validation.constraints.NotBlank
 
-import org.hibernate.annotations.Type
-
 @Entity
 @Table(name = "users" ,indexes = [ @Index(columnList = "username") ])
+@Cacheable
+//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class User implements Serializable {
     @Id
     @org.springframework.data.annotation.Id
@@ -25,7 +26,7 @@ public class User implements Serializable {
     @Column(length = 48, nullable = false)
     @NotBlank
     String password
-    @Type(type = "com.jayxu.playground.spring.model.AgeType")
+    //    @Type(type = "com.jayxu.playground.spring.model.AgeType")
     Integer age
     @Version
     Integer version

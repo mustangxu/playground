@@ -15,6 +15,14 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
+    properties:
+#      hibernate:
+#        cache:
+#          use_second_level_cache: true
+      javax:
+        persistence:
+          sharedCache:
+            mode: ENABLE_SELECTIVE
 #  boot:
 #    admin:
 #      client:
@@ -29,3 +37,7 @@ management:
     web:
       exposure:
         include: "*"
+
+logging:
+  level:
+    org.hibernate.cache: debug
