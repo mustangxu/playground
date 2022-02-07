@@ -17,6 +17,7 @@ spring:
       ddl-auto: update
     properties:
 #      hibernate:
+#        generate_statistics: true
 #        cache:
 #          use_second_level_cache: true
       javax:
