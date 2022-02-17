@@ -13,8 +13,8 @@
 		<url>https://github.com/mustangxu/playground/issues</url>
 	</issueManagement>
 	<properties>
-		<graalvm.version>21.3.0</graalvm.version>
-		<skywalking.version>8.8.0</skywalking.version>
+		<graalvm.version>22.0.0.2</graalvm.version>
+		<skywalking.version>8.9.1</skywalking.version>
 	</properties>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
