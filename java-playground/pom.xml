@@ -167,7 +167,7 @@
 					<skipBuild>false</skipBuild>
 				</configuration>
 			</plugin>
-			<plugin>
+			<!-- <plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
 					<compilerId>groovy-eclipse-compiler</compilerId>
@@ -189,7 +189,7 @@
 						<version>3.0.8-01</version>
 					</dependency>
 				</dependencies>
-			</plugin>
+			</plugin> -->
 			<!-- <plugin>
 				<groupId>org.springframework.experimental</groupId>
 				<artifactId>spring-aot-maven-plugin</artifactId>
