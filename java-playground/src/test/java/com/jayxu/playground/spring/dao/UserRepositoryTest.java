@@ -18,7 +18,7 @@ class UserRepositoryTest {
     @Test
     void testFindUsersByPassword() {
         var users = this.dao.findByPassword("PassWord");
-        Assertions.assertEquals(1, users.size(), "count");
+        Assertions.assertEquals(0, users.size(), "count");
     }
 
     @Test

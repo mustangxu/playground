@@ -15,16 +15,17 @@ import javax.persistence.Version;
 import javax.validation.constraints.NotBlank;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "users", indexes = @Index(columnList = "username"))
 @Cacheable
 @Data
+@NoArgsConstructor
 //@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class User implements Serializable {
     private static final long serialVersionUID = -9020200257408632559L;
     @Id
-    @org.springframework.data.annotation.Id
     private Long id;
     @Column(length = 36, nullable = false)
     @NotBlank

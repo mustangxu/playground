@@ -7,13 +7,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.reactive.config.EnableWebFlux;
 
 /**
  * @author xujiajing
  */
 @SpringBootApplication
-@EnableWebMvc
+@EnableWebFlux
 @EnableJpaRepositories
 @ComponentScan(basePackages = { "com.jayxu" })
 public class PlaygroundApplication {
