@@ -5,12 +5,11 @@ package com.jayxu.playground.blockchain.eth;
 
 import java.io.IOException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.jayxu.playground.blockchain.ChainService;
 
+import lombok.extern.slf4j.XSlf4j;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -18,10 +17,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * @author xujiajing
  */
 @Service
+@XSlf4j
 public class EthereumChainService implements ChainService {
     private static final String API_BASE = "https://api.etherscan.io/";
-    private static final Logger log = LoggerFactory
-        .getLogger(EthereumChainService.class);
     private EthereumApi api = new Retrofit.Builder()
         .baseUrl(EthereumChainService.API_BASE)
         .addConverterFactory(GsonConverterFactory.create()).build()
