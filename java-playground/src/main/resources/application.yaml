@@ -47,4 +47,3 @@ logging:
 #      hibernate.cache: debug
       springframework:
         web.reactive: debug
-        data.r2dbc: debug

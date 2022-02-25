@@ -1,6 +1,5 @@
 package com.jayxu.playground.spring.dao;
 
-import java.util.Random;
 import java.util.UUID;
 
 import org.junit.jupiter.api.Assertions;
@@ -8,9 +7,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.github.javafaker.Faker;
 import com.jayxu.playground.spring.model.User;
 
+import lombok.extern.slf4j.XSlf4j;
+
 @SpringBootTest
+@XSlf4j
 class UserRepositoryTest {
     @Autowired
     private UserRepository dao;
@@ -33,12 +36,14 @@ class UserRepositoryTest {
     void testAddUsers() {
         var count = 1_000;
         var added = 0;
+        var faker = new Faker();
 
         for (var i = 0; i < count; i++) {
             var user = new User(System.currentTimeMillis() + i,
-                UUID.randomUUID().toString(), UUID.randomUUID().toString(),
-                new Random().nextInt(100));
+                faker.name().username(), UUID.randomUUID().toString(),
+                faker.number().numberBetween(1, 100));
             user = this.dao.save(user);
+            UserRepositoryTest.log.info("{}", user);
 
             if (user != null) {
                 added++;
@@ -47,5 +52,4 @@ class UserRepositoryTest {
 
         Assertions.assertEquals(count, added, "added");
     }
-
 }
