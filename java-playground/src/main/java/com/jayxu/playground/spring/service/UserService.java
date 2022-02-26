@@ -53,4 +53,8 @@ public class UserService {
 
         return this.dao.findAll(p);
     }
+
+    public User addUser(User user) {
+        return this.dao.save(user);
+    }
 }

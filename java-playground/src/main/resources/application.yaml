@@ -2,8 +2,9 @@ server:
   port: 8000
 
 spring:
-#  main:
-#    allow-bean-definition-overriding: true
+  main:
+    allow-bean-definition-overriding: true
+    allow-circular-references: true
   datasource:
     #url: jdbc:mysql://10.163.113.121/playground
 #    url: jdbc:mysql://127.0.0.1/playground
@@ -26,6 +27,7 @@ spring:
         persistence:
           sharedCache:
             mode: ENABLE_SELECTIVE
+
 #  boot:
 #    admin:
 #      client:

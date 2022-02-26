@@ -5,14 +5,10 @@ package com.jayxu.playground.spring.dao;
 
 import java.util.List;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.jayxu.playground.spring.model.User;
 
-public interface UserRepository extends CrudRepository<User, Long> {
+public interface UserRepository extends PagingAndSortingRepository<User, Long> {
     List<User> findByPassword(String password);
-
-    Page<User> findAll(Pageable pageable);
 }

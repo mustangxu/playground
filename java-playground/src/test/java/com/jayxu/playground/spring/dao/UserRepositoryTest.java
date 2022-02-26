@@ -34,8 +34,7 @@ class UserRepositoryTest {
 
     @Test
     void testAddUsers() {
-        var count = 1_000;
-        var added = 0;
+        var count = 1000;
         var faker = new Faker();
 
         for (var i = 0; i < count; i++) {
@@ -44,12 +43,6 @@ class UserRepositoryTest {
                 faker.number().numberBetween(1, 100));
             user = this.dao.save(user);
             UserRepositoryTest.log.info("{}", user);
-
-            if (user != null) {
-                added++;
-            }
         }
-
-        Assertions.assertEquals(count, added, "added");
     }
 }
