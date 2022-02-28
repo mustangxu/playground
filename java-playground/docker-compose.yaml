@@ -3,9 +3,10 @@ services:
   playground:
     build: .
     ports:
-      - "8000:8000"
+      - "8001:8000"
     environment:
       - "SW_AGENT_COLLECTOR_BACKEND_SERVICES=skywalking-oap:11800"
+      - "SW_AGENT_INSTANCE_NAME=docker"
     depends_on:
       - skywalking-oap
 #    links:
