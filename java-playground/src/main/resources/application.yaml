@@ -8,8 +8,8 @@ spring:
   datasource:
     #url: jdbc:mysql://10.163.113.121/playground
 #    url: jdbc:mysql://127.0.0.1/playground
-    url: jdbc:h2:~/h2/playground
-#    url: jdbc:postgresql://localhost/xujiajing
+#    url: jdbc:h2:~/h2/playground
+    url: jdbc:postgresql://host.docker.internal/xujiajing
     hikari:
       username: xujiajing
       password: xujiajing
@@ -48,4 +48,8 @@ logging:
     org:
 #      hibernate.cache: debug
       springframework:
-        web.reactive: debug
+#        web.reactive: debug
+
+springdoc:
+  swagger-ui:
+    enabled: true
