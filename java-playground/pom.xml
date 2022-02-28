@@ -180,6 +180,18 @@
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>io.fabric8</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>0.39.1</version>
+				<configuration>
+					<images>
+						<image>
+							<name>mustangxu/playground:%v-${git.commit.id.abbrev}</name>
+						</image>
+					</images>
+				</configuration>
+			</plugin>
+			<!-- <plugin>
 				<groupId>com.spotify</groupId>
 				<artifactId>dockerfile-maven-plugin</artifactId>
 				<configuration>
@@ -188,7 +200,7 @@
 					<tag>${project.version}-${git.commit.id.abbrev}</tag>
 					<skipBuild>false</skipBuild>
 				</configuration>
-			</plugin>
+			</plugin> -->
 			<!-- <plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>

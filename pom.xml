@@ -78,7 +78,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
-		<pluginManagement>
+		<!-- <pluginManagement>
 			<plugins>
 				<plugin>
 					<groupId>com.spotify</groupId>
@@ -89,7 +89,7 @@
 					</configuration>
 				</plugin>
 			</plugins>
-		</pluginManagement>
+		</pluginManagement> -->
 	</build>
 	<packaging>pom</packaging>
 	<modules>
