@@ -15,6 +15,7 @@
 	<properties>
 		<graalvm.version>22.0.0.2</graalvm.version>
 		<skywalking.version>8.9.1</skywalking.version>
+		<spring.native.version>0.11.3</spring.native.version>
 	</properties>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -97,30 +98,30 @@
         <!-- <module>java-newfeature</module> -->
 	</modules>
 	<pluginRepositories>
-        <!-- <pluginRepository>
-            <id>spring-release</id>
-            <name>Spring release</name>
-            <url>https://repo.spring.io/release</url>
-        </pluginRepository> -->
+		<pluginRepository>
+			<id>spring-release</id>
+			<name>Spring release</name>
+			<url>https://repo.spring.io/release</url>
+		</pluginRepository>
 		<pluginRepository>
 			<id>spring-milestones</id>
 			<url>https://repo.spring.io/milestone</url>
 		</pluginRepository>
 	</pluginRepositories>
 	<repositories>
-        <!-- <repository>
-            <id>spring-release</id>
-            <name>Spring release</name>
-            <url>https://repo.spring.io/release</url>
-        </repository> -->
+		<repository>
+			<id>spring-release</id>
+			<name>Spring release</name>
+			<url>https://repo.spring.io/release</url>
+		</repository>
 		<repository>
 			<id>spring-milestones</id>
 			<url>https://repo.spring.io/milestone</url>
 		</repository>
-		<repository>
-			<id>space-maven</id>
-			<url>https://maven.pkg.jetbrains.space/jayxu/p/playground/maven</url>
-		</repository>
+<!--		<repository>-->
+<!--			<id>space-maven</id>-->
+<!--			<url>https://maven.pkg.jetbrains.space/jayxu/p/playground/maven</url>-->
+<!--		</repository>-->
 	</repositories>
 	<distributionManagement>
 		<repository>
