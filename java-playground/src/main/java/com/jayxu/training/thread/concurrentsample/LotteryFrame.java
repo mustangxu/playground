@@ -23,10 +23,10 @@ public class LotteryFrame extends JFrame {
     private JLabel label;
     private JButton buttonWrite;
     private JButton buttonRead;
-    private Thread mainThread;
-    private Lock readLockA;
-    private Lock readLockB;
-    private Lock writeLock;
+    private transient Thread mainThread;
+    private transient Lock readLockA;
+    private transient Lock readLockB;
+    private transient Lock writeLock;
     private Random r = new Random();
 
     public LotteryFrame() {

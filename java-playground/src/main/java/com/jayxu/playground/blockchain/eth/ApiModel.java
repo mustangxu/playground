@@ -10,7 +10,7 @@ import lombok.Data;
  */
 @Data
 public class ApiModel {
-    String jsonrpc;
-    Integer id;
-    String result;
+    private String jsonrpc;
+    private Integer id;
+    private String result;
 }

@@ -3,7 +3,9 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>java-playground</artifactId>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>17</java.version>
+		<sonar.organization>mustangxu</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
 	<parent>
 		<groupId>com.jayxu.playground</groupId>
