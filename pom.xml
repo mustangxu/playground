@@ -5,6 +5,13 @@
 	<artifactId>playground-parent</artifactId>
 	<version>1.0</version>
 	<url>https://github.com/mustangxu/playground</url>
+	<name>Java coding playground</name>
+	<contributors>
+		<contributor>
+			<name>Jay Xu</name>
+			<email>mustangxu@gmail.com</email>
+		</contributor>
+	</contributors>
 	<scm>
 		<url>https://github.com/mustangxu/playground.git</url>
 	</scm>
