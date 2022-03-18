@@ -175,6 +175,12 @@
 			<artifactId>commons-collections4</artifactId>
 			<version>4.4</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.eclipse.collections/eclipse-collections -->
+		<dependency>
+			<groupId>org.eclipse.collections</groupId>
+			<artifactId>eclipse-collections</artifactId>
+			<version>11.0.0</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

@@ -6,16 +6,17 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import com.github.javafaker.Faker;
+import com.jayxu.playground.lang.ClassIntrospector;
 
 // @RunWith(JQF.class)
 class TrieTest {
     @Test
-    void test() {
+    void test() throws Exception {
         var map = new HashedMap<String, String>();
         var key = "ja";
         var faker = new Faker();
 
-        for (var i = 0; i < 1000; i++) {
+        for (var i = 0; i < 100; i++) {
             map.put(faker.name().username(), faker.name().fullName());
         }
         System.out.println(map.size());
@@ -23,6 +24,8 @@ class TrieTest {
         Assertions.assertFalse(map.containsKey(key));
 
         var trie = new PatriciaTrie<>(map);
+        var insp = ClassIntrospector.introspect(trie);
+        System.out.println(insp);
         Assertions.assertFalse(trie.containsKey(key));
 
         var res = trie.prefixMap(key);
