@@ -43,13 +43,10 @@ public final class ObjectInfo {
     private int maxOutputLevel = -1;
     /**
      * Get the full amount of memory occupied by a given object. This value may
-     * be slightly less than
-     * an actual value because we don't worry about memory alignment - possible
-     * padding after the last object field.
-     * The result is equal to the last field offset + last field length + all
-     * array sizes + all child objects deep sizes
-     *
-     * @return Deep object size
+     * be slightly less than an actual value because we don't worry about memory
+     * alignment - possible padding after the last object field. The result is
+     * equal to the last field offset + last field length + all array sizes +
+     * all child objects deep sizes
      */
     @Getter
     private long deepSize;
