@@ -169,7 +169,7 @@ public final class ClassIntrospector {
 
     //check if it is an array of objects. I suspect there must be a more API-friendly way to make this check.
     private static boolean isObjectArray(Class<?> type) {
-        return type.isArray() && !type.componentType().isPrimitive();
+        return type.isArray() && !type.getComponentType().isPrimitive();
     }
 
     //obtain a shallow size of a field of given class (primitive or object reference size)

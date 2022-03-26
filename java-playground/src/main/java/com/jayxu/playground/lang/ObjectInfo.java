@@ -56,8 +56,7 @@ public final class ObjectInfo {
     @Getter
     private long shallowSize;
 
-    static ObjectInfo nullObjectInfo(String name, long offset,
-            Class<?> type) {
+    static ObjectInfo nullObjectInfo(String name, long offset, Class<?> type) {
         return new ObjectInfo(name, type, offset, 0, 0, 0, 0);
     }
 
@@ -113,8 +112,8 @@ public final class ObjectInfo {
 
     @Override
     public String toString() {
-        return ObjectInfo.TOSTRING_FORMAT.formatted(this.name,
-            this.type, this.deepSize);
+        return ObjectInfo.TOSTRING_FORMAT.formatted(this.name, this.type,
+            this.deepSize);
     }
 
     public String toDetails() {
