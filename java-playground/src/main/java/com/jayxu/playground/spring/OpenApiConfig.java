@@ -18,10 +18,8 @@ import io.swagger.v3.oas.models.info.Info;
 public class OpenApiConfig {
     @Bean
     public OpenAPI springShopOpenAPI(BuildProperties build, GitProperties git) {
-        return new OpenAPI()
-            .info(new Info().title("Jay's Coding Playground")
-                .version(String.format("v%s-%s @%s",
-                    build.getVersion(), git.getShortCommitId(),
-                    git.getCommitTime())));
+        return new OpenAPI().info(new Info().title("Jay's Coding Playground")
+            .version(String.format("v%s-%s @%s", build.getVersion(),
+                git.getShortCommitId(), git.getCommitTime())));
     }
 }
