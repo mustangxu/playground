@@ -8,7 +8,6 @@ import java.io.Serializable;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import jakarta.persistence.Cacheable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -21,9 +20,9 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "users", indexes = @Index(columnList = "username"))
-@Cacheable
 @Data
 @NoArgsConstructor
+//@Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class User implements Serializable {
     private static final long serialVersionUID = -9020200257408632559L;

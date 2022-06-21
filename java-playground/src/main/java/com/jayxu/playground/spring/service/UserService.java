@@ -3,6 +3,8 @@
  */
 package com.jayxu.playground.spring.service;
 
+import java.util.Optional;
+
 import javax.transaction.Transactional;
 
 import org.apache.commons.codec.digest.Md5Crypt;
@@ -43,6 +45,13 @@ public class UserService {
 
     public long getCount() {
         return this.dao.count();
+    }
+
+    public Optional<User> updateUserPassword(long id, String password) {
+        return this.dao.findById(id).map(u -> {
+            u.setPassword(password);
+            return this.dao.save(u);
+        });
     }
 
     public Page<User> getUsersPage(int page, int size, String orderby) {
