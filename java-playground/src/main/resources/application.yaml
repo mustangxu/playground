@@ -13,7 +13,7 @@ spring:
 #    url: jdbc:h2:~/h2/playground
 #    url: jdbc:postgresql://host.docker.internal/xujiajing
     hikari:
-      username: xujiajing
+      username: demo
       password: xujiajing
   jpa:
     generate-ddl: true
@@ -32,11 +32,11 @@ spring:
   profiles:
     active: dev
 
-#  boot:
-#    admin:
-#      client:
-#        url:
-#        - http://127.0.0.1:9000
+  boot:
+    admin:
+      client:
+        url:
+        - http://127.0.0.1:9000
 
 management:
   endpoint:
@@ -57,6 +57,11 @@ logging:
 springdoc:
   swagger-ui:
     enabled: true
+#    path: /swagger.html
+#    csrf:
+#      enabled: true
+  show-actuator: true
+  
 
 #---
 #spring:
