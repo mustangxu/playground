@@ -1,0 +1,2 @@
+singleServerConfig:
+  address: "redis://default:redispw@localhost:55000"
