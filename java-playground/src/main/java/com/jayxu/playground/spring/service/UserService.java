@@ -5,8 +5,6 @@ package com.jayxu.playground.spring.service;
 
 import java.util.Optional;
 
-import javax.transaction.Transactional;
-
 import org.apache.commons.codec.digest.Md5Crypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.jayxu.playground.spring.dao.UserRepository;
 import com.jayxu.playground.spring.model.User;
 
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.XSlf4j;
 
 /**

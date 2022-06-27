@@ -25,7 +25,8 @@ spring:
         generate_statistics: true
         cache:
           use_second_level_cache: true
-          use_query_cache: true 
+          use_query_cache: true
+          factory_class: org.redisson.hibernate.RedissonRegionFactory
 #      javax:
 #        persistence:
 #          sharedCache:

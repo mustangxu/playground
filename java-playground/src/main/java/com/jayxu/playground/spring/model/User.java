@@ -10,6 +10,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
 import jakarta.persistence.Table;
@@ -27,6 +28,7 @@ import lombok.NoArgsConstructor;
 public class User implements Serializable {
     private static final long serialVersionUID = -9020200257408632559L;
     @Id
+    @GeneratedValue
     private Long id;
     @Column(length = 36, nullable = false)
     @NotBlank
