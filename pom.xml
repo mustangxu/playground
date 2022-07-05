@@ -72,6 +72,7 @@
 					<offline>true</offline>
                     <!-- <useNativeGit>true</useNativeGit> -->
 					<runOnlyOnce>true</runOnlyOnce>
+					<failOnNoGitDirectory>false</failOnNoGitDirectory>
                     <!-- <generateGitPropertiesFile>true</generateGitPropertiesFile> -->
 				</configuration>
 			</plugin>
