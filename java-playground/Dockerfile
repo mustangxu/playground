@@ -4,8 +4,8 @@
 FROM maven:3.8-jdk-11-slim AS build
 COPY src /home/app/src
 COPY pom.xml /home/app
-COPY ../pom.xml /home
-RUN mvn -f /home/app/pom.xml clean package
+COPY docker/parent-pom.xml /home/pom.xml
+RUN mvn -f /home/app/pom.xml -DskipTests package
 
 #FROM apache/skywalking-base
 FROM bellsoft/liberica-openjre-alpine-musl:11
