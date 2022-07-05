@@ -10,7 +10,7 @@ RUN mvn -f /home/app/pom.xml clean package
 FROM bellsoft/liberica-openjre-alpine-musl:11
 WORKDIR /app
 EXPOSE 8000
-ADD /home/app/target/java-playground-1.0.jar app.jar
+COPY --from=build /home/app/target/java-playground-1.0.jar app.jar
 ADD docker/skywalking /skywalking
 VOLUME [ "/skywalking" ]
 ENTRYPOINT ["java","-Xms1G","-Xmx2G","--enable-preview",\
