@@ -65,7 +65,7 @@
 					</layers>
 				</configuration>
 			</plugin>
-			<!-- <plugin>
+			<plugin>
 				<groupId>io.github.git-commit-id</groupId>
 				<artifactId>git-commit-id-maven-plugin</artifactId>
 				<configuration>
@@ -73,7 +73,7 @@
 					<runOnlyOnce>true</runOnlyOnce>
 					<failOnNoGitDirectory>false</failOnNoGitDirectory>
 				</configuration>
-			</plugin> -->
+			</plugin>
 		</plugins>
 		<!-- <pluginManagement>
 			<plugins>

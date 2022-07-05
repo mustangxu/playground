@@ -70,9 +70,8 @@
 				<artifactId>git-commit-id-maven-plugin</artifactId>
 				<configuration>
 					<offline>true</offline>
-                    <!-- <useNativeGit>true</useNativeGit> -->
 					<runOnlyOnce>true</runOnlyOnce>
-                    <!-- <generateGitPropertiesFile>true</generateGitPropertiesFile> -->
+					<failOnNoGitDirectory>false</failOnNoGitDirectory>
 				</configuration>
 			</plugin>
 		</plugins>
