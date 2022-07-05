@@ -65,18 +65,15 @@
 					</layers>
 				</configuration>
 			</plugin>
-			<plugin>
+			<!-- <plugin>
 				<groupId>io.github.git-commit-id</groupId>
 				<artifactId>git-commit-id-maven-plugin</artifactId>
 				<configuration>
 					<offline>true</offline>
-                    <!-- <useNativeGit>true</useNativeGit> -->
 					<runOnlyOnce>true</runOnlyOnce>
 					<failOnNoGitDirectory>false</failOnNoGitDirectory>
-					<skip>true</skip>
-                    <!-- <generateGitPropertiesFile>true</generateGitPropertiesFile> -->
 				</configuration>
-			</plugin>
+			</plugin> -->
 		</plugins>
 		<!-- <pluginManagement>
 			<plugins>
