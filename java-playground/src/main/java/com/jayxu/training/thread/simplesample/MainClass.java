@@ -8,23 +8,23 @@ import java.util.List;
 
 public class MainClass {
 
-	public static void main(String[] args) throws InterruptedException {
-		List<Integer> queue = new LinkedList<>();
+    public static void main(String[] args) throws InterruptedException {
+        List<Integer> queue = new LinkedList<>();
 
-		for (var i = 0; i < 10; i++) {
-			queue.add(i + 1);
-			System.out.println(i);
-		}
+        for (var i = 0; i < 10; i++) {
+            queue.add(i + 1);
+            System.out.println(i);
+        }
 
 //        for (Integer i : queue) {
 //            System.out.println(i);
 //        }
 
-		var producer = new ProducerThread(queue, 10, 5000);
-		var consumer = new ConsumerThread(queue, 500);
+        var producer = new ProducerThread(queue, 10, 5000);
+        var consumer = new ConsumerThread(queue, 500);
 
-		producer.start();
-		Thread.sleep(1000L);
-		consumer.start();
-	}
+        producer.start();
+        Thread.sleep(1000L);
+        consumer.start();
+    }
 }

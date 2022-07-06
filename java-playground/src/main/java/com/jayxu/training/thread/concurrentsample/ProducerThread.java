@@ -7,33 +7,32 @@ import java.util.Random;
 import java.util.concurrent.BlockingQueue;
 
 public class ProducerThread extends Thread {
-	private BlockingQueue<Integer> queue;
-	private long interval;
-	private Random r = new Random();
+    private BlockingQueue<Integer> queue;
+    private long interval;
+    private Random r = new Random();
 
-	public ProducerThread(BlockingQueue<Integer> queue, long interval) {
-		super();
-		this.queue = queue;
-		this.interval = interval;
-	}
+    public ProducerThread(BlockingQueue<Integer> queue, long interval) {
+        this.queue = queue;
+        this.interval = interval;
+    }
 
-	@Override
-	public void run() {
-		while (true) {
-			var n = this.r.nextInt();
-			System.err.println("Produced [" + n + "]");
+    @Override
+    public void run() {
+        while (true) {
+            var n = this.r.nextInt();
+            System.err.println("Produced [" + n + "]");
 
-			try {
-				this.queue.put(n);
-			} catch (InterruptedException e1) {
-				e1.printStackTrace();
-			}
+            try {
+                this.queue.put(n);
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
 
-			try {
-				Thread.sleep(this.interval);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-	}
+            try {
+                Thread.sleep(this.interval);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

@@ -3,6 +3,7 @@
  */
 package com.jayxu.playground.spring.model;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import org.hibernate.annotations.Cache;
@@ -26,6 +27,7 @@ import lombok.NoArgsConstructor;
 //@Cacheable
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 public class User implements Serializable {
+    @Serial
     private static final long serialVersionUID = -9020200257408632559L;
     @Id
     @GeneratedValue
