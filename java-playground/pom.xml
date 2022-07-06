@@ -206,6 +206,10 @@
 					<images>
 						<image>
 							<name>mustangxu/playground:${project.version}-${git.commit.id.abbrev}</name>
+							<build>
+								<dockerFile>Dockerfile-maven</dockerFile>
+								<contextDir>${project.basedir}</contextDir>
+							</build>
 						</image>
 					</images>
 				</configuration>
