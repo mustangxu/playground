@@ -22,8 +22,12 @@ public class MdnsDemo {
         pool.submit(MdnsDemo::startClient);
 
         Thread.sleep(10_000);
-        server.get().unregisterAllServices();
-        System.out.println("Done");
+        try (var jmDNS = server.get();) {
+            jmDNS.unregisterAllServices();
+            System.out.println("Done");
+        }
+
+        System.exit(0);
     }
 
     private static JmDNS startClient() {

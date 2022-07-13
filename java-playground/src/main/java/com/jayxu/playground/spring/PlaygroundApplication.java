@@ -15,6 +15,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 //@ComponentScan(basePackages = { "com.jayxu" })
 public class PlaygroundApplication {
     public static void main(String[] args) {
-        SpringApplication.run(PlaygroundApplication.class, args);
+        try (var ctx = SpringApplication.run(PlaygroundApplication.class,
+            args);) {
+        }
     }
 }

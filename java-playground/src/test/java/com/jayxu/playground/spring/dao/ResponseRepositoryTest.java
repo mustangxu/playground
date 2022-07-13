@@ -24,28 +24,29 @@ class ResponseRepositoryTest {
     private ResponseRepository dao;
 
     @Test
-    void test() {
+    void test() throws Exception {
         this.dao.deleteAll();
 
-        var res = this.getClass().getClassLoader()
-            .getResourceAsStream("response.json");
+        try (var res = this.getClass().getClassLoader()
+            .getResourceAsStream("response.json");) {
 
-        var map = new Gson().fromJson(new InputStreamReader(res),
-            Response.class);
-        var list = map.getData().stream().map(d -> {
-            System.out.println(d.getLabels());
+            var map = new Gson().fromJson(new InputStreamReader(res),
+                Response.class);
+            var list = map.getData().stream().map(d -> {
+                System.out.println(d.getLabels());
 
-            return d.getValues().stream().map(obj -> {
-                var resp = new Response();
-                resp.setAccount(d.getLabels().get("cost_account"));
-                resp.setResource(d.getLabels().get("cost_resource_type"));
-                resp.setDate(new Date(obj[0].longValue() * 1000));
-                resp.setAmount(new BigDecimal(obj[1]));
+                return d.getValues().stream().map(obj -> {
+                    var resp = new Response();
+                    resp.setAccount(d.getLabels().get("cost_account"));
+                    resp.setResource(d.getLabels().get("cost_resource_type"));
+                    resp.setDate(new Date(obj[0].longValue() * 1000));
+                    resp.setAmount(new BigDecimal(obj[1]));
 
-                return resp;
-            }).toList();
-        }).flatMap(List::stream).toList();
+                    return resp;
+                }).toList();
+            }).flatMap(List::stream).toList();
 
-        this.dao.saveAll(list);
+            this.dao.saveAll(list);
+        }
     }
 }
