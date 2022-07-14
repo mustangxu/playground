@@ -5,9 +5,7 @@ package com.jayxu.playground.antlr.json;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Map;
+import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 import org.openjdk.jmh.annotations.Benchmark;
@@ -36,21 +34,25 @@ public class XJsonTest {
 
     @Benchmark
     public void benchmark(Blackhole hole) throws Exception {
-        hole.consume(parse());
+        hole.consume(parse("test.json"));
     }
 
-    private static Map<String, ?> parse() throws IOException {
+    private static Object parse(String filename) throws Exception {
         try (var is = XJsonTest.class.getClassLoader()
-            .getResourceAsStream("test.json");) {
+            .getResourceAsStream(filename);) {
             return XJson.parse(is);
         }
     }
 
     @Test
     void test() throws Exception {
-        var o = parse();
+        var o = parse("large-file.json");
         assertNotNull(o, "json");
 
-        System.out.println(o);
+        if (o instanceof Object[] array) {
+            Arrays.stream(array).limit(20).forEach(System.out::println);
+        } else {
+            System.out.println(o);
+        }
     }
 }
