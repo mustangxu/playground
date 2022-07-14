@@ -40,9 +40,7 @@ public interface JSONVisitor<T> extends ParseTreeVisitor<T> {
      *        the parse tree
      * @return the visitor result
      */
-    default T visitPair(JSONParser.PairContext ctx) {
-        return this.visitChildren(ctx);
-    }
+    T visitPair(JSONParser.PairContext ctx);
 
     /**
      * Visit a parse tree produced by {@link JSONParser#arr}.
@@ -51,9 +49,7 @@ public interface JSONVisitor<T> extends ParseTreeVisitor<T> {
      *        the parse tree
      * @return the visitor result
      */
-    default T visitArr(JSONParser.ArrContext ctx) {
-        return this.visitChildren(ctx);
-    }
+    T visitArr(JSONParser.ArrContext ctx);
 
     /**
      * Visit a parse tree produced by {@link JSONParser#value}.

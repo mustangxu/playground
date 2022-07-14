@@ -1,0 +1,56 @@
+/**
+ * Authored by jayxu @2022
+ */
+package com.jayxu.playground.antlr.json;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Map;
+
+import org.junit.jupiter.api.Test;
+import org.openjdk.jmh.annotations.Benchmark;
+import org.openjdk.jmh.annotations.BenchmarkMode;
+import org.openjdk.jmh.annotations.Fork;
+import org.openjdk.jmh.annotations.Mode;
+import org.openjdk.jmh.annotations.Threads;
+import org.openjdk.jmh.infra.Blackhole;
+import org.openjdk.jmh.runner.Runner;
+import org.openjdk.jmh.runner.options.OptionsBuilder;
+
+/**
+ * @author xujiajing
+ */
+@BenchmarkMode(Mode.Throughput)
+//@Measurement(iterations = 5, time = 3, timeUnit = TimeUnit.SECONDS)
+//@Warmup(iterations = 5, time = 3, timeUnit = TimeUnit.SECONDS)
+@Fork(1)
+@Threads(2)
+public class XJsonTest {
+    public static void main(String[] args) throws Exception {
+        var opt = new OptionsBuilder()
+            .include(XJsonTest.class.getSimpleName()).build();
+        new Runner(opt).run();
+    }
+
+    @Benchmark
+    public void benchmark(Blackhole hole) throws Exception {
+        hole.consume(parse());
+    }
+
+    private static Map<String, ?> parse() throws IOException {
+        try (var is = XJsonTest.class.getClassLoader()
+            .getResourceAsStream("test.json");) {
+            return XJson.parse(is);
+        }
+    }
+
+    @Test
+    void test() throws Exception {
+        var o = parse();
+        assertNotNull(o, "json");
+
+        System.out.println(o);
+    }
+}

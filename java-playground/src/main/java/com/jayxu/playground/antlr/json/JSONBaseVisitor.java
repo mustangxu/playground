@@ -1,7 +1,7 @@
 package com.jayxu.playground.antlr.json;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -10,8 +10,6 @@ import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 import com.ibm.icu.math.BigDecimal;
-
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * This class provides an empty implementation of {@link JSONVisitor},
@@ -22,7 +20,6 @@ import lombok.extern.slf4j.Slf4j;
  *        The return type of the visit operation. Use {@link Void} for
  *        operations with no return type.
  */
-@Slf4j
 @SuppressWarnings("unchecked")
 public class JSONBaseVisitor<T> extends AbstractParseTreeVisitor<T>
         implements JSONVisitor<T> {
@@ -39,7 +36,7 @@ public class JSONBaseVisitor<T> extends AbstractParseTreeVisitor<T>
         Map<String, Object> pair = new HashMap<>();
         pair.put(ctx.getChild(0).getText(),
             ctx.getChild(2).accept(this));
-        log.info("{}", pair);
+//        log.debug("{}", pair);
 
         return (T) pair;
     }
@@ -53,13 +50,15 @@ public class JSONBaseVisitor<T> extends AbstractParseTreeVisitor<T>
      */
     @Override
     public T visitArr(JSONParser.ArrContext ctx) {
-        List<Object> list = new LinkedList<>();
+        var count = ctx.getChildCount();
+        List<Object> list = new ArrayList<>(count);
 
-        for (var i = 1; i < ctx.getChildCount(); i++) {
+        for (var i = 1; i < count; i++) {
             var c = ctx.getChild(i);
             if (c.getPayload() instanceof CommonToken) {
                 continue;
             }
+
             list.add(c.accept(this));
         }
 
@@ -86,6 +85,7 @@ public class JSONBaseVisitor<T> extends AbstractParseTreeVisitor<T>
     @SuppressWarnings("rawtypes")
     @Override
     protected T aggregateResult(T t1, T t2) {
+//        log.info("t1: {}, t2: {}", t1, t2);
         if (t1 instanceof Map m1 && t2 instanceof Map m2) {
             m1.putAll(m2);
             return (T) m1;
@@ -93,5 +93,4 @@ public class JSONBaseVisitor<T> extends AbstractParseTreeVisitor<T>
 
         return super.aggregateResult(t1, t2);
     }
-
 }

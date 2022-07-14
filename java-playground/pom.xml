@@ -30,7 +30,7 @@
 		<dependency>
 			<groupId>org.jmdns</groupId>
 			<artifactId>jmdns</artifactId>
-			<version>3.5.7</version>
+			<version>3.5.8</version>
 		</dependency>
 		<dependency>
 			<groupId>org.graalvm.sdk</groupId>
@@ -179,7 +179,7 @@
 		<dependency>
 			<groupId>org.eclipse.collections</groupId>
 			<artifactId>eclipse-collections</artifactId>
-			<version>11.0.0</version>
+			<version>11.1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>jakarta.validation</groupId>
