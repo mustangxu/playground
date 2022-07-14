@@ -33,7 +33,7 @@ public final class ClassIntrospector {
     /**
      * Sizes of all primitive values
      */
-    private static final Map<Class<?>, Integer> PRIM_TPYE_SIZES;
+    private static final Map<Class<?>, Integer> PRIM_TYPE_SIZES;
     //we need to keep track of already visited objects in order to support cycles in the object graphs
     private final IdentityHashMap<Object, Object> visited = new IdentityHashMap<>();
 
@@ -49,14 +49,14 @@ public final class ClassIntrospector {
             throw new RuntimeException(e);
         }
 
-        PRIM_TPYE_SIZES = Maps.mutable.withInitialCapacity(7);
-        ClassIntrospector.PRIM_TPYE_SIZES.put(byte.class, 1);
-        ClassIntrospector.PRIM_TPYE_SIZES.put(char.class, 2);
-        ClassIntrospector.PRIM_TPYE_SIZES.put(int.class, 4);
-        ClassIntrospector.PRIM_TPYE_SIZES.put(long.class, 8);
-        ClassIntrospector.PRIM_TPYE_SIZES.put(float.class, 4);
-        ClassIntrospector.PRIM_TPYE_SIZES.put(double.class, 8);
-        ClassIntrospector.PRIM_TPYE_SIZES.put(boolean.class, 1);
+        PRIM_TYPE_SIZES = Maps.mutable.withInitialCapacity(7);
+        ClassIntrospector.PRIM_TYPE_SIZES.put(byte.class, 1);
+        ClassIntrospector.PRIM_TYPE_SIZES.put(char.class, 2);
+        ClassIntrospector.PRIM_TYPE_SIZES.put(int.class, 4);
+        ClassIntrospector.PRIM_TYPE_SIZES.put(long.class, 8);
+        ClassIntrospector.PRIM_TYPE_SIZES.put(float.class, 4);
+        ClassIntrospector.PRIM_TYPE_SIZES.put(double.class, 8);
+        ClassIntrospector.PRIM_TYPE_SIZES.put(boolean.class, 1);
     }
 
     /**
@@ -175,7 +175,7 @@ public final class ClassIntrospector {
     //obtain a shallow size of a field of given class (primitive or object reference size)
     private static int getObjSize(Class<?> type) {
         if (type.isPrimitive()) {
-            return ClassIntrospector.PRIM_TPYE_SIZES.getOrDefault(type, 0);
+            return ClassIntrospector.PRIM_TYPE_SIZES.getOrDefault(type, 0);
         }
         return ClassIntrospector.OBJ_REF_SIZE;
     }
