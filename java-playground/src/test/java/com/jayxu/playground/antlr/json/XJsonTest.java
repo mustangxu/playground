@@ -17,6 +17,8 @@ import org.openjdk.jmh.infra.Blackhole;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 
+import lombok.extern.slf4j.XSlf4j;
+
 /**
  * @author xujiajing
  */
@@ -25,6 +27,7 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 //@Warmup(iterations = 5, time = 3, timeUnit = TimeUnit.SECONDS)
 @Fork(1)
 @Threads(2)
+@XSlf4j
 public class XJsonTest {
     public static void main(String[] args) throws Exception {
         var opt = new OptionsBuilder()
@@ -46,6 +49,7 @@ public class XJsonTest {
 
     @Test
     void test() throws Exception {
+        log.entry();
         var o = parse("large-file.json");
         assertNotNull(o, "json");
 
@@ -54,5 +58,7 @@ public class XJsonTest {
         } else {
             System.out.println(o);
         }
+
+        log.exit();
     }
 }
