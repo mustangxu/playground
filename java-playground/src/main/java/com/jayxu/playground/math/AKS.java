@@ -1,5 +1,8 @@
 package com.jayxu.playground.math;
 
+import static java.math.BigInteger.ONE;
+import static java.math.BigInteger.TWO;
+
 import java.math.BigInteger;
 import java.util.stream.LongStream;
 
@@ -41,7 +44,8 @@ import java.util.stream.LongStream;
 public class AKS {
     private static final boolean[] SIEVE_ARRAY;
     private static final int SIEVE_ERATOS_SIZE = 10_000_000;
-    private static final BigInteger TWO = BigInteger.TWO;
+    private static final BigInteger SIEVE_ERATOS_SIZE_BI = BigInteger
+        .valueOf(SIEVE_ERATOS_SIZE);
 
     /**
      * <pre>
@@ -59,6 +63,8 @@ public class AKS {
      * </pre>
      */
     static {
+        var start = System.currentTimeMillis();
+
         SIEVE_ARRAY = new boolean[SIEVE_ERATOS_SIZE + 1];
         SIEVE_ARRAY[1] = true;
 
@@ -69,6 +75,9 @@ public class AKS {
                 }
             }
         }
+
+        System.out.println("SIEVE_ARRAY initialized in "
+            + (System.currentTimeMillis() - start) + " ms");
     }
 
     public static boolean isPrime(long input) {
@@ -81,29 +90,31 @@ public class AKS {
             return false;
         }
 
+        if (hitSieveArray(input)) { // hit SIEVE_ARRAY
+            return true;
+        }
+
         var log = (int) logBigNum(input);
 
         if (findPower(input, log)) {
             return false;
         }
 
-        BigInteger lowR;
         var totR = 2;
 
-        for (lowR = TWO; lowR.compareTo(input) < 0; lowR = lowR
-            .add(BigInteger.ONE)) {
-            if (lowR.gcd(input).compareTo(BigInteger.ONE) != 0) {
+        for (var lowR = TWO; lowR.compareTo(input) < 0; lowR = lowR.add(ONE)) {
+            if (lowR.gcd(input).compareTo(ONE) != 0) {
                 return false;
             }
 
             totR = lowR.intValue();
-            if (!SIEVE_ARRAY[totR]) {
+            if (hitSieveArray(lowR)) {
                 var quot = largestFactor(totR - 1);
                 var divisor = (totR - 1) / quot;
                 var tm = (int) (4 * Math.sqrt(totR) * log);
                 var powOf = mPower(input, BigInteger.valueOf(divisor), lowR);
 
-                if (quot >= tm && powOf.compareTo(BigInteger.ONE) != 0) {
+                if (quot >= tm && powOf.compareTo(ONE) != 0) {
                     break;
                 }
             }
@@ -112,10 +123,8 @@ public class AKS {
         var aLimit = (int) (2 * Math.sqrt(totR) * log);
         for (var i = 1; i < aLimit; i++) {
             var aBigNum = BigInteger.valueOf(i);
-            var leftH = mPower(TWO.subtract(aBigNum), input,
-                input).mod(input);
-            var rightH = mPower(TWO, input, input).subtract(aBigNum)
-                .mod(input);
+            var leftH = mPower(TWO.subtract(aBigNum), input, input).mod(input);
+            var rightH = mPower(TWO, input, input).subtract(aBigNum).mod(input);
 
             if (leftH.compareTo(rightH) != 0) {
                 return false;
@@ -127,8 +136,8 @@ public class AKS {
 
     /* function that computes the log of a big number */
     private static double logBigNum(BigInteger bNum) {
-        var str = "." + bNum.toString();
-        return Math.log10(Double.parseDouble(str)) + (str.length() - 1);
+        var str = "." + bNum;
+        return Math.log10(Double.parseDouble(str)) + str.length() - 1;
     }
 
     /* function to compute the largest factor of a number */
@@ -157,20 +166,18 @@ public class AKS {
     private static boolean findPowerOf(BigInteger bNum, int val) {
         var low = BigInteger.TEN;
         var high = low;
-        double len = bNum.toString().length() / val;
-        var l = (int) Math.ceil(len);
+        var l = bNum.toString().length() / val + 1;
         low = low.pow(l - 1);
-        high = high.pow(l).subtract(BigInteger.ONE);
+        high = high.pow(l).subtract(ONE);
 
-        BigInteger mid, res;
         while (low.compareTo(high) <= 0) {
-            mid = low.add(high).shiftRight(1);
-            res = mid.pow(val);
+            var mid = low.add(high).shiftRight(1);
+            var res = mid.pow(val);
 
             if (res.compareTo(bNum) < 0) {
-                low = mid.add(BigInteger.ONE);
+                low = mid.add(ONE);
             } else if (res.compareTo(bNum) > 0) {
-                high = mid.subtract(BigInteger.ONE);
+                high = mid.subtract(ONE);
             } else {
                 return true;
             }
@@ -192,27 +199,32 @@ public class AKS {
 
     private static BigInteger mPower(BigInteger x, BigInteger y, BigInteger n) {
         var m = y;
-        var p = BigInteger.ONE;
+        var p = ONE;
         var z = x;
 
-        while (m.compareTo(BigInteger.ZERO) > 0) {
-            while (m.mod(TWO).compareTo(BigInteger.ZERO) == 0) {
+        while (m.signum() == 1) {
+            while (!m.testBit(0)) {
                 m = m.shiftRight(1);
                 z = z.multiply(z).mod(n);
             }
 
-            m = m.subtract(BigInteger.ONE);
+            m = m.subtract(ONE);
             p = p.multiply(z).mod(n);
         }
 
         return p;
     }
 
+    private static boolean hitSieveArray(BigInteger n) {
+        return n.compareTo(SIEVE_ERATOS_SIZE_BI) <= 0
+            && !SIEVE_ARRAY[n.intValue()];
+    }
+
     public static void main(String[] args) {
         var start = System.currentTimeMillis();
-        var max = 10000L;
+        var max = 100_000L;
 
-        var primes = LongStream.rangeClosed(1, max)
+        var primes = LongStream.rangeClosed(1, max).parallel()
             .mapToObj(n -> new Object[] { n, AKS.isPrime(n) })
             .filter(o -> (boolean) o[1]).map(o -> o[0]).toList();
 
@@ -221,9 +233,9 @@ public class AKS {
             + primes.size() + ", " + primes.size() * 100. / max + "%");
 
         var n = new BigInteger("1311148946153119849132111651651616161651651");
-        start = System.nanoTime();
+        start = System.currentTimeMillis();
         var p = AKS.isPrime(n);
         System.out.println("Checked " + n + " DONE in "
-            + (System.nanoTime() - start) + " ns, prime: " + p);
+            + (System.currentTimeMillis() - start) + " ms, prime: " + p);
     }
 }
