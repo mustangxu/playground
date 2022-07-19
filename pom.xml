@@ -27,6 +27,7 @@
 		<okhttp.version>4.10.0</okhttp.version> 
 		<!-- <h2.version>2.1.212</h2.version> -->
 		<postgresql.version>42.4.0</postgresql.version>
+		<jmh.version>1.35</jmh.version>
 	</properties>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -39,11 +40,6 @@
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-compress</artifactId>
 				<version>1.21</version>
-			</dependency>
-			<dependency>
-				<groupId>org.openjdk.jmh</groupId>
-				<artifactId>jmh-generator-annprocess</artifactId>
-				<version>1.35</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -72,6 +68,19 @@
 					<offline>true</offline>
 					<runOnlyOnce>true</runOnlyOnce>
 					<failOnNoGitDirectory>false</failOnNoGitDirectory>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.openjdk.jmh</groupId>
+							<artifactId>jmh-generator-annprocess</artifactId>
+							<version>${jmh.version}</version>
+						</path>
+					</annotationProcessorPaths>
 				</configuration>
 			</plugin>
 		</plugins>
