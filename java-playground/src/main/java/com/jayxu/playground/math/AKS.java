@@ -222,9 +222,9 @@ public class AKS {
 
     public static void main(String[] args) {
         var start = System.currentTimeMillis();
-        var max = 100_000L;
+        var max = 10_000L;
 
-        var primes = LongStream.rangeClosed(1, max).parallel()
+        var primes = LongStream.rangeClosed(1, max)
             .mapToObj(n -> new Object[] { n, AKS.isPrime(n) })
             .filter(o -> (boolean) o[1]).map(o -> o[0]).toList();
 
