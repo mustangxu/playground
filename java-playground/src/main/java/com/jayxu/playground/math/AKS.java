@@ -4,7 +4,10 @@ import static java.math.BigInteger.ONE;
 import static java.math.BigInteger.TWO;
 
 import java.math.BigInteger;
+import java.math.RoundingMode;
 import java.util.stream.LongStream;
+
+import com.google.common.math.BigIntegerMath;
 
 /**
  * This is am implementation of Agrawal–Kayal–Saxena primality test in
@@ -94,7 +97,7 @@ public class AKS {
             return true;
         }
 
-        var log = (int) logBigNum(input);
+        var log = BigIntegerMath.log10(input, RoundingMode.DOWN);
 
         if (findPower(input, log)) {
             return false;
@@ -132,12 +135,6 @@ public class AKS {
         }
 
         return true;
-    }
-
-    /* function that computes the log of a big number */
-    private static double logBigNum(BigInteger bNum) {
-        var str = "." + bNum;
-        return Math.log10(Double.parseDouble(str)) + str.length() - 1;
     }
 
     /* function to compute the largest factor of a number */
@@ -203,7 +200,7 @@ public class AKS {
         var z = x;
 
         while (m.signum() == 1) {
-            while (!m.testBit(0)) {
+            while (!m.testBit(0)) { // even number
                 m = m.shiftRight(1);
                 z = z.multiply(z).mod(n);
             }
