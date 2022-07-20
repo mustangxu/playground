@@ -23,11 +23,6 @@
 			<version>3.1.1</version>
 		</dependency>
 		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>2.11.0</version>
-		</dependency>
-		<dependency>
 			<groupId>org.jmdns</groupId>
 			<artifactId>jmdns</artifactId>
 			<version>3.5.8</version>
@@ -122,7 +117,7 @@
 		<dependency>
 			<groupId>de.codecentric</groupId>
 			<artifactId>spring-boot-admin-starter-client</artifactId>
-			<version>3.0.0-M2</version>
+			<version>3.0.0-M3</version>
 		</dependency> 
 		<!-- https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc -->
 		<!-- <dependency>
@@ -170,17 +165,6 @@
 			<groupId>com.github.javafaker</groupId>
 			<artifactId>javafaker</artifactId>
 			<version>1.0.2</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.yaml</groupId>
-					<artifactId>snakeyaml</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-collections4</artifactId>
-			<version>4.4</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.eclipse.collections/eclipse-collections -->
 		<dependency>

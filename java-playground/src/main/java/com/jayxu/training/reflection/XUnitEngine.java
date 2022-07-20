@@ -5,8 +5,6 @@ package com.jayxu.training.reflection;
 
 import java.util.Arrays;
 
-import org.apache.commons.io.IOUtils;
-
 public class XUnitEngine {
 
     public static void main(String[] args) throws Exception {
@@ -29,11 +27,10 @@ public class XUnitEngine {
         protected Class<?> findClass(String name)
                 throws ClassNotFoundException {
             try (var is = this.getResourceAsStream(name);) {
-                var array = IOUtils.toByteArray(is);
+                var array = is.readAllBytes();
 
                 return this.defineClass(XUnitClassLoader.convertClassName(name),
-                    array, 0,
-                    array.length);
+                    array, 0, array.length);
             } catch (Exception ex) {
                 ex.printStackTrace();
                 throw new ClassNotFoundException();
