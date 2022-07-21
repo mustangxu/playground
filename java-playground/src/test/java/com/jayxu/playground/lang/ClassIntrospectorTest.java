@@ -21,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author jay
  */
 @Slf4j
+@SuppressWarnings("unused")
 class ClassIntrospectorTest {
     private static class ObjectA {
         private byte b1; // 1
