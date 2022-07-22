@@ -5,7 +5,6 @@ package com.jayxu.playground.spring.service;
 
 import java.util.Optional;
 
-import org.apache.commons.codec.digest.Md5Crypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -29,12 +28,8 @@ public class UserService {
     private UserRepository dao;
 
     public User getOrAddUser(long id) {
-        var ts = "" + System.currentTimeMillis();
-
         return this.dao.findById(id).orElseGet(() -> {
-            var user = new User(id, "jayxu" + ts,
-                Md5Crypt.md5Crypt(ts.getBytes()), 18);
-
+            var user = User.buildTestUser(id);
             user = this.dao.save(user);
             UserService.log.info("User {} added", id);
 

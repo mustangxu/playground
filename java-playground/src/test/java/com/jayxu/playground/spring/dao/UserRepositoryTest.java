@@ -1,13 +1,10 @@
 package com.jayxu.playground.spring.dao;
 
-import java.util.UUID;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.github.javafaker.Faker;
 import com.jayxu.playground.spring.model.User;
 
 import lombok.extern.slf4j.XSlf4j;
@@ -35,12 +32,9 @@ class UserRepositoryTest {
     @Test
     void testAddUsers() {
         var count = 1000;
-        var faker = new Faker();
 
         for (var i = 0; i < count; i++) {
-            var user = new User(System.currentTimeMillis() + i,
-                faker.name().username(), UUID.randomUUID().toString(),
-                faker.number().numberBetween(1, 100));
+            var user = User.buildTestUser(System.currentTimeMillis() + i);
             user = this.dao.save(user);
             UserRepositoryTest.log.info("{}", user);
         }

@@ -7,11 +7,14 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.apache.commons.codec.digest.Md5Crypt;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import com.github.javafaker.Faker;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -57,5 +60,13 @@ public class User implements Serializable {
         this.username = username;
         this.password = password;
         this.age = age == null ? null : (long) age;
+    }
+
+    public static User buildTestUser(long id) {
+        var faker = new Faker();
+        var ts = System.currentTimeMillis();
+
+        return new User(id, faker.name().username(),
+            Md5Crypt.md5Crypt(("" + ts).getBytes()), (int) ts % 100 + 1);
     }
 }
