@@ -10,13 +10,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author xujiajing
  */
 @SpringBootApplication
-//@EnableWebFlux
-//@EnableJpaRepositories
-//@ComponentScan(basePackages = { "com.jayxu" })
+// @EnableWebFlux
+// @EnableJpaRepositories
+// @ComponentScan(basePackages = { "com.jayxu" })
 public class PlaygroundApplication {
+    @SuppressWarnings("resource")
     public static void main(String[] args) {
-        try (var ctx = SpringApplication.run(PlaygroundApplication.class,
-            args);) {
-        }
+        SpringApplication.run(PlaygroundApplication.class, args);
     }
 }

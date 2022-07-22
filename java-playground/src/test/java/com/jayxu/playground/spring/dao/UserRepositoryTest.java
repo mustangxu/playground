@@ -27,7 +27,7 @@ class UserRepositoryTest {
     @Test
     void testUpdateUser() {
         this.dao.findById(1L).ifPresent(u -> {
-            u.setAge(33);
+            u.setAge(33L);
             this.dao.save(u);
         });
     }
