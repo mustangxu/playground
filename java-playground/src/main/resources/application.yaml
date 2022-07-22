@@ -1,8 +1,10 @@
 server:
   port: 8000
-
+debug: false
 
 spring:
+  application:
+    name: Jay's Java Playground
   main:
     allow-bean-definition-overriding: true
     allow-circular-references: true
@@ -35,8 +37,8 @@ spring:
 #        persistence:
 #          sharedCache:
 #            mode: ENABLE_SELECTIVE
-  profiles:
-    active: dev
+#  profiles:
+#    active: dev
 
   boot:
     admin:
@@ -80,13 +82,21 @@ springdoc:
 #    #    url: jdbc:mysql://127.0.0.1/playground
 #    url: jdbc:postgresql://host.docker.internal/xujiajing
 #
-#---
-#spring:
-#  config:
-#    activate:
-#      on-profile: test
-#
-#  datasource:
-#    #url: jdbc:mysql://10.163.113.121/playground
-#    #    url: jdbc:mysql://127.0.0.1/playground
-#    url: jdbc:h2:~/h2/playground
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+
+  jpa:
+    properties:
+      hibernate:
+        generate_statistics: false
+        cache:
+          use_second_level_cache: false
+          use_query_cache: false
+
+  boot:
+    admin:
+      client:
+        enabled: false

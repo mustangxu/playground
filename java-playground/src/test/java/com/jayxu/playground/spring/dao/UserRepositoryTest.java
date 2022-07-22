@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import com.jayxu.playground.spring.model.User;
 
@@ -11,6 +12,7 @@ import lombok.extern.slf4j.XSlf4j;
 
 @SpringBootTest
 @XSlf4j
+@ActiveProfiles("test")
 class UserRepositoryTest {
     @Autowired
     private UserRepository dao;
