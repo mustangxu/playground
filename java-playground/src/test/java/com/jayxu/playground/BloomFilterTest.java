@@ -24,5 +24,7 @@ class BloomFilterTest {
             .forEach(filter::put);
 
         System.out.println(filter.approximateElementCount());
+        System.out.println(filter.mightContain(2L));
+        System.out.println(filter.mightContain(4L));
     }
 }

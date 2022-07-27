@@ -46,10 +46,12 @@ import com.google.common.math.LongMath;
  */
 
 public abstract class AKS<T extends Number> {
+    public static final LongAKS AKS_LONG = new LongAKS();
+    public static final BigIntegerAKS AKS_BIG_INTEGER = new BigIntegerAKS();
     private static final boolean[] SIEVE_ARRAY;
     private static final int SIEVE_ERATOS_SIZE = 10_000_000;
-    private static final BigInteger SIEVE_ERATOS_SIZE_BI = BigInteger
-        .valueOf(SIEVE_ERATOS_SIZE);
+    // private static final BigInteger SIEVE_ERATOS_SIZE_BI = BigInteger
+    // .valueOf(SIEVE_ERATOS_SIZE);
 
     /**
      * <pre>
@@ -85,15 +87,23 @@ public abstract class AKS<T extends Number> {
     }
 
     public static boolean isPrime(long input) {
-        return new LongAKS().checkPrime(input);
+        return isPrime(input, false);
     }
 
     public static boolean isPrime(BigInteger input) {
-        return new BigIntegerAKS().checkPrime(input);
+        return isPrime(input, false);
+    }
+
+    public static boolean isPrime(long input, boolean skipSieveArray) {
+        return AKS_LONG.checkPrime(input, skipSieveArray);
+    }
+
+    public static boolean isPrime(BigInteger input, boolean skipSieveArray) {
+        return AKS_BIG_INTEGER.checkPrime(input, skipSieveArray);
     }
 
     /* function to check if a given number is prime or not */
-    protected abstract boolean checkPrime(T input);
+    protected abstract boolean checkPrime(T input, boolean skipSieveArray);
 
     /* function to compute the largest factor of a number */
     private static int largestFactor(int num) {
@@ -117,6 +127,11 @@ public abstract class AKS<T extends Number> {
         return num;
     }
 
+    protected boolean hitSieveArray(Number n) {
+        var v = n.intValue();
+        return v >= 0 && v <= SIEVE_ERATOS_SIZE && !SIEVE_ARRAY[v];
+    }
+
     /* function given a and b, computes if a is power of b */
     protected abstract boolean findPowerOf(T bNum, int val);
 
@@ -125,16 +140,15 @@ public abstract class AKS<T extends Number> {
 
     protected abstract T mPower(T x, T y, T n);
 
-    protected abstract boolean hitSieveArray(T n);
-
     private static class LongAKS extends AKS<Long> {
         @Override
-        protected boolean checkPrime(Long input) {
+        protected boolean checkPrime(Long input, boolean skipSieveArray) {
             if (input < 2) {
                 return false;
             }
 
-            if (this.hitSieveArray(input)) { // hit SIEVE_ARRAY
+            if (!skipSieveArray && this.hitSieveArray(input)) { // hit
+                                                                // SIEVE_ARRAY
                 return true;
             }
 
@@ -231,22 +245,9 @@ public abstract class AKS<T extends Number> {
 
             return p;
         }
-
-        @Override
-        protected boolean hitSieveArray(Long n) {
-            return n <= SIEVE_ERATOS_SIZE
-                && !SIEVE_ARRAY[n.intValue()];
-        }
-
     }
 
     private static class BigIntegerAKS extends AKS<BigInteger> {
-        @Override
-        protected boolean hitSieveArray(BigInteger n) {
-            return n.compareTo(SIEVE_ERATOS_SIZE_BI) <= 0
-                && !SIEVE_ARRAY[n.intValue()];
-        }
-
         @Override
         protected BigInteger mPower(BigInteger x, BigInteger y,
                 BigInteger n) {
@@ -303,12 +304,13 @@ public abstract class AKS<T extends Number> {
         }
 
         @Override
-        protected boolean checkPrime(BigInteger input) {
+        protected boolean checkPrime(BigInteger input, boolean skipSieveArray) {
             if (input.compareTo(TWO) < 0) {
                 return false;
             }
 
-            if (this.hitSieveArray(input)) { // hit SIEVE_ARRAY
+            if (!skipSieveArray && this.hitSieveArray(input)) { // hit
+                                                                // SIEVE_ARRAY
                 return true;
             }
 
@@ -359,24 +361,19 @@ public abstract class AKS<T extends Number> {
 
     public static void main(String[] args) {
         var start = System.currentTimeMillis();
-        var max = 100_000L;
+        var max = 10_000L;
 
         var primes = LongStream.rangeClosed(1, max)
-            .mapToObj(n -> new Object[] { n, AKS.isPrime(n) })
-            .filter(o -> (boolean) o[1]).map(o -> o[0]).toList();
-
+            .filter(n -> AKS.isPrime(n, true)).count();
         System.out.println("Checked [1 .. " + max + "] as Long DONE in "
             + (System.currentTimeMillis() - start) + " ms, got: "
-            + primes.size() + ", " + primes.size() * 100. / max + "%");
+            + primes + ", " + primes * 100. / max + "%");
 
         primes = LongStream.rangeClosed(1, max)
-            .mapToObj(
-                n -> new Object[] { n, AKS.isPrime(BigInteger.valueOf(n)) })
-            .filter(o -> (boolean) o[1]).map(o -> o[0]).toList();
-
+            .filter(n -> AKS.isPrime(BigInteger.valueOf(n), true)).count();
         System.out.println("Checked [1 .. " + max + "] as BigInteger DONE in "
             + (System.currentTimeMillis() - start) + " ms, got: "
-            + primes.size() + ", " + primes.size() * 100. / max + "%");
+            + primes + ", " + primes * 100. / max + "%");
 
         var n = new BigInteger("1311148946153119849132111651651616161651651");
         start = System.currentTimeMillis();

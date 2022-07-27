@@ -35,10 +35,11 @@ public class AKSTest {
 
     @Test
     void test() {
-        var max = 10_000L;
-        var count = LongStream.rangeClosed(1, max).filter(AKS::isPrime).count();
+        var max = 1_000L;
+        var count = LongStream.rangeClosed(1, max)
+            .filter(n -> AKS.isPrime(n, true)).count();
 
-        assertEquals(1229, count, "1229 primes in [1, 10000]");
+        assertEquals(168, count, "168 primes in [1, 1000]");
     }
 
     @Benchmark
