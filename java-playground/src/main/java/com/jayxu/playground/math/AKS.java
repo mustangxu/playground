@@ -8,6 +8,7 @@ import java.math.RoundingMode;
 import java.util.stream.LongStream;
 
 import com.google.common.math.BigIntegerMath;
+import com.google.common.math.LongMath;
 
 /**
  * This is am implementation of Agrawal–Kayal–Saxena primality test in
@@ -44,7 +45,7 @@ import com.google.common.math.BigIntegerMath;
  * @see    https://github.com/smanikar/primality-testing/blob/master/proposal/src/AKS.java
  */
 
-public class AKS {
+public abstract class AKS<T extends Number> {
     private static final boolean[] SIEVE_ARRAY;
     private static final int SIEVE_ERATOS_SIZE = 10_000_000;
     private static final BigInteger SIEVE_ERATOS_SIZE_BI = BigInteger
@@ -84,58 +85,15 @@ public class AKS {
     }
 
     public static boolean isPrime(long input) {
-        return isPrime(BigInteger.valueOf(input));
+        return new LongAKS().checkPrime(input);
+    }
+
+    public static boolean isPrime(BigInteger input) {
+        return new BigIntegerAKS().checkPrime(input);
     }
 
     /* function to check if a given number is prime or not */
-    public static boolean isPrime(BigInteger input) {
-        if (input.compareTo(TWO) < 0) {
-            return false;
-        }
-
-        if (hitSieveArray(input)) { // hit SIEVE_ARRAY
-            return true;
-        }
-
-        var log = BigIntegerMath.log10(input, RoundingMode.DOWN);
-
-        if (findPower(input, log)) {
-            return false;
-        }
-
-        var totR = 2;
-
-        for (var lowR = TWO; lowR.compareTo(input) < 0; lowR = lowR.add(ONE)) {
-            if (lowR.gcd(input).compareTo(ONE) != 0) {
-                return false;
-            }
-
-            totR = lowR.intValue();
-            if (hitSieveArray(lowR)) {
-                var quot = largestFactor(totR - 1);
-                var divisor = (totR - 1) / quot;
-                var tm = (int) (4 * Math.sqrt(totR) * log);
-                var powOf = mPower(input, BigInteger.valueOf(divisor), lowR);
-
-                if (quot >= tm && powOf.compareTo(ONE) != 0) {
-                    break;
-                }
-            }
-        }
-
-        var aLimit = (int) (2 * Math.sqrt(totR) * log);
-        for (var i = 1; i < aLimit; i++) {
-            var aBigNum = BigInteger.valueOf(i);
-            var leftH = mPower(TWO.subtract(aBigNum), input, input).mod(input);
-            var rightH = mPower(TWO, input, input).subtract(aBigNum).mod(input);
-
-            if (leftH.compareTo(rightH) != 0) {
-                return false;
-            }
-        }
-
-        return true;
-    }
+    protected abstract boolean checkPrime(T input);
 
     /* function to compute the largest factor of a number */
     private static int largestFactor(int num) {
@@ -160,72 +118,263 @@ public class AKS {
     }
 
     /* function given a and b, computes if a is power of b */
-    private static boolean findPowerOf(BigInteger bNum, int val) {
-        var low = BigInteger.TEN;
-        var high = low;
-        var l = bNum.toString().length() / val + 1;
-        low = low.pow(l - 1);
-        high = high.pow(l).subtract(ONE);
-
-        while (low.compareTo(high) <= 0) {
-            var mid = low.add(high).shiftRight(1);
-            var res = mid.pow(val);
-
-            if (res.compareTo(bNum) < 0) {
-                low = mid.add(ONE);
-            } else if (res.compareTo(bNum) > 0) {
-                high = mid.subtract(ONE);
-            } else {
-                return true;
-            }
-        }
-
-        return false;
-    }
+    protected abstract boolean findPowerOf(T bNum, int val);
 
     /* function, given a and b computes if a is a power of b */
-    private static boolean findPower(BigInteger n, int l) {
-        for (var i = 2; i < l; i++) {
-            if (findPowerOf(n, i)) {
+    protected abstract boolean findPower(T n, int l);
+
+    protected abstract T mPower(T x, T y, T n);
+
+    protected abstract boolean hitSieveArray(T n);
+
+    private static class LongAKS extends AKS<Long> {
+        @Override
+        protected boolean checkPrime(Long input) {
+            if (input < 2) {
+                return false;
+            }
+
+            if (this.hitSieveArray(input)) { // hit SIEVE_ARRAY
                 return true;
             }
-        }
 
-        return false;
-    }
+            var log = (int) Math.log10(input);
 
-    private static BigInteger mPower(BigInteger x, BigInteger y, BigInteger n) {
-        var m = y;
-        var p = ONE;
-        var z = x;
-
-        while (m.signum() == 1) {
-            while (!m.testBit(0)) { // even number
-                m = m.shiftRight(1);
-                z = z.multiply(z).mod(n);
+            if (this.findPower(input, log)) {
+                return false;
             }
 
-            m = m.subtract(ONE);
-            p = p.multiply(z).mod(n);
+            var totR = 2;
+            for (var lowR = 2L; lowR < input; lowR++) {
+                if (LongMath.gcd(lowR, input) != 1) {
+                    return false;
+                }
+
+                totR = (int) lowR;
+                if (this.hitSieveArray(lowR)) {
+                    var quot = largestFactor(totR - 1);
+                    var divisor = (totR - 1L) / quot;
+                    var tm = (int) (4 * Math.sqrt(totR) * log);
+                    var powOf = this.mPower(input, divisor, lowR);
+
+                    if (quot >= tm && powOf != 1) {
+                        break;
+                    }
+                }
+            }
+
+            var aLimit = (int) (2 * Math.sqrt(totR) * log);
+            for (var i = 1; i < aLimit; i++) {
+                var leftH = this.mPower(2L - i, input, input)
+                    % input;
+                var rightH = (this.mPower(2L, input, input) - i)
+                    % input;
+
+                if (leftH != rightH) {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
-        return p;
+        @Override
+        protected boolean findPowerOf(Long bNum, int val) {
+            var low = 10L;
+            var high = low;
+            var l = bNum.toString().length() / val + 1;
+            low = (long) Math.pow(low, l - 1);
+            high = (long) Math.pow(high, l) - 1;
+
+            while (low <= high) {
+                var mid = (low + high) / 2;
+                var res = Math.pow(mid, val);
+
+                if (res < bNum) {
+                    low = mid + 1;
+                } else if (res > bNum) {
+                    high = mid - 1;
+                } else {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        @Override
+        protected boolean findPower(Long n, int l) {
+            for (var i = 2; i < l; i++) {
+                if (this.findPowerOf(n, i)) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        @Override
+        protected Long mPower(Long x, Long y, Long n) {
+            var m = y;
+            var p = 1L;
+            var z = x;
+
+            while (m > 0) {
+                while (m % 2 == 0) { // even number
+                    m /= 2;
+                    z = z * z % n;
+                }
+
+                m--;
+                p = p * z % n;
+            }
+
+            return p;
+        }
+
+        @Override
+        protected boolean hitSieveArray(Long n) {
+            return n <= SIEVE_ERATOS_SIZE
+                && !SIEVE_ARRAY[n.intValue()];
+        }
+
     }
 
-    private static boolean hitSieveArray(BigInteger n) {
-        return n.compareTo(SIEVE_ERATOS_SIZE_BI) <= 0
-            && !SIEVE_ARRAY[n.intValue()];
+    private static class BigIntegerAKS extends AKS<BigInteger> {
+        @Override
+        protected boolean hitSieveArray(BigInteger n) {
+            return n.compareTo(SIEVE_ERATOS_SIZE_BI) <= 0
+                && !SIEVE_ARRAY[n.intValue()];
+        }
+
+        @Override
+        protected BigInteger mPower(BigInteger x, BigInteger y,
+                BigInteger n) {
+            var m = y;
+            var p = ONE;
+            var z = x;
+
+            while (m.signum() == 1) {
+                while (!m.testBit(0)) { // even number
+                    m = m.shiftRight(1);
+                    z = z.multiply(z).mod(n);
+                }
+
+                m = m.subtract(ONE);
+                p = p.multiply(z).mod(n);
+            }
+
+            return p;
+        }
+
+        @Override
+        protected boolean findPower(BigInteger n, int l) {
+            for (var i = 2; i < l; i++) {
+                if (this.findPowerOf(n, i)) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        @Override
+        protected boolean findPowerOf(BigInteger bNum, int val) {
+            var low = BigInteger.TEN;
+            var high = low;
+            var l = bNum.toString().length() / val + 1;
+            low = low.pow(l - 1);
+            high = high.pow(l).subtract(ONE);
+
+            while (low.compareTo(high) <= 0) {
+                var mid = low.add(high).shiftRight(1);
+                var res = mid.pow(val);
+
+                if (res.compareTo(bNum) < 0) {
+                    low = mid.add(ONE);
+                } else if (res.compareTo(bNum) > 0) {
+                    high = mid.subtract(ONE);
+                } else {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        @Override
+        protected boolean checkPrime(BigInteger input) {
+            if (input.compareTo(TWO) < 0) {
+                return false;
+            }
+
+            if (this.hitSieveArray(input)) { // hit SIEVE_ARRAY
+                return true;
+            }
+
+            var log = BigIntegerMath.log10(input, RoundingMode.DOWN);
+
+            if (this.findPower(input, log)) {
+                return false;
+            }
+
+            var totR = 2;
+
+            for (var lowR = TWO; lowR.compareTo(input) < 0; lowR = lowR
+                .add(ONE)) {
+                if (lowR.gcd(input).compareTo(ONE) != 0) {
+                    return false;
+                }
+
+                totR = lowR.intValue();
+                if (this.hitSieveArray(lowR)) {
+                    var quot = largestFactor(totR - 1);
+                    var divisor = (totR - 1) / quot;
+                    var tm = (int) (4 * Math.sqrt(totR) * log);
+                    var powOf = this.mPower(input, BigInteger.valueOf(divisor),
+                        lowR);
+
+                    if (quot >= tm && powOf.compareTo(ONE) != 0) {
+                        break;
+                    }
+                }
+            }
+
+            var aLimit = (int) (2 * Math.sqrt(totR) * log);
+            for (var i = 1; i < aLimit; i++) {
+                var aBigNum = BigInteger.valueOf(i);
+                var leftH = this.mPower(TWO.subtract(aBigNum), input, input)
+                    .mod(input);
+                var rightH = this.mPower(TWO, input, input).subtract(aBigNum)
+                    .mod(input);
+
+                if (leftH.compareTo(rightH) != 0) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
     }
 
     public static void main(String[] args) {
         var start = System.currentTimeMillis();
-        var max = 10_000L;
+        var max = 100_000L;
 
         var primes = LongStream.rangeClosed(1, max)
             .mapToObj(n -> new Object[] { n, AKS.isPrime(n) })
             .filter(o -> (boolean) o[1]).map(o -> o[0]).toList();
 
-        System.out.println("Checked [1 .. " + max + "] DONE in "
+        System.out.println("Checked [1 .. " + max + "] as Long DONE in "
+            + (System.currentTimeMillis() - start) + " ms, got: "
+            + primes.size() + ", " + primes.size() * 100. / max + "%");
+
+        primes = LongStream.rangeClosed(1, max)
+            .mapToObj(
+                n -> new Object[] { n, AKS.isPrime(BigInteger.valueOf(n)) })
+            .filter(o -> (boolean) o[1]).map(o -> o[0]).toList();
+
+        System.out.println("Checked [1 .. " + max + "] as BigInteger DONE in "
             + (System.currentTimeMillis() - start) + " ms, got: "
             + primes.size() + ", " + primes.size() * 100. / max + "%");
 
