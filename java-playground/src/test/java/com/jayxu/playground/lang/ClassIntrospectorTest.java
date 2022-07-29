@@ -4,6 +4,7 @@
  */
 package com.jayxu.playground.lang;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -23,7 +24,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @SuppressWarnings("unused")
 class ClassIntrospectorTest {
-    private static class ObjectA {
+    private static class ObjectA implements Serializable {
+        private static final long serialVersionUID = 7725145116093258691L;
         private byte b1; // 1
         private byte b2; // 1
         private byte b3;  // 1

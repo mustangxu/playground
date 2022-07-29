@@ -11,6 +11,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import com.google.gson.Gson;
 import com.jayxu.playground.spring.model.Response;
@@ -19,6 +20,7 @@ import com.jayxu.playground.spring.model.Response;
  * @author xujiajing
  */
 @SpringBootTest
+@ActiveProfiles("test")
 class ResponseRepositoryTest {
     @Autowired
     private ResponseRepository dao;

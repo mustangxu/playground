@@ -2,6 +2,7 @@ package com.jayxu.playground.lang;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
+import java.lang.reflect.InaccessibleObjectException;
 import java.lang.reflect.Modifier;
 import java.util.Collections;
 import java.util.IdentityHashMap;
@@ -34,7 +35,8 @@ public final class ClassIntrospector {
      * Sizes of all primitive values
      */
     private static final Map<Class<?>, Integer> PRIM_TYPE_SIZES;
-    //we need to keep track of already visited objects in order to support cycles in the object graphs
+    // we need to keep track of already visited objects in order to support
+    // cycles in the object graphs
     private final IdentityHashMap<Object, Object> visited = new IdentityHashMap<>();
 
     static {
@@ -65,21 +67,19 @@ public final class ClassIntrospector {
      * will boxed and the information you will get will be related to a boxed
      * version of your value.
      *
-     * @param obj
-     *        Object to introspect
-     * @param maxOutputLevel
-     * @return Object info
-     * @throws ReflectiveOperationException
+     * @param  obj
+     *                        Object to introspect
+     * @param  maxOutputLevel
+     *
+     * @return                Object info
      */
-    public static ObjectInfo introspect(Object obj, int maxOutputLevel)
-            throws ReflectiveOperationException {
+    public static ObjectInfo introspect(Object obj, int maxOutputLevel) {
         return new ClassIntrospector().introspect("<ROOT>",
             ClassIntrospector.OOP_REF_OFFSET, obj, obj.getClass(),
             maxOutputLevel);
     }
 
-    public static ObjectInfo introspect(Object obj)
-            throws ReflectiveOperationException {
+    public static ObjectInfo introspect(Object obj) {
         return new ClassIntrospector().introspect("<ROOT>",
             ClassIntrospector.OOP_REF_OFFSET, obj, null, -1);
     }
@@ -89,8 +89,7 @@ public final class ClassIntrospector {
     }
 
     private ObjectInfo introspect(String name, long offset, Object obj,
-            Class<?> type, int maxOutputLevel)
-            throws ReflectiveOperationException {
+            Class<?> type, int maxOutputLevel) {
         if (obj == null) {
             return ObjectInfo.nullObjectInfo(name, offset, type);
         }
@@ -99,7 +98,7 @@ public final class ClassIntrospector {
             type = obj.getClass();
         }
 
-        //will be set to true if we have already seen this object
+        // will be set to true if we have already seen this object
         var isRecursive = this.visited.containsKey(obj);
         this.visited.put(obj, null);
 
@@ -120,7 +119,7 @@ public final class ClassIntrospector {
 
         if (!isRecursive) {
             if (ClassIntrospector.isObjectArray(type)) {
-                //introspect object arrays
+                // introspect object arrays
                 var i = 0;
                 for (Object item : (Object[]) obj) {
                     if (item != null) {
@@ -133,15 +132,21 @@ public final class ClassIntrospector {
                 }
             } else {
                 for (Field field : ClassIntrospector.getNonStaticFields(type)) {
-                    field.setAccessible(true);
-                    var value = field.get(obj);
+                    try {
+                        field.setAccessible(true);
 
-                    root.addChild(this.introspect(field.getName(),
-                        ClassIntrospector.UNSAFE.objectFieldOffset(field),
-                        value,
-                        value == null || field.getType().isPrimitive()
-                            ? field.getType() : value.getClass(),
-                        maxOutputLevel - 1));
+                        var value = field.get(obj);
+
+                        root.addChild(this.introspect(field.getName(),
+                            ClassIntrospector.UNSAFE.objectFieldOffset(field),
+                            value,
+                            value == null || field.getType().isPrimitive()
+                                ? field.getType() : value.getClass(),
+                            maxOutputLevel - 1));
+                    } catch (ReflectiveOperationException
+                            | InaccessibleObjectException ex) {
+                        ex.printStackTrace();
+                    }
                 }
             }
         }
@@ -151,7 +156,7 @@ public final class ClassIntrospector {
         return root;
     }
 
-    //get all fields for this class, including all superclasses fields
+    // get all fields for this class, including all superclasses fields
     private static List<Field> getNonStaticFields(Class<?> type) {
         if (type.isPrimitive()) {
             return Collections.emptyList();
@@ -167,12 +172,14 @@ public final class ClassIntrospector {
             .filter(f -> (f.getModifiers() & Modifier.STATIC) == 0).toList();
     }
 
-    //check if it is an array of objects. I suspect there must be a more API-friendly way to make this check.
+    // check if it is an array of objects. I suspect there must be a more
+    // API-friendly way to make this check.
     private static boolean isObjectArray(Class<?> type) {
         return type.isArray() && !type.getComponentType().isPrimitive();
     }
 
-    //obtain a shallow size of a field of given class (primitive or object reference size)
+    // obtain a shallow size of a field of given class (primitive or object
+    // reference size)
     private static int getObjSize(Class<?> type) {
         if (type.isPrimitive()) {
             return ClassIntrospector.PRIM_TYPE_SIZES.getOrDefault(type, 0);
