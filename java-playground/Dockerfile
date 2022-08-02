@@ -11,7 +11,7 @@ RUN mvn -f /home/app/pom.xml -DskipTests package
 FROM bellsoft/liberica-openjre-alpine-musl:17
 WORKDIR /app
 EXPOSE 8000
-COPY --from=build /home/app/target/java-playground-1.0.jar app.jar
+COPY --from=build /home/app/target/java-playground-1.0-SNAPSHOT.jar app.jar
 ADD docker/skywalking /skywalking
 VOLUME [ "/skywalking" ]
 ENTRYPOINT ["java","-Xmx1G","--enable-preview",\

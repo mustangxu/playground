@@ -10,7 +10,7 @@
 	<parent>
 		<groupId>com.jayxu.playground</groupId>
 		<artifactId>playground-parent</artifactId>
-		<version>1.0</version>
+		<version>1.0-SNAPSHOT</version>
 	</parent>
 	<dependencies>
 		<dependency>
@@ -215,7 +215,7 @@
 				<configuration>
 					<images>
 						<image>
-							<name>mustangxu/playground:${project.version}-${git.commit.id.abbrev}</name>
+							<name>mustangxu/%a:%v-${git.commit.id.abbrev}</name>
 							<build>
 								<dockerFile>Dockerfile-maven</dockerFile>
 								<contextDir>${project.basedir}</contextDir>

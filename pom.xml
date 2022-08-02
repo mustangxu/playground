@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.jayxu.playground</groupId>
 	<artifactId>playground-parent</artifactId>
-	<version>1.0</version>
+	<version>1.0-SNAPSHOT</version>
 	<url>https://github.com/mustangxu/playground</url>
 	<name>Java coding playground</name>
 	<contributors>
