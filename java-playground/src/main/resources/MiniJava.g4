@@ -7,7 +7,7 @@ mainClass:
     'public'? 'class' Identifier '{' 'public' 'static' 'void' 'main' '(' 'String' '[' ']' Identifier ')' '{' statement '}' '}';
 
 classDeclaration:
-    'public'? 'class' Identifier ('extends' Identifier)? '{' (varDeclaration)* (methodDeclaration)* '}';
+    'public'? 'class' Identifier ('extends' Identifier)? '{' varDeclaration* methodDeclaration* '}';
 
 varDeclaration:
     type Identifier ';';
@@ -19,10 +19,10 @@ type:
     | Identifier;
 
 methodDeclaration:
-    'public' type Identifier '(' (type Identifier (',' type Identifier)*)? ')' '{' (varDeclaration)* (statement)* 'return' expression ';' '}';
+    'public' type Identifier '(' (type Identifier (',' type Identifier)*)? ')' '{' varDeclaration* statement* 'return' expression ';' '}';
 
 statement:
-    '{' (statement)* '}'
+    '{' statement* '}'
     | 'if' '(' expression ')' statement 'else' statement
     | 'while' '(' expression ')' statement
     | 'System.out.println' '(' expression? ')' ';'
@@ -45,10 +45,10 @@ expression:
     | 'this';
 
 Identifier:
-    [a-zA-Z] ([a-zA-Z0-9_])*;
+    [a-zA-Z] [a-zA-Z0-9_]*;
 
 NUMBER:
-    '-'? INT ('.' [0-9] +)?;
+    '-'? INT ('.' [0-9]+)?;
 
 fragment INT:
     '0' | [1-9] [0-9]*;
