@@ -4,10 +4,10 @@ program:
     mainClass (classDeclaration)*;
 
 mainClass:
-    'class' Identifier '{' 'public' 'static' 'void' 'main' '(' 'String' '[' ']' Identifier ')' '{' statement '}' '}';
+    'public'? 'class' Identifier '{' 'public' 'static' 'void' 'main' '(' 'String' '[' ']' Identifier ')' '{' statement '}' '}';
 
 classDeclaration:
-    'class' Identifier ('extends' Identifier)? '{' (varDeclaration)* (methodDeclaration)* '}';
+    'public'? 'class' Identifier ('extends' Identifier)? '{' (varDeclaration)* (methodDeclaration)* '}';
 
 varDeclaration:
     type Identifier ';';
