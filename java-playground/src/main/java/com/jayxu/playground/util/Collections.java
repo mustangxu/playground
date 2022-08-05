@@ -5,6 +5,9 @@ package com.jayxu.playground.util;
 
 import java.util.Arrays;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class Collections {
     public static int[] bitmapSort(int[] set) {
         var max = Arrays.stream(set).max().getAsInt();

@@ -11,7 +11,7 @@ import com.jayxu.playground.lang.ClassIntrospector;
 // @RunWith(JQF.class)
 class TrieTest {
     @Test
-    void test() throws Exception {
+    void test() {
         var map = new HashedMap<String, String>();
         var key = "ja";
         var faker = new Faker();
