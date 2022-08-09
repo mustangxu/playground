@@ -10,13 +10,14 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Spliterators;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiConsumer;
 import java.util.function.BinaryOperator;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
+
+import org.eclipse.collections.impl.Counter;
 
 import lombok.Data;
 import lombok.Getter;
@@ -108,17 +109,18 @@ public class BinaryTree<T extends Comparable<T>>
             return this.insertRight(v);
         }
 
-        <V> void traverseOrdered(AtomicInteger counter,
-                BiConsumer<AtomicInteger, V> fun,
+        <V> void traverseOrdered(Counter counter, BiConsumer<Counter, V> fun,
                 Function<TreeNode, V> mapper) {
+            var v = mapper.apply(this);
+
             switch (BinaryTree.this.order) {
                 case PRE_ORDER:
                     if (this.left != null) {
                         this.left.traverseOrdered(counter, fun, mapper);
                     }
 
-                    fun.accept(counter, mapper.apply(this));
-                    counter.incrementAndGet();
+                    fun.accept(counter, v);
+                    counter.increment();
 
                     if (this.right != null) {
                         this.right.traverseOrdered(counter, fun, mapper);
@@ -126,8 +128,8 @@ public class BinaryTree<T extends Comparable<T>>
 
                     break;
                 case IN_ORDER:
-                    fun.accept(counter, mapper.apply(this));
-                    counter.incrementAndGet();
+                    fun.accept(counter, v);
+                    counter.increment();
 
                     if (this.left != null) {
                         this.left.traverseOrdered(counter, fun, mapper);
@@ -143,8 +145,8 @@ public class BinaryTree<T extends Comparable<T>>
                         this.right.traverseOrdered(counter, fun, mapper);
                     }
 
-                    fun.accept(counter, mapper.apply(this));
-                    counter.incrementAndGet();
+                    fun.accept(counter, v);
+                    counter.increment();
 
                     if (this.left != null) {
                         this.left.traverseOrdered(counter, fun, mapper);
@@ -152,6 +154,24 @@ public class BinaryTree<T extends Comparable<T>>
 
                     break;
                 case LEVEL_ORDER:
+                    var list = new LinkedList<TreeNode>();
+                    list.add(this);
+
+                    TreeNode n;
+                    while ((n = list.poll()) != null) {
+                        fun.accept(counter, mapper.apply(n));
+                        counter.increment();
+
+                        if (n.left != null) {
+                            list.add(n.left);
+                        }
+
+                        if (n.right != null) {
+                            list.add(n.right);
+                        }
+                    }
+
+                    break;
                 default:
                     break;
             }
@@ -166,8 +186,8 @@ public class BinaryTree<T extends Comparable<T>>
         }
 
         <V> void traverse(Consumer<V> fun, Function<TreeNode, V> mapper) {
-            this.traverseOrdered(new AtomicInteger(),
-                (i, v) -> fun.accept(v), mapper);
+            this.traverseOrdered(new Counter(), (i, v) -> fun.accept(v),
+                mapper);
         }
 
         TreeNode traverseMatch(T v) {
@@ -318,8 +338,8 @@ public class BinaryTree<T extends Comparable<T>>
             return array;
         }
 
-        this.root.traverseOrdered(new AtomicInteger(),
-            (j, t) -> array[j.intValue()] = (E) t, TreeNode::getValue);
+        this.root.traverseOrdered(new Counter(),
+            (j, t) -> array[j.getCount()] = (E) t, TreeNode::getValue);
 
         return array;
     }

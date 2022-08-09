@@ -27,8 +27,7 @@ class BinaryTreeTest {
         var r = new Random();
 
         for (var i = 0; i < max; i++) {
-            var num = r.nextInt(max) * r.nextInt(max);
-            tree.add(num);
+            tree.add(r.nextInt(max) * r.nextInt(max));
         }
         tree.add(-1);
 
@@ -37,6 +36,8 @@ class BinaryTreeTest {
 
         tree.setOrder(Order.IN_ORDER);
         System.out.println("IN_ORDER: " + tree.toString(", "));
+        tree.setOrder(Order.LEVEL_ORDER);
+        System.out.println("LEVEL_ORDER: " + tree.toString(", "));
         tree.setOrder(Order.PRE_ORDER);
 
         System.out.println(tree.stream().map(Objects::toString)
@@ -65,8 +66,6 @@ class BinaryTreeTest {
         // stream
         System.out.println(
             tree.parallelStream().filter(i -> i % 2 == 0).map(Objects::toString)
-                .peek(
-                    i -> System.out.println(Thread.currentThread() + ": " + i))
                 .collect(Collectors.joining(", ")));
     }
 
