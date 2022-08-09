@@ -3,13 +3,16 @@
  */
 package com.jayxu.playground.algorithm;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Spliterators;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiConsumer;
+import java.util.function.BinaryOperator;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Stream;
@@ -20,12 +23,16 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * @author xujiajing
  */
 @RequiredArgsConstructor
-public class BinaryTree<T extends Comparable<T>> implements Collection<T> {
+public class BinaryTree<T extends Comparable<T>>
+        implements Collection<T>, Serializable {
+    private static final long serialVersionUID = -2587073973029359971L;
+    private static final BinaryOperator<Boolean> OR = (a, b) -> a || b;
     @Getter
     private TreeNode root;
     private int size;
@@ -33,11 +40,12 @@ public class BinaryTree<T extends Comparable<T>> implements Collection<T> {
     @Setter
     @NonNull
     private Order order;
+
     /**
      * Starts from 0
      */
-    @Getter
-    private int depth;
+    // @Getter
+    // private int depth;
 
     enum Order {
         PRE_ORDER,
@@ -51,20 +59,24 @@ public class BinaryTree<T extends Comparable<T>> implements Collection<T> {
     }
 
     @Data
+    @ToString(exclude = "parent")
     @RequiredArgsConstructor()
-    public class TreeNode {
+    public class TreeNode implements Serializable {
+        private static final long serialVersionUID = 3051936643420669043L;
         private final T value;
         /**
          * Starts from 0
          */
-        private int level;
+        // private int level;
         private TreeNode left;
         private TreeNode right;
+        private TreeNode parent;
 
         private TreeNode insertLeft(@NonNull T v) {
             if (this.left == null) {
                 this.left = new TreeNode(v);
-                this.left.level = this.level + 1;
+                // this.left.level = this.level + 1;
+                this.left.parent = this;
 
                 return this.left;
             }
@@ -75,7 +87,8 @@ public class BinaryTree<T extends Comparable<T>> implements Collection<T> {
         private TreeNode insertRight(@NonNull T v) {
             if (this.right == null) {
                 this.right = new TreeNode(v);
-                this.right.level = this.level + 1;
+                // this.right.level = this.level + 1;
+                this.right.parent = this;
 
                 return this.right;
             }
@@ -84,7 +97,7 @@ public class BinaryTree<T extends Comparable<T>> implements Collection<T> {
         }
 
         public boolean isRoot() {
-            return this.level == 0;
+            return this.parent == null;
         }
 
         public TreeNode insertChild(@NonNull T v) {
@@ -139,6 +152,7 @@ public class BinaryTree<T extends Comparable<T>> implements Collection<T> {
 
                     break;
                 case LEVEL_ORDER:
+                default:
                     break;
             }
         }
@@ -156,16 +170,47 @@ public class BinaryTree<T extends Comparable<T>> implements Collection<T> {
                 (i, v) -> fun.accept(v), mapper);
         }
 
-        boolean traverseMatch(T v) {
+        TreeNode traverseMatch(T v) {
             if (this.value.equals(v)) {
-                return true;
+                return this;
             }
 
-            if (v.compareTo(BinaryTree.this.root.value) < 0) {
-                return this.left != null && this.left.traverseMatch(v);
+            if (v.compareTo(BinaryTree.this.root.value) < 0
+                && this.left != null) {
+                return this.left.traverseMatch(v);
             }
 
-            return this.right != null && this.right.traverseMatch(v);
+            if (v.compareTo(BinaryTree.this.root.value) > 0
+                && this.right != null) {
+                return this.right.traverseMatch(v);
+            }
+
+            return null;
+        }
+
+        TreeNode replace(@NonNull T v) {
+            var newNode = new TreeNode(v);
+            newNode.left = this.left;
+            newNode.right = this.right;
+            newNode.parent = this.parent;
+
+            if (this.left != null) {
+                this.left.parent = newNode;
+            }
+            if (this.right != null) {
+                this.right.parent = newNode;
+            }
+
+            if (this.parent != null) {
+                if (this.parent.left == this) {
+                    this.parent.left = newNode;
+                }
+                if (this.parent.right == this) {
+                    this.parent.right = newNode;
+                }
+            }
+
+            return newNode;
         }
     }
 
@@ -175,8 +220,8 @@ public class BinaryTree<T extends Comparable<T>> implements Collection<T> {
             return "NULL root";
         }
 
-        return String.format("order: %s, size: %s, depth: %s\nroot: %s",
-            this.order, this.size, this.depth, this.root.toString());
+        return String.format("order: %s, size: %s\nroot: %s",
+            this.order, this.size, this.root.toString());
     }
 
     public String toString(String separator) {
@@ -250,11 +295,11 @@ public class BinaryTree<T extends Comparable<T>> implements Collection<T> {
     @SuppressWarnings("unchecked")
     @Override
     public boolean contains(Object o) {
-        if (this.root == null) {
+        if (this.root == null || o == null) {
             return false;
         }
 
-        return this.root.traverseMatch((T) o);
+        return this.root.traverseMatch((T) o) != null;
     }
 
     @Override
@@ -280,44 +325,99 @@ public class BinaryTree<T extends Comparable<T>> implements Collection<T> {
     }
 
     @Override
-    public boolean add(T e) {
+    public boolean add(@NonNull T e) {
         this.size++;
 
         if (this.root == null) {
             this.root = new TreeNode(e);
         } else {
-            var node = this.root.insertChild(e);
-            this.depth = Math.max(node.level, this.depth);
+            this.root.insertChild(e);
+            // this.depth = Math.max(node.level, this.depth);
         }
 
         return true;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public boolean remove(Object o) {
-        throw new UnsupportedOperationException();
-    }
+    public boolean remove(@NonNull Object o) {
+        if (this.root == null) {
+            return false;
+        }
 
-    @Override
-    public boolean containsAll(Collection<?> c) {
-        return c.stream().allMatch(this::contains);
-    }
+        var node = this.root.traverseMatch((T) o);
+        if (node == null) { // not include
+            return false;
+        }
 
-    @Override
-    public boolean addAll(Collection<? extends T> c) {
-        c.stream().forEach(this::add);
+        if (this.size == 1) { // root only
+            this.clear();
+            return true;
+        }
 
+        if (node.left == null || node.right == null) {
+            var child = node.left == null ? node.right : node.left;
+            var parent = node.parent;
+
+            if (child != null) {
+                child.parent = parent;
+            }
+
+            if (node.isRoot()) {
+                this.root = child;
+            } else if (parent.left == node) {
+                parent.left = child;
+            } else {
+                parent.right = child;
+            }
+        } else {
+            var left = node.right.left;
+
+            if (left == null) {
+                node.right.left = node.left;
+                node.left.parent = node.right;
+            } else {
+                while (left.left != null) {
+                    left = left.left;
+                }
+
+                var newNode = node.replace(left.value);
+                if (node.isRoot()) {
+                    this.root = newNode;
+                }
+
+                left.parent.left = null; // delete
+            }
+        }
+
+        this.size--;
         return true;
     }
 
     @Override
-    public boolean removeAll(Collection<?> c) {
-        throw new UnsupportedOperationException();
+    public boolean containsAll(@NonNull Collection<?> c) {
+        return c.stream().allMatch(this::contains);
     }
 
     @Override
-    public boolean retainAll(Collection<?> c) {
-        throw new UnsupportedOperationException();
+    public boolean addAll(@NonNull Collection<? extends T> c) {
+        return c.stream().map(this::add).reduce(OR).orElse(false);
+    }
+
+    @SuppressWarnings("unchecked")
+    public boolean addAll(@NonNull T... values) {
+        return Arrays.stream(values).map(this::add).reduce(OR).orElse(false);
+    }
+
+    @Override
+    public boolean removeAll(@NonNull Collection<?> c) {
+        return c.stream().map(this::remove).reduce(OR).orElse(false);
+    }
+
+    @Override
+    public boolean retainAll(@NonNull Collection<?> c) {
+        return this.stream().filter(v -> !c.contains(v)).map(this::remove)
+            .reduce(OR).orElse(false);
     }
 
     @Override

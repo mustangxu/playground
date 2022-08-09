@@ -44,6 +44,7 @@ class BinaryTreeTest {
 
         assertEquals(max + 1, tree.size(), "size()");
         assertTrue(tree.contains(-1), "contains()");
+        assertFalse(tree.contains(-2), "!contains()");
         assertFalse(tree.containsAll(List.of(-1, -2)), "containsAll()");
 
         var postTree = new BinaryTree<Integer>(Order.POST_ORDER);
@@ -67,9 +68,46 @@ class BinaryTreeTest {
                 .peek(
                     i -> System.out.println(Thread.currentThread() + ": " + i))
                 .collect(Collectors.joining(", ")));
+    }
 
-        System.out.println(tree.nodeStream()
-            .map(n -> n.getValue() + "[lv. " + n.getLevel() + "]")
-            .collect(Collectors.joining(", ")));
+    @Test
+    void testRemove() {
+        var tree = new BinaryTree<Integer>();
+        tree.addAll(1, 2, 3, 4, 5);
+        System.out.println(tree.toString(", "));
+
+        assertTrue(tree.remove(2));
+        assertEquals(4, tree.size(), "size()");
+        System.out.println(tree.toString(", "));
+
+        tree.clear();
+        tree.addAll(1, 2);
+        assertFalse(tree.remove(3));
+        System.out.println(tree);
+        tree.remove(1);
+        assertEquals(1, tree.size(), "size()");
+        System.out.println(tree.toString(", "));
+        System.out.println(tree);
+
+        tree.clear();
+        tree.addAll(2, 7, 1, 9, 6, 5, 8);
+        System.out.println(tree.toString(", "));
+        System.out.println(tree);
+        tree.remove(7);
+        assertEquals(6, tree.size(), "size()");
+        System.out.println(tree.toString(", "));
+        System.out.println(tree);
+    }
+
+    @Test
+    void testRetainAll() {
+        var tree = new BinaryTree<Integer>();
+        tree.addAll(1, 2, 3, 4, 5);
+        System.out.println(tree.toString(", "));
+
+        tree.retainAll(Arrays.asList(5, 2, 11));
+        assertEquals(2, tree.size(), "size()");
+        System.out.println(tree.toString(", "));
+        System.out.println(tree);
     }
 }
