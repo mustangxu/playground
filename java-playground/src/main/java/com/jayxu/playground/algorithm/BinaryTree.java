@@ -7,25 +7,36 @@ import java.lang.reflect.Array;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Spliterators;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 /**
  * @author xujiajing
  */
 @RequiredArgsConstructor
 public class BinaryTree<T extends Comparable<T>> implements Collection<T> {
+    @Getter
     private TreeNode root;
     private int size;
-    private final Order order;
+    @Getter
+    @Setter
+    @NonNull
+    private Order order;
     /**
      * Starts from 0
      */
+    @Getter
     private int depth;
 
     enum Order {
@@ -84,45 +95,46 @@ public class BinaryTree<T extends Comparable<T>> implements Collection<T> {
             return this.insertRight(v);
         }
 
-        void traverseOrdered(AtomicInteger counter,
-                BiConsumer<AtomicInteger, T> fun) {
+        <V> void traverseOrdered(AtomicInteger counter,
+                BiConsumer<AtomicInteger, V> fun,
+                Function<TreeNode, V> mapper) {
             switch (BinaryTree.this.order) {
                 case PRE_ORDER:
                     if (this.left != null) {
-                        this.left.traverseOrdered(counter, fun);
+                        this.left.traverseOrdered(counter, fun, mapper);
                     }
 
-                    fun.accept(counter, this.value);
+                    fun.accept(counter, mapper.apply(this));
                     counter.incrementAndGet();
 
                     if (this.right != null) {
-                        this.right.traverseOrdered(counter, fun);
+                        this.right.traverseOrdered(counter, fun, mapper);
                     }
 
                     break;
                 case IN_ORDER:
-                    fun.accept(counter, this.value);
+                    fun.accept(counter, mapper.apply(this));
                     counter.incrementAndGet();
 
                     if (this.left != null) {
-                        this.left.traverseOrdered(counter, fun);
+                        this.left.traverseOrdered(counter, fun, mapper);
                     }
 
                     if (this.right != null) {
-                        this.right.traverseOrdered(counter, fun);
+                        this.right.traverseOrdered(counter, fun, mapper);
                     }
 
                     break;
                 case POST_ORDER:
                     if (this.right != null) {
-                        this.right.traverseOrdered(counter, fun);
+                        this.right.traverseOrdered(counter, fun, mapper);
                     }
 
-                    fun.accept(counter, this.value);
+                    fun.accept(counter, mapper.apply(this));
                     counter.incrementAndGet();
 
                     if (this.left != null) {
-                        this.left.traverseOrdered(counter, fun);
+                        this.left.traverseOrdered(counter, fun, mapper);
                     }
 
                     break;
@@ -131,8 +143,17 @@ public class BinaryTree<T extends Comparable<T>> implements Collection<T> {
             }
         }
 
-        void traverse(Consumer<T> fun) {
-            this.traverseOrdered(new AtomicInteger(), (i, v) -> fun.accept(v));
+        public void traverseValue(Consumer<T> fun) {
+            this.traverse(fun, TreeNode::getValue);
+        }
+
+        public void traverseNode(Consumer<TreeNode> fun) {
+            this.traverse(fun, n -> n);
+        }
+
+        <V> void traverse(Consumer<V> fun, Function<TreeNode, V> mapper) {
+            this.traverseOrdered(new AtomicInteger(),
+                (i, v) -> fun.accept(v), mapper);
         }
 
         boolean traverseMatch(T v) {
@@ -164,7 +185,7 @@ public class BinaryTree<T extends Comparable<T>> implements Collection<T> {
         }
 
         var sb = new StringBuilder();
-        this.root.traverse(v -> sb.append(v).append(separator));
+        this.root.traverseValue(v -> sb.append(v).append(separator));
 
         return sb.delete(sb.length() - separator.length(), sb.length())
             .toString();
@@ -175,7 +196,7 @@ public class BinaryTree<T extends Comparable<T>> implements Collection<T> {
         var list = new LinkedList<T>();
 
         if (this.root != null) {
-            this.root.traverse(list::add);
+            this.root.traverseValue(list::add);
         }
 
         return new Iterator<>() {
@@ -189,6 +210,31 @@ public class BinaryTree<T extends Comparable<T>> implements Collection<T> {
                 return list.poll();
             }
         };
+    }
+
+    public Iterator<TreeNode> nodeIterator() {
+        var list = new LinkedList<TreeNode>();
+
+        if (this.root != null) {
+            this.root.traverseNode(list::add);
+        }
+
+        return new Iterator<>() {
+            @Override
+            public boolean hasNext() {
+                return !list.isEmpty();
+            }
+
+            @Override
+            public TreeNode next() {
+                return list.poll();
+            }
+        };
+    }
+
+    public Stream<TreeNode> nodeStream() {
+        return StreamSupport.stream(Spliterators
+            .spliterator(this.nodeIterator(), this.size, 0), false);
     }
 
     @Override
@@ -228,7 +274,7 @@ public class BinaryTree<T extends Comparable<T>> implements Collection<T> {
         }
 
         this.root.traverseOrdered(new AtomicInteger(),
-            (j, t) -> array[j.intValue()] = (E) t);
+            (j, t) -> array[j.intValue()] = (E) t, TreeNode::getValue);
 
         return array;
     }
