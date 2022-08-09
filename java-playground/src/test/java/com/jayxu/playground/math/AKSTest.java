@@ -4,6 +4,8 @@
 package com.jayxu.playground.math;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.concurrent.TimeUnit;
 import java.util.stream.LongStream;
@@ -40,6 +42,19 @@ public class AKSTest {
             .filter(n -> AKS.isPrime(n, true)).count();
 
         assertEquals(168, count, "168 primes in [1, 1000]");
+    }
+
+    @Test
+    void testLargestFactor() {
+        assertEquals(7, AKS.AKS_LONG.largestFactor(28));
+        assertEquals(7, AKS.AKS_LONG.largestFactor(7));
+        assertEquals(1, AKS.AKS_LONG.largestFactor(1));
+    }
+
+    @Test
+    void testIsPrime() {
+        assertTrue(AKS.isPrime(11));
+        assertFalse(AKS.isPrime(12));
     }
 
     @Benchmark

@@ -2,13 +2,15 @@ package com.jayxu.playground.math;
 
 import static java.math.BigInteger.ONE;
 import static java.math.BigInteger.TWO;
+import static java.math.RoundingMode.DOWN;
 
 import java.math.BigInteger;
-import java.math.RoundingMode;
 import java.util.stream.LongStream;
 
 import com.google.common.math.BigIntegerMath;
 import com.google.common.math.LongMath;
+import com.jayxu.playground.math.AKS.BigIntegerAKS;
+import com.jayxu.playground.math.AKS.LongAKS;
 
 /**
  * This is am implementation of Agrawal–Kayal–Saxena primality test in
@@ -18,7 +20,7 @@ import com.google.common.math.LongMath;
  * The algorithm is -
  * 1. l <- log n
  * 2. for i<-2 to l
- *      a. if an is a power fo l
+ *      a. if an is a power of l
  *              return COMPOSITE
  * 3. r <- 2
  * 4. while r < n
@@ -45,7 +47,7 @@ import com.google.common.math.LongMath;
  * @see    https://github.com/smanikar/primality-testing/blob/master/proposal/src/AKS.java
  */
 
-public abstract class AKS<T extends Number> {
+public sealed abstract class AKS<T extends Number> permits LongAKS, BigIntegerAKS {
     public static final LongAKS AKS_LONG = new LongAKS();
     public static final BigIntegerAKS AKS_BIG_INTEGER = new BigIntegerAKS();
     private static final boolean[] SIEVE_ARRAY;
@@ -71,7 +73,9 @@ public abstract class AKS<T extends Number> {
     static {
         var start = System.currentTimeMillis();
 
+        // false for primes
         SIEVE_ARRAY = new boolean[SIEVE_ERATOS_SIZE + 1];
+        SIEVE_ARRAY[0] = true;
         SIEVE_ARRAY[1] = true;
 
         for (var i = 2; i * i <= SIEVE_ERATOS_SIZE; i++) {
@@ -106,30 +110,27 @@ public abstract class AKS<T extends Number> {
     protected abstract boolean checkPrime(T input, boolean skipSieveArray);
 
     /* function to compute the largest factor of a number */
-    private static int largestFactor(int num) {
-        if (num == 1) {
-            return num;
-        }
-
-        var i = num;
-        while (i > 1) {
-            while (SIEVE_ARRAY[i]) {
+    int largestFactor(int num) {
+        for (var i = num; i > 1; i--) {
+            while (!this.hitSieveArray(i)) {
                 i--;
             }
 
             if (num % i == 0) {
                 return i;
             }
-
-            i--;
         }
 
         return num;
     }
 
-    protected boolean hitSieveArray(Number n) {
+    protected boolean checkInSieveArray(Number n) {
         var v = n.intValue();
-        return v >= 0 && v <= SIEVE_ERATOS_SIZE && !SIEVE_ARRAY[v];
+        return v >= 0 && v <= SIEVE_ERATOS_SIZE;
+    }
+
+    protected boolean hitSieveArray(Number n) {
+        return this.checkInSieveArray(n) && !SIEVE_ARRAY[n.intValue()];
     }
 
     /* function given a and b, computes if a is power of b */
@@ -140,35 +141,34 @@ public abstract class AKS<T extends Number> {
 
     protected abstract T mPower(T x, T y, T n);
 
-    private static class LongAKS extends AKS<Long> {
+    static final class LongAKS extends AKS<Long> {
         @Override
         protected boolean checkPrime(Long input, boolean skipSieveArray) {
             if (input < 2) {
                 return false;
             }
 
-            if (!skipSieveArray && this.hitSieveArray(input)) { // hit
-                                                                // SIEVE_ARRAY
-                return true;
+            // hit SIEVE_ARRAY
+            if (!skipSieveArray && this.checkInSieveArray(input)) {
+                return this.hitSieveArray(input);
             }
 
-            var log = (int) Math.log10(input);
+            var log = LongMath.log10(input, DOWN);
 
             if (this.findPower(input, log)) {
                 return false;
             }
 
-            var totR = 2;
-            for (var lowR = 2L; lowR < input; lowR++) {
+            var lowR = 2L;
+            for (; lowR < input; lowR++) {
                 if (LongMath.gcd(lowR, input) != 1) {
                     return false;
                 }
 
-                totR = (int) lowR;
                 if (this.hitSieveArray(lowR)) {
-                    var quot = largestFactor(totR - 1);
-                    var divisor = (totR - 1L) / quot;
-                    var tm = (int) (4 * Math.sqrt(totR) * log);
+                    var quot = this.largestFactor((int) lowR - 1);
+                    var divisor = (lowR - 1) / quot;
+                    var tm = 4 * Math.sqrt(lowR) * log;
                     var powOf = this.mPower(input, divisor, lowR);
 
                     if (quot >= tm && powOf != 1) {
@@ -177,12 +177,10 @@ public abstract class AKS<T extends Number> {
                 }
             }
 
-            var aLimit = (int) (2 * Math.sqrt(totR) * log);
-            for (var i = 1; i < aLimit; i++) {
-                var leftH = this.mPower(2L - i, input, input)
-                    % input;
-                var rightH = (this.mPower(2L, input, input) - i)
-                    % input;
+            var aLimit = 2 * LongMath.sqrt(lowR, DOWN) * log;
+            for (var i = 1L; i < aLimit; i++) {
+                var leftH = this.mPower(2 - i, input, input) % input;
+                var rightH = (this.mPower(2L, input, input) - i) % input;
 
                 if (leftH != rightH) {
                     return false;
@@ -197,12 +195,12 @@ public abstract class AKS<T extends Number> {
             var low = 10L;
             var high = low;
             var l = bNum.toString().length() / val + 1;
-            low = (long) Math.pow(low, l - 1);
-            high = (long) Math.pow(high, l) - 1;
+            low = LongMath.pow(low, l - 1);
+            high = LongMath.pow(high, l) - 1;
 
             while (low <= high) {
                 var mid = (low + high) / 2;
-                var res = Math.pow(mid, val);
+                var res = LongMath.pow(mid, val);
 
                 if (res < bNum) {
                     low = mid + 1;
@@ -247,7 +245,7 @@ public abstract class AKS<T extends Number> {
         }
     }
 
-    private static class BigIntegerAKS extends AKS<BigInteger> {
+    static final class BigIntegerAKS extends AKS<BigInteger> {
         @Override
         protected BigInteger mPower(BigInteger x, BigInteger y,
                 BigInteger n) {
@@ -309,12 +307,12 @@ public abstract class AKS<T extends Number> {
                 return false;
             }
 
-            if (!skipSieveArray && this.hitSieveArray(input)) { // hit
-                                                                // SIEVE_ARRAY
-                return true;
+            // hit SIEVE_ARRAY
+            if (!skipSieveArray && this.checkInSieveArray(input)) {
+                return this.hitSieveArray(input);
             }
 
-            var log = BigIntegerMath.log10(input, RoundingMode.DOWN);
+            var log = BigIntegerMath.log10(input, DOWN);
 
             if (this.findPower(input, log)) {
                 return false;
@@ -330,7 +328,7 @@ public abstract class AKS<T extends Number> {
 
                 totR = lowR.intValue();
                 if (this.hitSieveArray(lowR)) {
-                    var quot = largestFactor(totR - 1);
+                    var quot = this.largestFactor(totR - 1);
                     var divisor = (totR - 1) / quot;
                     var tm = (int) (4 * Math.sqrt(totR) * log);
                     var powOf = this.mPower(input, BigInteger.valueOf(divisor),
