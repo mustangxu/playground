@@ -43,10 +43,10 @@ public class BinaryTree<T extends Comparable<T>>
     private Order order;
 
     /**
-     * Starts from 0
+     * root.depth is 0
      */
-    // @Getter
-    // private int depth;
+    @Getter
+    private int depth;
 
     enum Order {
         PRE_ORDER,
@@ -68,7 +68,7 @@ public class BinaryTree<T extends Comparable<T>>
         /**
          * Starts from 0
          */
-        // private int level;
+        private int level;
         private TreeNode left;
         private TreeNode right;
         private TreeNode parent;
@@ -76,7 +76,7 @@ public class BinaryTree<T extends Comparable<T>>
         private TreeNode insertLeft(@NonNull T v) {
             if (this.left == null) {
                 this.left = new TreeNode(v);
-                // this.left.level = this.level + 1;
+                this.left.level = this.level + 1;
                 this.left.parent = this;
 
                 return this.left;
@@ -88,7 +88,7 @@ public class BinaryTree<T extends Comparable<T>>
         private TreeNode insertRight(@NonNull T v) {
             if (this.right == null) {
                 this.right = new TreeNode(v);
-                // this.right.level = this.level + 1;
+                this.right.level = this.level + 1;
                 this.right.parent = this;
 
                 return this.right;
@@ -110,20 +110,20 @@ public class BinaryTree<T extends Comparable<T>>
         }
 
         <V> void traverseOrdered(Counter counter, BiConsumer<Counter, V> fun,
-                Function<TreeNode, V> mapper) {
+                Function<TreeNode, V> mapper, Order order) {
             var v = mapper.apply(this);
 
-            switch (BinaryTree.this.order) {
+            switch (order) {
                 case PRE_ORDER:
                     if (this.left != null) {
-                        this.left.traverseOrdered(counter, fun, mapper);
+                        this.left.traverseOrdered(counter, fun, mapper, order);
                     }
 
                     fun.accept(counter, v);
                     counter.increment();
 
                     if (this.right != null) {
-                        this.right.traverseOrdered(counter, fun, mapper);
+                        this.right.traverseOrdered(counter, fun, mapper, order);
                     }
 
                     break;
@@ -132,24 +132,24 @@ public class BinaryTree<T extends Comparable<T>>
                     counter.increment();
 
                     if (this.left != null) {
-                        this.left.traverseOrdered(counter, fun, mapper);
+                        this.left.traverseOrdered(counter, fun, mapper, order);
                     }
 
                     if (this.right != null) {
-                        this.right.traverseOrdered(counter, fun, mapper);
+                        this.right.traverseOrdered(counter, fun, mapper, order);
                     }
 
                     break;
                 case POST_ORDER:
                     if (this.right != null) {
-                        this.right.traverseOrdered(counter, fun, mapper);
+                        this.right.traverseOrdered(counter, fun, mapper, order);
                     }
 
                     fun.accept(counter, v);
                     counter.increment();
 
                     if (this.left != null) {
-                        this.left.traverseOrdered(counter, fun, mapper);
+                        this.left.traverseOrdered(counter, fun, mapper, order);
                     }
 
                     break;
@@ -178,16 +178,25 @@ public class BinaryTree<T extends Comparable<T>>
         }
 
         public void traverseValue(Consumer<T> fun) {
-            this.traverse(fun, TreeNode::getValue);
+            this.traverseValue(fun, BinaryTree.this.order);
+        }
+
+        public void traverseValue(Consumer<T> fun, Order order) {
+            this.traverse(fun, TreeNode::getValue, order);
         }
 
         public void traverseNode(Consumer<TreeNode> fun) {
-            this.traverse(fun, n -> n);
+            this.traverse(fun, n -> n, BinaryTree.this.order);
         }
 
-        <V> void traverse(Consumer<V> fun, Function<TreeNode, V> mapper) {
+        public void traverseNode(Consumer<TreeNode> fun, Order order) {
+            this.traverse(fun, n -> n, order);
+        }
+
+        <V> void traverse(Consumer<V> fun, Function<TreeNode, V> mapper,
+                Order order) {
             this.traverseOrdered(new Counter(), (i, v) -> fun.accept(v),
-                mapper);
+                mapper, order);
         }
 
         TreeNode traverseMatch(T v) {
@@ -240,8 +249,8 @@ public class BinaryTree<T extends Comparable<T>>
             return "NULL root";
         }
 
-        return String.format("order: %s, size: %s\nroot: %s",
-            this.order, this.size, this.root.toString());
+        return String.format("order: %s, size: %s, depth: %s\nroot: %s",
+            this.order, this.size, this.depth, this.root.toString());
     }
 
     public String toString(String separator) {
@@ -258,10 +267,14 @@ public class BinaryTree<T extends Comparable<T>>
 
     @Override
     public Iterator<T> iterator() {
+        return this.iterator(this.order);
+    }
+
+    public Iterator<T> iterator(Order order) {
         var list = new LinkedList<T>();
 
         if (this.root != null) {
-            this.root.traverseValue(list::add);
+            this.root.traverseValue(list::add, order);
         }
 
         return new Iterator<>() {
@@ -278,10 +291,14 @@ public class BinaryTree<T extends Comparable<T>>
     }
 
     public Iterator<TreeNode> nodeIterator() {
+        return this.nodeIterator(this.order);
+    }
+
+    public Iterator<TreeNode> nodeIterator(Order order) {
         var list = new LinkedList<TreeNode>();
 
         if (this.root != null) {
-            this.root.traverseNode(list::add);
+            this.root.traverseNode(list::add, order);
         }
 
         return new Iterator<>() {
@@ -298,8 +315,12 @@ public class BinaryTree<T extends Comparable<T>>
     }
 
     public Stream<TreeNode> nodeStream() {
+        return this.nodeStream(this.order);
+    }
+
+    public Stream<TreeNode> nodeStream(Order order) {
         return StreamSupport.stream(Spliterators
-            .spliterator(this.nodeIterator(), this.size, 0), false);
+            .spliterator(this.nodeIterator(order), this.size, 0), false);
     }
 
     @Override
@@ -339,7 +360,8 @@ public class BinaryTree<T extends Comparable<T>>
         }
 
         this.root.traverseOrdered(new Counter(),
-            (j, t) -> array[j.getCount()] = (E) t, TreeNode::getValue);
+            (j, t) -> array[j.getCount()] = (E) t, TreeNode::getValue,
+            this.order);
 
         return array;
     }
@@ -351,8 +373,8 @@ public class BinaryTree<T extends Comparable<T>>
         if (this.root == null) {
             this.root = new TreeNode(e);
         } else {
-            this.root.insertChild(e);
-            // this.depth = Math.max(node.level, this.depth);
+            var node = this.root.insertChild(e);
+            this.depth = Math.max(node.level, this.depth);
         }
 
         return true;
@@ -411,6 +433,7 @@ public class BinaryTree<T extends Comparable<T>>
         }
 
         this.size--;
+        this.recalculateLevelsNDepth();
         return true;
     }
 
@@ -444,5 +467,19 @@ public class BinaryTree<T extends Comparable<T>>
     public void clear() {
         this.root = null;
         this.size = 0;
+        this.depth = 0;
+    }
+
+    private void recalculateLevelsNDepth() {
+        if (this.root != null) {
+            this.root.level = 0;
+        }
+
+        this.depth = 0;
+        this.nodeStream(Order.LEVEL_ORDER).skip(1) // skip root
+            .forEach(n -> {
+                n.level = n.parent.level + 1;
+                this.depth = Math.max(this.depth, n.level);
+            });
     }
 }
