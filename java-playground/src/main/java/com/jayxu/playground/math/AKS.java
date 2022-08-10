@@ -129,6 +129,11 @@ public sealed abstract class AKS<T extends Number> permits LongAKS, BigIntegerAK
         return v >= 0 && v <= SIEVE_ERATOS_SIZE;
     }
 
+    /**
+     * @param  n
+     *
+     * @return   true for primes
+     */
     protected boolean hitSieveArray(Number n) {
         return this.checkInSieveArray(n) && !SIEVE_ARRAY[n.intValue()];
     }
