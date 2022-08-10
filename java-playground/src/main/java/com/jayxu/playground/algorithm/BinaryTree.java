@@ -110,7 +110,8 @@ public class BinaryTree<T extends Comparable<T>>
         }
 
         <V> void traverseOrdered(Counter counter, BiConsumer<Counter, V> fun,
-                Function<TreeNode, V> mapper, Order order) {
+                Function<TreeNode, V> mapper,
+                @SuppressWarnings("hiding") Order order) {
             var v = mapper.apply(this);
 
             switch (order) {
@@ -181,7 +182,8 @@ public class BinaryTree<T extends Comparable<T>>
             this.traverseValue(fun, BinaryTree.this.order);
         }
 
-        public void traverseValue(Consumer<T> fun, Order order) {
+        public void traverseValue(Consumer<T> fun,
+                @SuppressWarnings("hiding") Order order) {
             this.traverse(fun, TreeNode::getValue, order);
         }
 
@@ -189,12 +191,13 @@ public class BinaryTree<T extends Comparable<T>>
             this.traverse(fun, n -> n, BinaryTree.this.order);
         }
 
-        public void traverseNode(Consumer<TreeNode> fun, Order order) {
+        public void traverseNode(Consumer<TreeNode> fun,
+                @SuppressWarnings("hiding") Order order) {
             this.traverse(fun, n -> n, order);
         }
 
         <V> void traverse(Consumer<V> fun, Function<TreeNode, V> mapper,
-                Order order) {
+                @SuppressWarnings("hiding") Order order) {
             this.traverseOrdered(new Counter(), (i, v) -> fun.accept(v),
                 mapper, order);
         }
@@ -270,7 +273,7 @@ public class BinaryTree<T extends Comparable<T>>
         return this.iterator(this.order);
     }
 
-    public Iterator<T> iterator(Order order) {
+    public Iterator<T> iterator(@SuppressWarnings("hiding") Order order) {
         var list = new LinkedList<T>();
 
         if (this.root != null) {
@@ -294,7 +297,8 @@ public class BinaryTree<T extends Comparable<T>>
         return this.nodeIterator(this.order);
     }
 
-    public Iterator<TreeNode> nodeIterator(Order order) {
+    public Iterator<TreeNode>
+            nodeIterator(@SuppressWarnings("hiding") Order order) {
         var list = new LinkedList<TreeNode>();
 
         if (this.root != null) {
@@ -318,7 +322,8 @@ public class BinaryTree<T extends Comparable<T>>
         return this.nodeStream(this.order);
     }
 
-    public Stream<TreeNode> nodeStream(Order order) {
+    public Stream<TreeNode>
+            nodeStream(@SuppressWarnings("hiding") Order order) {
         return StreamSupport.stream(Spliterators
             .spliterator(this.nodeIterator(order), this.size, 0), false);
     }
