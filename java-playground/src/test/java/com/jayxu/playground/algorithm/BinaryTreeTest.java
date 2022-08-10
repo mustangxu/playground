@@ -12,16 +12,21 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 import com.jayxu.playground.algorithm.BinaryTree.Order;
 
 /**
  * @author xujiajing
  */
+@Execution(ExecutionMode.CONCURRENT)
 class BinaryTreeTest {
 
     @Test
     void test() {
+        System.out.println(Thread.currentThread());
+
         var tree = new BinaryTree<Integer>();
         var max = 50;
         var r = new Random();
@@ -71,6 +76,8 @@ class BinaryTreeTest {
 
     @Test
     void testRemove() {
+        System.out.println(Thread.currentThread());
+
         var tree = new BinaryTree<Integer>();
         tree.addAll(1, 2, 3, 4, 5);
         System.out.println(tree.toString(", "));
@@ -85,6 +92,7 @@ class BinaryTreeTest {
         System.out.println(tree);
         tree.remove(1);
         assertEquals(1, tree.size(), "size()");
+        assertTrue(tree.getRoot().isRoot(), "isRoot()");
         System.out.println(tree.toString(", "));
         System.out.println(tree);
 
@@ -100,6 +108,8 @@ class BinaryTreeTest {
 
     @Test
     void testRetainAll() {
+        System.out.println(Thread.currentThread());
+
         var tree = new BinaryTree<Integer>();
         tree.addAll(1, 2, 3, 4, 5);
         System.out.println(tree.toString(", "));
