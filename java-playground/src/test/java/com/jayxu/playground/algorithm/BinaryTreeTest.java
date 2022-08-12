@@ -12,15 +12,12 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.parallel.Execution;
-import org.junit.jupiter.api.parallel.ExecutionMode;
 
 import com.jayxu.playground.algorithm.BinaryTree.Order;
 
 /**
  * @author xujiajing
  */
-@Execution(ExecutionMode.CONCURRENT)
 class BinaryTreeTest {
 
     @Test

@@ -1,4 +1,4 @@
-package com.jayxu.playground;
+package com.jayxu.playground.algorithm;
 
 import org.apache.commons.collections4.map.HashedMap;
 import org.apache.commons.collections4.trie.PatriciaTrie;
