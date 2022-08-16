@@ -107,8 +107,8 @@ public class CASTest {
     }
 
     private void doBenchmark(Supplier<?> sup) throws Exception {
-        var f1 = this.executor.submit(new LoopRunner(sup, 10));
-        var f2 = this.executor.submit(new LoopRunner(sup, 11));
+        var f1 = this.executor.submit(new LoopRunner(sup));
+        var f2 = this.executor.submit(new LoopRunner(sup));
 
         f1.get();
         f2.get();
@@ -117,7 +117,6 @@ public class CASTest {
     @AllArgsConstructor
     private static class LoopRunner<T> implements Callable<T> {
         private Supplier<T> supplier;
-        private int times;
 
         @Override
         public T call() {

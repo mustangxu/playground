@@ -13,13 +13,10 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-import com.jayxu.playground.algorithm.BinaryTree.Order;
-
 /**
  * @author xujiajing
  */
 class BinaryTreeTest {
-
     @Test
     void test() {
         System.out.println(Thread.currentThread());
