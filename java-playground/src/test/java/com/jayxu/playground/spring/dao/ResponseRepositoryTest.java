@@ -49,6 +49,7 @@ class ResponseRepositoryTest {
             }).flatMap(List::stream).toList();
 
             this.dao.saveAll(list);
+            System.out.println(list.size() + " records inserted");
         }
     }
 }
