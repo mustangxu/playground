@@ -49,6 +49,20 @@
                 <artifactId>commons-compress</artifactId>
                 <version>1.22</version>
             </dependency>
+            <dependency>
+                <groupId>org.springframework.experimental</groupId>
+                <artifactId>spring-modulith-bom</artifactId>
+                <version>0.1.0-RC1</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+            <!--dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-bom</artifactId>
+                <version>2022.0.0</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency-->
         </dependencies>
     </dependencyManagement>
     <build>
