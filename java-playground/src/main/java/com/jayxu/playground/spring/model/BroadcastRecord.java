@@ -2,6 +2,9 @@ package com.jayxu.playground.spring.model;
 
 import java.sql.Timestamp;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,38 +24,33 @@ public class BroadcastRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(columnDefinition = "INT UNSIGNED", nullable = false)
+    @Column(nullable = false)
     private long id;
 
-    @Column(name = "built_transaction_id", columnDefinition = "INT UNSIGNED")
+    @Column(name = "built_transaction_id")
     private long builtTransactionId;
 
-    @Column(name = "asset_name", columnDefinition = "VARCHAR(255)")
+    @Column(name = "asset_name", length = 255)
     private String assetName;
 
-    @Column(name = "platform_name", columnDefinition = "VARCHAR(255)")
+    @Column(name = "platform_name", length = 255)
     private String platformName;
 
-    @Column(columnDefinition = "INT UNSIGNED DEFAULT 0")
+    @Column(nullable = false)
     private int state;
 
-    @Column(name = "task_id", columnDefinition = "BIGINT UNSIGNED DEFAULT 0")
+    @Column(name = "task_id", nullable = false)
     private long taskId;
 
-    @Column(name = "transaction_hash", columnDefinition = "VARCHAR(255)")
+    @Column(name = "transaction_hash", length = 255)
     private String transactionHash;
 
-    @Column(name = "built_transaction_type",
-            columnDefinition = "SMALLINT(5) UNSIGNED")
+    @Column(name = "built_transaction_type")
     private short builtTransactionType;
 
-    @Column(name = "created",
-            columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP",
-            insertable = false, updatable = false)
+    @CreationTimestamp
     private Timestamp created;
 
-    @Column(name = "updated",
-            columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP",
-            insertable = false, updatable = false)
+    @UpdateTimestamp
     private Timestamp updated;
 }
