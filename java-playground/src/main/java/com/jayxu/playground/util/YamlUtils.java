@@ -4,26 +4,29 @@
 package com.jayxu.playground.util;
 
 import java.io.InputStream;
-import java.util.List;
+import java.io.InputStreamReader;
 import java.util.Map;
 
 import org.yaml.snakeyaml.Yaml;
 
+import com.google.gson.Gson;
+
+import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author xujiajing
  */
 @Slf4j
+@UtilityClass
 public class YamlUtils {
     public static String parseApollo(InputStream is) {
+        var apollo = new Gson().fromJson(new InputStreamReader(is),
+            ApolloConfig.class);
+        var value = apollo.getItems().get(0).getValue();
+        // log.debug("items[0].value:\n{}", value);
+
         var yaml = new Yaml();
-        Map<String, ?> map = yaml.load(is);
-
-        var value = (String) ((Map<String, ?>) ((List<?>) map.get("items"))
-            .get(0)).get("value");
-        log.debug("items[0].value:\n{}", value);
-
         Map<String, ?> content = yaml.load(value);
 
         var dump = yaml.dump(content);
