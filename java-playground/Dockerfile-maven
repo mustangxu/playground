@@ -1,5 +1,5 @@
 #FROM apache/skywalking-base
-FROM bellsoft/liberica-openjre-alpine-musl:17
+FROM bellsoft/liberica-openjre-alpine-musl:17.0.5
 WORKDIR /app
 EXPOSE 8000
 COPY target/java-playground-1.0-SNAPSHOT.jar app.jar

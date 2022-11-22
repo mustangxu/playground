@@ -8,7 +8,7 @@ COPY docker/parent-pom.xml /home/pom.xml
 RUN mvn -f /home/app/pom.xml -DskipTests package
 
 #FROM apache/skywalking-base
-FROM bellsoft/liberica-openjre-alpine-musl:17
+FROM bellsoft/liberica-openjre-alpine-musl:17.0.5
 WORKDIR /app
 EXPOSE 8000
 COPY --from=build /home/app/target/java-playground-1.0-SNAPSHOT.jar app.jar
