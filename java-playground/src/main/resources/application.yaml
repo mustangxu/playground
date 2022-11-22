@@ -69,11 +69,12 @@ logging:
 
 springdoc:
   swagger-ui:
+    display-request-duration: true
     enabled: true
 #    path: /swagger.html
-#    csrf:
-#      enabled: true
-  show-actuator: true
+    csrf:
+      enabled: true
+#  show-actuator: true
   
 
 #---

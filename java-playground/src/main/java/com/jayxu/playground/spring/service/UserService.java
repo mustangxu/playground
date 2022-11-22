@@ -60,4 +60,8 @@ public class UserService {
     public User addUser(User user) {
         return this.dao.save(user);
     }
+
+    public long addUsers(Iterable<User> users) {
+        return this.dao.saveAll(users).spliterator().estimateSize();
+    }
 }
