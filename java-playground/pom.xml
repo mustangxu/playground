@@ -183,7 +183,7 @@
             <artifactId>jakarta.el</artifactId>
             <version>4.0.2</version>
         </dependency>
-        <dependency>
+        <!--dependency>
             <groupId>org.springframework.experimental</groupId>
             <artifactId>spring-modulith-starter-jpa</artifactId>
         </dependency>
@@ -204,7 +204,7 @@
             <groupId>org.springframework.experimental</groupId>
             <artifactId>spring-modulith-test</artifactId>
             <scope>test</scope>
-        </dependency>
+        </dependency-->
     </dependencies>
     <build>
         <plugins>
