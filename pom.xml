@@ -174,9 +174,16 @@
         <!--		</repository>-->
     </repositories>
     <distributionManagement>
-        <repository>
+        <!--repository>
             <id>space-maven</id>
             <url>https://maven.pkg.jetbrains.space/jayxu/p/playground/maven</url>
+        </repository-->
+        <repository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/mustangxu/playground</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
         </repository>
     </distributionManagement>
 </project>
