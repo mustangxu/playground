@@ -153,6 +153,13 @@
             <id>spring-milestones</id>
             <url>https://repo.spring.io/milestone</url>
         </repository>
+        <repository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/mustangxu/wolfram-client</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
         <!--repository>
             <id>spring-snapshot</id>
             <url>https://repo.spring.io/snapshot</url>
