@@ -10,7 +10,7 @@ import java.math.RoundingMode;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.jayxu.playground.wolfram.WolframService;
+import com.jayxu.wolfram.WolframService;
 
 import lombok.experimental.UtilityClass;
 
