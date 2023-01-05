@@ -17,8 +17,9 @@ spring:
   datasource:
     #url: jdbc:mysql://10.163.113.121/playground
 #    url: jdbc:mysql://127.0.0.1/playground
-    url: jdbc:h2:~/h2/playground
+#    url: jdbc:h2:~/h2/playground
 #    url: jdbc:postgresql://host.docker.internal/xujiajing
+    url:  jdbc:hsqldb:~/hsqldb/playground
     hikari:
       username: demo
       password: demo
