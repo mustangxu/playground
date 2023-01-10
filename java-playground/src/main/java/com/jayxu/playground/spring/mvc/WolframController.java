@@ -3,6 +3,7 @@ package com.jayxu.playground.spring.mvc;
 import java.io.IOException;
 import java.util.Map;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,6 +19,7 @@ public class WolframController {
     private WolframService service = WolframService.init();
 
     @GetMapping("/query/raw")
+    @Cacheable("wolfram-raw")
     public Mono<String> queryRaw(@RequestParam String query)
             throws IOException {
         return Mono.just(
@@ -25,6 +27,7 @@ public class WolframController {
     }
 
     @GetMapping("/query/all")
+    @Cacheable("wolfram-all")
     public Mono<Map<String, String>> queryAll(@RequestParam String query)
             throws IOException {
         return Mono.just(

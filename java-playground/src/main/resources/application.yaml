@@ -19,7 +19,7 @@ spring:
 #    url: jdbc:mysql://127.0.0.1/playground
 #    url: jdbc:h2:~/h2/playground
 #    url: jdbc:postgresql://host.docker.internal/xujiajing
-    url:  jdbc:hsqldb:~/hsqldb/playground
+    url:  jdbc:hsqldb:${user.home}/hsqldb/playground
     hikari:
       username: demo
       password: demo

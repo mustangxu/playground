@@ -6,6 +6,8 @@ package com.jayxu.playground.spring.service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -27,6 +29,7 @@ public class UserService {
     @Autowired
     private UserRepository dao;
 
+    @Cacheable("users")
     public User getOrAddUser(long id) {
         return this.dao.findById(id).orElseGet(() -> {
             var user = User.buildTestUser(id);
@@ -41,6 +44,7 @@ public class UserService {
         return this.dao.count();
     }
 
+    @CachePut(value = "users", key = "#p0")
     public Optional<User> updateUserPassword(long id, String password) {
         return this.dao.findById(id).map(u -> {
             u.setPassword(password);
@@ -55,10 +59,6 @@ public class UserService {
         }
 
         return this.dao.findAll(p);
-    }
-
-    public User addUser(User user) {
-        return this.dao.save(user);
     }
 
     public long addUsers(Iterable<User> users) {
