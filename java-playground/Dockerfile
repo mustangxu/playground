@@ -5,7 +5,7 @@ FROM maven:3.8-openjdk-18-slim AS build
 COPY src /home/app/src
 COPY pom.xml /home/app
 COPY docker/parent-pom.xml /home/pom.xml
-RUN mvn -f /home/app/pom.xml -DskipTests package
+RUN mvn -f /home/app/pom.xml -DskipTests clean package
 
 #FROM apache/skywalking-base
 FROM bellsoft/liberica-openjre-alpine-musl:17.0.5
