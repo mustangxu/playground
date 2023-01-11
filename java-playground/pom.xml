@@ -183,11 +183,11 @@
             <artifactId>jakarta.el</artifactId>
             <version>4.0.2</version>
         </dependency>
-        <dependency>
+        <!--dependency>
             <groupId>com.jayxu</groupId>
             <artifactId>wolfram-client</artifactId>
             <version>0.0.2</version>
-        </dependency>
+        </dependency-->
         <!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/logging-interceptor -->
         <!--dependency>
             <groupId>com.squareup.okhttp3</groupId>
