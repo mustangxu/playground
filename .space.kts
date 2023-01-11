@@ -1,6 +1,6 @@
 job("Qodana") {
     // For example: "jetbrains/qodana-jvm-community:2021.3"
-    container("jetbrains/qodana-jvm-community:2022.3") {
+    container("jetbrains/qodana-jvm:2022.3-eap") {
         // https://www.jetbrains.com/help/space/secrets-and-parameters.html
         env["QODANA_TOKEN"] = Secrets("qodana-token")
         shellScript {
