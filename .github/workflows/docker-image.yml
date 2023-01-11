@@ -14,6 +14,14 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - uses: s4u/maven-settings-action@v2.8.0
+      with:
+        servers: |
+          [{
+            "id": "github",
+            "username": "mustangxu",
+            "password": "${{ secrets.TOKEN_PACKAGE_READ }}"
+          }]
     - name: Build the Docker image
       run: docker build java-playground --file java-playground/Dockerfile --tag my-image-name:$(date +%s)
       env:
