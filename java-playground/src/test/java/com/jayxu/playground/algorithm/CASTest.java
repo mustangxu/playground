@@ -3,7 +3,6 @@ package com.jayxu.playground.algorithm;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -26,8 +25,6 @@ import org.openjdk.jmh.annotations.Threads;
 import org.openjdk.jmh.annotations.Warmup;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
-
-import lombok.AllArgsConstructor;
 
 @BenchmarkMode(Mode.Throughput)
 @Measurement(iterations = 3, time = 5, timeUnit = TimeUnit.SECONDS)
@@ -107,20 +104,11 @@ public class CASTest {
     }
 
     private void doBenchmark(Supplier<?> sup) throws Exception {
-        var f1 = this.executor.submit(new LoopRunner(sup));
-        var f2 = this.executor.submit(new LoopRunner(sup));
+        var f1 = this.executor.submit(() -> sup.get());
+        var f2 = this.executor.submit(() -> sup.get());
 
         f1.get();
         f2.get();
     }
 
-    @AllArgsConstructor
-    private static class LoopRunner<T> implements Callable<T> {
-        private Supplier<T> supplier;
-
-        @Override
-        public T call() {
-            return this.supplier.get();
-        }
-    }
 }
