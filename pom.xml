@@ -31,7 +31,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.1</version>
+        <version>3.0.2</version>
     </parent>
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.eclipse.jdt/org.eclipse.jdt.annotation -->
@@ -52,7 +52,7 @@
             <dependency>
                 <groupId>org.springframework.experimental</groupId>
                 <artifactId>spring-modulith-bom</artifactId>
-                <version>0.2.0</version>
+                <version>0.3.0</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
