@@ -19,7 +19,7 @@
         <url>https://github.com/mustangxu/playground/issues</url>
     </issueManagement>
     <properties>
-        <graalvm.version>22.3.0</graalvm.version>
+        <graalvm.version>22.3.1</graalvm.version>
         <skywalking.version>9.3.0</skywalking.version>
         <spring.native.version>0.12.2</spring.native.version>
         <!-- <gson.version>2.9.0</gson.version> -->
@@ -31,7 +31,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.1</version>
+        <version>3.0.2</version>
     </parent>
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.eclipse.jdt/org.eclipse.jdt.annotation -->
@@ -52,7 +52,7 @@
             <dependency>
                 <groupId>org.springframework.experimental</groupId>
                 <artifactId>spring-modulith-bom</artifactId>
-                <version>0.2.0</version>
+                <version>0.3.0</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>

@@ -38,11 +38,12 @@
             <version>${graalvm.version}</version>
             <scope>provided</scope>
         </dependency>
-        <!-- <dependency>
-			<groupId>org.apache.skywalking</groupId>
-			<artifactId>apm-toolkit-logback-1.x</artifactId>
-			<version>${skywalking.version}</version>
-		</dependency> -->
+        <!-- https://mvnrepository.com/artifact/org.apache.skywalking/apm-toolkit-trace -->
+        <dependency>
+            <groupId>org.apache.skywalking</groupId>
+            <artifactId>apm-toolkit-logback-1.x</artifactId>
+            <version>8.14.0</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -60,6 +61,11 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
         </dependency>
         <!--dependency>
             <groupId>org.postgresql</groupId>
