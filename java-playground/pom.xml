@@ -123,10 +123,11 @@
             <scope>test</scope>
             <version>${jmh.version}</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk18on -->
         <dependency>
             <groupId>org.bouncycastle</groupId>
-            <artifactId>bcprov-jdk15on</artifactId>
-            <version>1.70</version>
+            <artifactId>bcprov-jdk18on</artifactId>
+            <version>1.72</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
