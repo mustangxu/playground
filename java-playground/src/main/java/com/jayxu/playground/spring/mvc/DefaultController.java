@@ -6,7 +6,7 @@ package com.jayxu.playground.spring.mvc;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import reactor.core.publisher.Mono;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 /**
  * @author xujiajing
@@ -15,8 +15,9 @@ import reactor.core.publisher.Mono;
 public class DefaultController {
 
     @GetMapping("/hello")
-    public Mono<String> helloWorld() {
-        return Mono.just("world");
+    @SecurityRequirement(name = "security")
+    public String helloWorld() {
+        return "world";
     }
 
 }

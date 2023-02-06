@@ -30,7 +30,7 @@ spring:
       ddl-auto: update
     properties:
       hibernate:
-        generate_statistics: ${useCache}
+        #generate_statistics: ${useCache}
         cache:
           use_second_level_cache: ${useCache}
           use_query_cache: ${useCache}
@@ -40,10 +40,10 @@ spring:
 #          redisson:
 #            fallback: true
 #            config: redisson.yaml
-      jakarta:
-        persistence:
-          sharedCache:
-            mode: ENABLE_SELECTIVE
+#      jakarta:
+#        persistence:
+#          sharedCache:
+#            mode: ENABLE_SELECTIVE
 #  profiles:
 #    active: dev
 
@@ -66,7 +66,7 @@ logging:
   level:
     org:
 #      hibernate.cache: debug
-      springframework:
+#      springframework:
 #        web.reactive: debug
 
 springdoc:
