@@ -5,16 +5,16 @@ package com.jayxu.playground.spring.ws;
 
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.HtmlUtils;
 
 /**
  * @author xujiajing
  */
-@Controller
+@RestController
 public class WsEndpoint {
-    @RequestMapping("/ws")
+    @GetMapping("/ping")
     public String ping() {
         return "pong";
     }
