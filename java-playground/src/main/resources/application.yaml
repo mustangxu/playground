@@ -44,6 +44,10 @@ spring:
 #        persistence:
 #          sharedCache:
 #            mode: ENABLE_SELECTIVE
+
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
 #  profiles:
 #    active: dev
 
