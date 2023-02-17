@@ -18,21 +18,20 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 @Service
 @XSlf4j
-public class EthereumChainService implements ChainService {
+public class EtherScanService implements ChainService {
     private static final String API_BASE = "https://api.etherscan.io/";
-    private EthereumApi api = new Retrofit.Builder()
-        .baseUrl(EthereumChainService.API_BASE)
+    private EtherScanApi api = new Retrofit.Builder()
+        .baseUrl(EtherScanService.API_BASE)
         .addConverterFactory(GsonConverterFactory.create()).build()
-        .create(EthereumApi.class);
+        .create(EtherScanApi.class);
 
     @Override
     public long getHeight() throws IOException {
         var res = this.api
             .query("proxy", "eth_blockNumber",
                 "KEHVBH9UAWQSKKWSFFS5NHEDY8ACDH7PAW")
-            .execute()
-            .body().getResult();
-        EthereumChainService.log.info(res);
+            .execute().body().getResult();
+        log.info(res);
         return Long.parseLong(res.substring(2), 16);
     }
 

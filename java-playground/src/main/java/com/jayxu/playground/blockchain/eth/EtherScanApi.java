@@ -10,9 +10,8 @@ import retrofit2.http.Query;
 /**
  * @author xujiajing
  */
-public interface EthereumApi {
+public interface EtherScanApi {
     @GET("api")
     Call<ApiModel> query(@Query("module") String module,
-            @Query("action") String action,
-            @Query("apikey") String apikey);
+            @Query("action") String action, @Query("apikey") String apikey);
 }
