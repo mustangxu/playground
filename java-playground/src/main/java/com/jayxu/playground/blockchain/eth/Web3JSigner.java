@@ -12,9 +12,10 @@ import org.web3j.crypto.Sign.SignatureData;
 public class Web3JSigner extends EthSigner {
     @Override
     public SignatureData signTx(ECKeyPair key, MyRawTransaction tx) {
-        var sig = Sign.signMessage(tx.getEncodedRaw(false), key);
+        var sig = Sign.signMessage(tx.raw(), key);
         tx.setSignature(sig);
         tx.setSigned(true);
+        tx.verify(key.getPublicKey());
 
         return sig;
     }

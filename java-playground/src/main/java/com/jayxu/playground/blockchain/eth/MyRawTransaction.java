@@ -4,11 +4,9 @@
 package com.jayxu.playground.blockchain.eth;
 
 import java.math.BigInteger;
-import java.util.Arrays;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-import org.web3j.crypto.ECKeyPair;
+import org.springframework.util.Assert;
+import org.web3j.crypto.ECDSASignature;
 import org.web3j.crypto.Hash;
 import org.web3j.crypto.RawTransaction;
 import org.web3j.crypto.Sign;
@@ -19,14 +17,12 @@ import org.web3j.rlp.RlpList;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author xujiajing
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@Slf4j
 public class MyRawTransaction extends RawTransaction {
     private SignatureData signature;
     private byte chainId = 1;
@@ -39,26 +35,33 @@ public class MyRawTransaction extends RawTransaction {
         this.chainId = (byte) chainId;
     }
 
-    public byte[] getEncodedHash(boolean includeSignature) {
+    protected byte[] getEncodedHash(boolean includeSignature) {
         return Hash.sha3(this.getEncodedRaw(includeSignature));
     }
 
-    public byte[] getEncodedRaw(boolean includeSignature) {
+    protected byte[] getEncodedRaw(boolean includeSignature) {
         return RlpEncoder.encode(new RlpList(TransactionEncoder
             .asRlpValues(this, includeSignature ? this.signature : null)));
     }
 
-    protected void verify(ECKeyPair key) {
-        var sig = Sign.signMessage(this.getEncodedRaw(false), key);
+    public byte[] hash() {
+        return this.getEncodedHash(false);
+    }
 
-        log.debug("sig:\n{}", ToStringBuilder.reflectionToString(sig,
-            ToStringStyle.MULTI_LINE_STYLE));
-        log.debug("signature:\n{}", ToStringBuilder.reflectionToString(
-            this.signature, ToStringStyle.MULTI_LINE_STYLE));
+    public byte[] signature() {
+        return this.getEncodedRaw(true);
+    }
 
-        if (!Arrays.equals(sig.getR(), this.signature.getR())
-            || !Arrays.equals(sig.getS(), this.signature.getS())) {
-            throw new RuntimeException("TX verify failed");
-        }
+    public byte[] raw() {
+        return this.getEncodedRaw(false);
+    }
+
+    protected void verify(BigInteger pubKey) {
+        var sig = new ECDSASignature(new BigInteger(1, this.signature.getR()),
+            new BigInteger(1, this.signature.getS()));
+        var header = this.signature.getV()[0];
+        var pub = Sign.recoverFromSignature(header - 27, sig, this.hash());
+
+        Assert.isTrue(pub.equals(pubKey), "PUBKEY not equal");
     }
 }

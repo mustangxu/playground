@@ -44,7 +44,7 @@ public class EthSigner implements KeyGenerator {
      */
     public SignatureData signTx(ECKeyPair key, MyRawTransaction tx)
             throws GeneralSecurityException, IOException {
-        var raw = tx.getEncodedHash(false);
+        var raw = tx.hash();
 
         var signer = new ECDSASigner(
             new HMacDSAKCalculator(new SHA256Digest()));
@@ -80,7 +80,7 @@ public class EthSigner implements KeyGenerator {
         var sign = new SignatureData(v, r, s);
         tx.setSignature(sign);
         tx.setSigned(true);
-        tx.verify(key);
+        tx.verify(key.getPublicKey());
 
         return sign;
     }
