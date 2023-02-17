@@ -69,10 +69,9 @@ public class EthSignerTest {
     static MyRawTransaction buildTx(String to) {
         var gasLimit = new BigInteger("120000");
         var gasPrice = new BigInteger("200000000000");
-        var value = BigInteger.TWO.pow(64);
+        var value = BigInteger.TWO.pow(40);
         var data = Hex.encodeHexString("hello world".getBytes());
-        var nonce = BigInteger
-            .valueOf(System.currentTimeMillis() / 10000 * 10000);
+        var nonce = BigInteger.valueOf(System.currentTimeMillis() / 1000);
 
         var tx = new MyRawTransaction(nonce, gasPrice, gasLimit, to, value,
             data, 1);

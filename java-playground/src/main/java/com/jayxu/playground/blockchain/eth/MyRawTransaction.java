@@ -5,6 +5,7 @@ package com.jayxu.playground.blockchain.eth;
 
 import java.math.BigInteger;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.util.Assert;
 import org.web3j.crypto.ECDSASignature;
 import org.web3j.crypto.Hash;
@@ -63,5 +64,10 @@ public class MyRawTransaction extends RawTransaction {
         var pub = Sign.recoverFromSignature(header - 27, sig, this.hash());
 
         Assert.isTrue(pub.equals(pubKey), "PUBKEY not equal");
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
     }
 }

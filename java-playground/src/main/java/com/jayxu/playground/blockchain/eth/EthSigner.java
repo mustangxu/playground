@@ -79,8 +79,8 @@ public class EthSigner implements KeyGenerator {
 
         var sign = new SignatureData(v, r, s);
         tx.setSignature(sign);
-        tx.setSigned(true);
         tx.verify(key.getPublicKey());
+        tx.setSigned(true);
 
         return sign;
     }

@@ -5,7 +5,7 @@ import org.web3j.crypto.Sign;
 import org.web3j.crypto.Sign.SignatureData;
 
 /**
- * Use EthereumJ lib
+ * Use Web3j lib
  *
  * @author xujiajing
  */
@@ -14,8 +14,8 @@ public class Web3JSigner extends EthSigner {
     public SignatureData signTx(ECKeyPair key, MyRawTransaction tx) {
         var sig = Sign.signMessage(tx.raw(), key);
         tx.setSignature(sig);
-        tx.setSigned(true);
         tx.verify(key.getPublicKey());
+        tx.setSigned(true);
 
         return sig;
     }
