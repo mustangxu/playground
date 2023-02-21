@@ -14,15 +14,16 @@ spring:
     allow-bean-definition-overriding: true
     allow-circular-references: true
 
-  datasource:
+#  datasource:
     #url: jdbc:mysql://10.163.113.121/playground
 #    url: jdbc:mysql://127.0.0.1/playground
 #    url: jdbc:h2:~/h2/playground
 #    url: jdbc:postgresql://host.docker.internal/xujiajing
-    url:  jdbc:hsqldb:${user.home}/hsqldb/playground
-    hikari:
-      username: demo
-      password: demo
+    #url:  jdbc:hsqldb:${user.home}/hsqldb/playground
+#    hikari:
+#      username: demo
+#      password: demo
+
   jpa:
     generate-ddl: true
     show-sql: true
@@ -44,6 +45,44 @@ spring:
 #        persistence:
 #          sharedCache:
 #            mode: ENABLE_SELECTIVE
+
+  shardingsphere:
+    props:
+      sql-show: false
+    mode:
+      type: Standalone
+            
+    datasource:
+      names: ds
+      ds:
+          type: com.zaxxer.hikari.HikariDataSource
+          jdbcUrl: jdbc:mysql://127.0.0.1/playground
+          username: demo
+          password: demo
+    
+    rules:
+      sharding:
+        tables:
+          users:
+            actual-data-nodes: ds.users_$->{0..3}
+            table-strategy:
+              standard:
+                sharding-column: id
+                sharding-algorithm-name: user-id
+          
+#        auto-tables:
+#          users:
+#            actual-data-sources: ds
+#            sharding-strategy:
+#              standard:
+#                sharding-column: id
+#                sharding-algorithm-name: user-inline
+        
+        sharding-algorithms:
+          user-id:
+            type: INLINE
+            props:
+              algorithm-expression: users_$->{id % 4}
 
   jackson:
     serialization:

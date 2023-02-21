@@ -134,32 +134,32 @@
             <id>spring-milestones</id>
             <url>https://repo.spring.io/milestone</url>
         </pluginRepository>
-        <pluginRepository>
+        <!--pluginRepository>
             <id>spring-release</id>
             <url>https://repo.spring.io/release</url>
-        </pluginRepository>
+        </pluginRepository-->
         <!--pluginRepository>
             <id>spring-snapshot</id>
             <url>https://repo.spring.io/snapshot</url>
         </pluginRepository-->
     </pluginRepositories>
     <repositories>
-        <repository>
+        <!--repository>
             <id>spring-release</id>
             <name>Spring release</name>
             <url>https://repo.spring.io/release</url>
-        </repository>
+        </repository-->
         <repository>
             <id>spring-milestones</id>
             <url>https://repo.spring.io/milestone</url>
         </repository>
-        <repository>
+        <!--repository>
             <id>github</id>
             <url>https://maven.pkg.github.com/mustangxu/wolfram-client</url>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
-        </repository>
+        </repository-->
         <!--repository>
             <id>spring-snapshot</id>
             <url>https://repo.spring.io/snapshot</url>

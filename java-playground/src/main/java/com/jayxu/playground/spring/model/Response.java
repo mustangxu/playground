@@ -7,7 +7,6 @@ import java.util.Map;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
 import jakarta.persistence.Table;
@@ -23,7 +22,7 @@ import lombok.Data;
     @Index(columnList = "account"), @Index(columnList = "date") })
 public class Response {
     @Id
-    @GeneratedValue
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Transient
     private Boolean result;
