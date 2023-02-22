@@ -20,7 +20,6 @@ import lombok.NoArgsConstructor;
 public class BroadcastRecord {
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
     private Long id;
 

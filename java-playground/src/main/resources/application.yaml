@@ -41,6 +41,9 @@ spring:
 #          redisson:
 #            fallback: true
 #            config: redisson.yaml
+      eclipselink:
+        cache.query-results: true
+        ddl-generation: create-or-extend-tables
 #      jakarta:
 #        persistence:
 #          sharedCache:
@@ -48,42 +51,69 @@ spring:
 
   shardingsphere:
     props:
-      sql-show: false
+      sql-show: true
     mode:
       type: Standalone
             
     datasource:
-      names: ds
+      names: ds, ds_s
       ds:
-          type: com.zaxxer.hikari.HikariDataSource
-          jdbcUrl: jdbc:mysql://127.0.0.1/playground
-          username: demo
-          password: demo
+        type: com.zaxxer.hikari.HikariDataSource
+        jdbcUrl: jdbc:mysql://127.0.0.1/playground
+        username: demo
+        password: demo
+      ds_s:
+        type: com.zaxxer.hikari.HikariDataSource
+        jdbcUrl: jdbc:mysql://127.0.0.1/playground_s
+        username: demo
+        password: demo
     
     rules:
       sharding:
-        tables:
-          users:
-            actual-data-nodes: ds.users_$->{0..3}
-            table-strategy:
-              standard:
-                sharding-column: id
-                sharding-algorithm-name: user-id
-          
-#        auto-tables:
-#          users:
-#            actual-data-sources: ds
-#            sharding-strategy:
+#        tables:
+#          orders:
+#            actualDataNodes: ds.orders_$->{202302..202303}
+#            shardingStrategy:
 #              standard:
-#                sharding-column: id
-#                sharding-algorithm-name: user-inline
-        
+#                shardingColumn: createtime
+#                shardingAlgorithmName: daily
+         
+        auto-tables:
+          users:
+            actualDataSources: ds, ds_s
+            shardingStrategy:
+              standard:
+                shardingColumn: id
+                shardingAlgorithmName: mod
+          orders:
+            actualDataSources: ds
+            shardingStrategy:
+              standard:
+                shardingColumn: createtime
+                shardingAlgorithmName: daily
+
         sharding-algorithms:
           user-id:
             type: INLINE
             props:
               algorithm-expression: users_$->{id % 4}
+          mod:
+            type: MOD
+            props:
+              sharding-count: 4
+          daily:
+            type: AUTO_INTERVAL
+            props:
+              datetime-pattern: 'yyyy-MM-dd HH:mm:ss'
+              datetime-lower: '2023-02-20 00:00:00'
+              datetime-upper: '2023-02-28 00:00:00'
+              sharding-suffix-pattern: 'yyyyMMdd'
+              datetime-interval-amount: 1
+              datetime-interval-unit: 'DAYS'
+              sharding-seconds: 86400
 
+        #binding-tables: users, orders
+        
   jackson:
     serialization:
       fail-on-empty-beans: false

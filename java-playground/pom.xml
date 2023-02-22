@@ -259,6 +259,10 @@
                     <groupId>log4j</groupId>
                     <artifactId>log4j</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>org.apache.shardingsphere</groupId>
+                    <artifactId>shardingsphere-postgresql-dialect-exception</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.eclipse.persistence/org.eclipse.persistence.jpa -->

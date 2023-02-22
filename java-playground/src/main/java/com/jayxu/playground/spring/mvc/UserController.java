@@ -4,7 +4,6 @@
 package com.jayxu.playground.spring.mvc;
 
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.IntStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,19 +16,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.github.javafaker.Faker;
 import com.jayxu.playground.spring.model.User;
 import com.jayxu.playground.spring.service.UserService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RestController
 @RequestMapping("/users")
+@Slf4j
 public class UserController {
     @Autowired
     private UserService service;
 
     @GetMapping("/{id}")
     public User getUserById(@PathVariable int id) {
-        return this.service.getOrAddUser(id);
+        var user = this.service.getOrAddUser(id);
+        log.debug(user.toString());
+
+        return user;
     }
 
     @GetMapping("/top")
@@ -47,12 +51,8 @@ public class UserController {
 
     @PostMapping("/add")
     public long addUsers(@RequestParam(defaultValue = "10") int count) {
-        var faker = new Faker();
-
         var users = IntStream.range(0, count)
-            .mapToObj(i -> new User(System.currentTimeMillis() + i,
-                faker.name().username(), UUID.randomUUID().toString(),
-                faker.number().numberBetween(1, 100)))
+            .mapToObj(i -> User.buildTestUser(i + System.currentTimeMillis()))
             .toList();
         return this.service.addUsers(users);
     }

@@ -26,7 +26,7 @@ class UserDAOTest {
     @Test
     void testUpdateUser() {
         this.dao.findById(1L).ifPresent(u -> {
-            u.setAge(33L);
+            u.setAge(33);
             this.dao.save(u);
         });
     }

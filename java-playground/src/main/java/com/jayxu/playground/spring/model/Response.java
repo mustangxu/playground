@@ -22,7 +22,6 @@ import lombok.Data;
     @Index(columnList = "account"), @Index(columnList = "date") })
 public class Response {
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Transient
     private Boolean result;
