@@ -12,11 +12,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.jayxu.playground.spring.dao.UserRepository;
+import com.jayxu.playground.spring.dao.UserDAO;
 import com.jayxu.playground.spring.model.User;
 
-import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.XSlf4j;
 
 /**
@@ -27,7 +27,7 @@ import lombok.extern.slf4j.XSlf4j;
 @XSlf4j
 public class UserService {
     @Autowired
-    private UserRepository dao;
+    private UserDAO dao;
 
     @Cacheable("users")
     public User getOrAddUser(long id) {

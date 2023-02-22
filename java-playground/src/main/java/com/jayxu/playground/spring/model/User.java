@@ -8,16 +8,17 @@ import java.io.Serializable;
 import java.util.Date;
 
 import org.apache.commons.codec.digest.Md5Crypt;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.eclipse.persistence.annotations.Cache;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.github.javafaker.Faker;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
 import jakarta.persistence.Table;
@@ -33,11 +34,13 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 // @Cacheable
-@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
+@Cache
+@EntityListeners(AuditingEntityListener.class)
 public class User implements Serializable {
     @Serial
     private static final long serialVersionUID = -9020200257408632559L;
     @Id
+    @GeneratedValue
     private Long id;
     @Column(length = 36, nullable = false)
     @NotBlank
@@ -45,14 +48,16 @@ public class User implements Serializable {
     @Column(length = 48, nullable = false)
     @NotBlank
     private String password;
-    @Type(AgeType.class)
     private Long age;
     @Version
     private Integer version;
+    @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
-    @CreationTimestamp
+    @Column(name = "create_time")
     private Date createTime;
-    @UpdateTimestamp
+    @LastModifiedDate
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "update_time")
     private Date updateTime;
 
     public User(Long id, String username, String password, Integer age) {

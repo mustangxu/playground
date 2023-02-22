@@ -1,10 +1,5 @@
 package com.jayxu.playground.spring.model;
 
-import java.sql.Timestamp;
-
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -27,7 +22,7 @@ public class BroadcastRecord {
     @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
-    private long id;
+    private Long id;
 
     @Column(name = "built_transaction_id")
     private long builtTransactionId;
@@ -49,10 +44,4 @@ public class BroadcastRecord {
 
     @Column(name = "built_transaction_type")
     private short builtTransactionType;
-
-    @CreationTimestamp
-    private Timestamp created;
-
-    @UpdateTimestamp
-    private Timestamp updated;
 }

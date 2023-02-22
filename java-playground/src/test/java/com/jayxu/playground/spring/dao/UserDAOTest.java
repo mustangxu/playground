@@ -13,9 +13,9 @@ import lombok.extern.slf4j.XSlf4j;
 @SpringBootTest
 @XSlf4j
 @ActiveProfiles("test")
-class UserRepositoryTest {
+class UserDAOTest {
     @Autowired
-    private UserRepository dao;
+    private UserDAO dao;
 
     @Test
     void testFindUsersByPassword() {
@@ -38,7 +38,7 @@ class UserRepositoryTest {
         for (var i = 0; i < count; i++) {
             var user = User.buildTestUser(System.currentTimeMillis() + i);
             user = this.dao.save(user);
-            UserRepositoryTest.log.info("{}", user);
+            UserDAOTest.log.info("{}", user);
         }
     }
 }
