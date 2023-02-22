@@ -1,5 +1,6 @@
 package com.jayxu.playground.antlr.json;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,16 +10,14 @@ import org.antlr.v4.runtime.CommonToken;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
-import com.ibm.icu.math.BigDecimal;
-
 /**
  * This class provides an empty implementation of {@link JSONVisitor},
  * which can be extended to create a visitor which only needs to handle a subset
  * of the available methods.
  *
  * @param <T>
- *        The return type of the visit operation. Use {@link Void} for
- *        operations with no return type.
+ *            The return type of the visit operation. Use {@link Void} for
+ *            operations with no return type.
  */
 @SuppressWarnings("unchecked")
 public class JSONBaseVisitor<T> extends AbstractParseTreeVisitor<T>
@@ -34,8 +33,7 @@ public class JSONBaseVisitor<T> extends AbstractParseTreeVisitor<T>
     @Override
     public T visitPair(JSONParser.PairContext ctx) {
         Map<String, Object> pair = new HashMap<>();
-        pair.put(ctx.getChild(0).getText(),
-            ctx.getChild(2).accept(this));
+        pair.put(ctx.getChild(0).getText(), ctx.getChild(2).accept(this));
 //        log.debug("{}", pair);
 
         return (T) pair;
