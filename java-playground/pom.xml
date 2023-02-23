@@ -283,12 +283,51 @@
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>0.41.0</version>
                 <configuration>
+                    <verbose>true</verbose>
                     <images>
                         <image>
-                            <name>mustangxu/%a:%v-${git.commit.id.abbrev}</name>
+                            <name>mustangxu/%a</name>
                             <build>
-                                <dockerFile>Dockerfile-maven</dockerFile>
-                                <contextDir>${project.basedir}</contextDir>
+                                <tags>
+                                    <tag>latest</tag>
+                                    <tag>%v-${git.commit.id.abbrev}</tag>
+                                </tags>
+                                <!--<from>bellsoft/liberica-openjre-alpine-musl:17.0.5</from>-->
+                                <from>apache/skywalking-java-agent:8.14.0-java17</from>
+                                <workdir>/app</workdir>
+                                <!--<dockerFile>Dockerfile-maven</dockerFile>-->
+                                <!--<contextDir>${project.basedir}</contextDir>-->
+                                <entryPoint>
+                                    <exec>
+                                        <arg>java</arg>
+                                        <arg>-Xmx1G</arg>
+                                        <arg>--enable-preview</arg>
+                                        <arg>-XX:+UnlockExperimentalVMOptions</arg>
+                                        <arg>-XX:+UseZGC</arg>
+                                        <arg>-javaagent:/skywalking/agent/skywalking-agent.jar</arg>
+                                        <arg>-jar</arg>
+                                        <arg>${project.artifactId}-${project.version}.jar</arg>
+                                    </exec>
+                                </entryPoint>
+                                <assemblies>
+                                    <assembly>
+                                        <descriptorRef>artifact</descriptorRef>
+                                        <targetDir>/app</targetDir>
+                                    </assembly>
+                                    <!--<assembly>
+                                        <targetDir>/skywalking</targetDir>
+                                        <inline>
+                                            <fileSets>
+                                                <fileSet>
+                                                    <directory>docker/skywalking</directory>
+                                                </fileSet>
+                                            </fileSets>
+                                        </inline>
+                                    </assembly>-->
+                                </assemblies>
+                                <ports>
+                                    <port>8000</port>
+                                </ports>
                             </build>
                         </image>
                     </images>
