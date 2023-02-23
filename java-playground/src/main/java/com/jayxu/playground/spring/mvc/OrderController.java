@@ -36,7 +36,7 @@ public class OrderController {
     }
 
     @PostMapping("/fill")
-    public int fillOrders(@RequestParam long userId,
+    public long fillOrders(@RequestParam long userId,
             @RequestParam(defaultValue = "10") int size) {
         return this.service.fillOrders(userId, size);
     }

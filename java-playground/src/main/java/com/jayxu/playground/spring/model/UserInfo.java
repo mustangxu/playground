@@ -3,53 +3,46 @@
  */
 package com.jayxu.playground.spring.model;
 
-import java.math.BigDecimal;
 import java.util.Date;
-import java.util.Random;
 
-import org.eclipse.persistence.annotations.UuidGenerator;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.github.javafaker.Faker;
 import com.jayxu.playground.util.RandomUtils;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.Index;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.persistence.Version;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author xujiajing
  */
 @Entity
-@Table(name = "orders",
-        indexes = { @Index(columnList = "userId"),
-            @Index(columnList = "createTime"), @Index(columnList = "state") })
+@Table(name = "user_infos")
 @Data
+@NoArgsConstructor
+// @Cacheable
 @EntityListeners(AuditingEntityListener.class)
-public class Order {
+public class UserInfo {
     @Id
-    @GeneratedValue(generator = "uuid")
-    @UuidGenerator(name = "uuid")
-    @Column(length = 36)
-    private String id;
-    @ManyToOne(fetch = FetchType.LAZY)
-    private User user;
+    @GeneratedValue
+    private Long id;
+    @Column(length = 1000)
+    private String address;
+    private Gender gender;
+    private Integer age;
     @Version
     private Integer version;
-    private OrderState state;
-    @Column(precision = 18, scale = 2)
-    private BigDecimal price;
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
@@ -57,13 +50,19 @@ public class Order {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateTime;
 
-    public static Order buildOrder(User user) {
-        var r = new Random();
-        var order = new Order();
-        order.setUser(user);
-        order.setPrice(new BigDecimal(r.nextDouble(1_000_000)));
-        order.setState(RandomUtils.randomEnum(OrderState.class));
+    public enum Gender {
+        MALE,
+        FEMALE
+    }
 
-        return order;
+    public static UserInfo build() {
+        var faker = new Faker();
+
+        var info = new UserInfo();
+        info.setGender(RandomUtils.randomEnum(UserInfo.Gender.class));
+        info.setAddress(faker.address().fullAddress());
+        info.setAge(faker.number().numberBetween(1, 100));
+
+        return info;
     }
 }

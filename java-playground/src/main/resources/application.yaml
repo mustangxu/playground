@@ -25,8 +25,8 @@ spring:
 #      password: demo
 
   jpa:
-    generate-ddl: true
-    show-sql: true
+    #generate-ddl: true
+    show-sql: false
     hibernate:
       ddl-auto: update
     properties:
@@ -56,15 +56,17 @@ spring:
       type: Standalone
             
     datasource:
-      names: ds, ds_s
-      ds:
+      names: ds_1, ds_2
+      ds_1:
         type: com.zaxxer.hikari.HikariDataSource
         jdbcUrl: jdbc:mysql://127.0.0.1/playground
+#        jdbcUrl: jdbc:h2:~/h2/playground_1
         username: demo
         password: demo
-      ds_s:
+      ds_2:
         type: com.zaxxer.hikari.HikariDataSource
         jdbcUrl: jdbc:mysql://127.0.0.1/playground_s
+#        jdbcUrl: jdbc:h2:~/h2/playground_2
         username: demo
         password: demo
     
@@ -80,13 +82,19 @@ spring:
          
         auto-tables:
           users:
-            actualDataSources: ds, ds_s
+            actualDataSources: ds_1, ds_2
+            shardingStrategy:
+              standard:
+                shardingColumn: id
+                shardingAlgorithmName: mod
+          user_infos:
+            actualDataSources: ds_1, ds_2
             shardingStrategy:
               standard:
                 shardingColumn: id
                 shardingAlgorithmName: mod
           orders:
-            actualDataSources: ds
+            actualDataSources: ds_1
             shardingStrategy:
               standard:
                 shardingColumn: createtime
@@ -112,7 +120,7 @@ spring:
               datetime-interval-unit: 'DAYS'
               sharding-seconds: 86400
 
-        #binding-tables: users, orders
+        binding-tables: users, orders, user_infos
         
   jackson:
     serialization:

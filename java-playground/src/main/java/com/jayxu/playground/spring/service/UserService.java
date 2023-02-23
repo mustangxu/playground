@@ -4,13 +4,14 @@
 package com.jayxu.playground.spring.service;
 
 import java.util.Optional;
+import java.util.stream.IntStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -52,16 +53,20 @@ public class UserService {
         });
     }
 
-    public Page<User> getUsersPage(int page, int size, String orderby) {
+    public Page<User> getUsersPage(int page, int size, Direction direction,
+            String orderby) {
         var p = PageRequest.of(page, size);
         if (orderby != null) {
-            p = p.withSort(Sort.Direction.ASC, orderby);
+            p = p.withSort(direction, orderby);
         }
 
         return this.dao.findAll(p);
     }
 
-    public long addUsers(Iterable<User> users) {
-        return this.dao.saveAll(users).spliterator().estimateSize();
+    public long addUsers(int count) {
+        var users = IntStream.range(0, count)
+            .mapToObj(i -> User.buildTestUser(i + System.currentTimeMillis()))
+            .toList();
+        return this.dao.saveAll(users).spliterator().getExactSizeIfKnown();
     }
 }

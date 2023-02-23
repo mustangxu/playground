@@ -3,6 +3,8 @@
  */
 package com.jayxu.playground.spring.service;
 
+import java.util.stream.IntStream;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -32,16 +34,15 @@ public class OrderService {
         return this.dao.findByUserId(userId, p);
     }
 
-    public int fillOrders(long userId, int size) {
-        if (!this.userDAO.existsById(userId)) {
-            this.userDAO.save(User.buildTestUser(userId));
+    public long fillOrders(long userId, int size) {
+        var user = this.userDAO.findById(userId).orElse(null);
+        if (user == null) {
+            user = this.userDAO.save(User.buildTestUser(userId));
         }
 
-        for (var i = 0; i < size; i++) {
-            var order = Order.buildOrder(userId);
-            this.dao.save(order);
-        }
-
-        return size;
+        final var u = user;
+        var orders = IntStream.range(0, size).mapToObj(i -> Order.buildOrder(u))
+            .toList();
+        return this.dao.saveAll(orders).spliterator().getExactSizeIfKnown();
     }
 }

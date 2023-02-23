@@ -14,15 +14,18 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.github.javafaker.Faker;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.persistence.Version;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -45,7 +48,11 @@ public class User implements Serializable {
     @Column(length = 48, nullable = false)
     @NotBlank
     private String password;
-    private Integer age;
+    @Column(length = 256)
+    @Email
+    private String email;
+    @OneToOne(cascade = CascadeType.ALL)
+    private UserInfo userInfo;
     @Version
     private Integer version;
     @CreatedDate
@@ -55,17 +62,19 @@ public class User implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateTime;
 
-    public User(Long id, String username, String password, Integer age) {
+    public User(Long id, String username, String password) {
         this.id = id;
         this.username = username;
         this.password = password;
-        this.age = age;
     }
 
     public static User buildTestUser(long id) {
         var faker = new Faker();
 
-        return new User(id, faker.name().username(), faker.crypto().md5(),
-            faker.number().numberBetween(1, 100));
+        var user = new User(id, faker.name().username(), faker.crypto().md5());
+        user.setEmail(faker.internet().emailAddress());
+        user.setUserInfo(UserInfo.build());
+
+        return user;
     }
 }
