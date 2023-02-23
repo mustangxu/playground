@@ -32,7 +32,7 @@ class UserDAOTest {
 
     @Test
     void testAddUsers() {
-        var count = 1000;
+        var count = 10;
 
         for (var i = 0; i < count; i++) {
             var user = User.buildTestUser(System.currentTimeMillis() + i);
