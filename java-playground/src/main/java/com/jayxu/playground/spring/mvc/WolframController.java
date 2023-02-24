@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jayxu.wolfram.WolframService;
+import com.jayxu.playground.wolfram.WolframService;
 
 @RestController
 @RequestMapping("/wolfram")

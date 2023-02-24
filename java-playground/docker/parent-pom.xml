@@ -23,7 +23,7 @@
         <skywalking.version>9.3.0</skywalking.version>
         <!-- <spring.native.version>0.12.2</spring.native.version>-->
         <!-- <gson.version>2.9.0</gson.version> -->
-        <okhttp.version>4.10.0</okhttp.version>
+        <!--okhttp.version>4.10.0</okhttp.version-->
         <!-- <h2.version>2.1.212</h2.version> -->
         <!-- <postgresql.version>42.4.1</postgresql.version> -->
         <jmh.version>1.36</jmh.version>
@@ -31,7 +31,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.2</version>
+        <version>3.0.3</version>
     </parent>
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.eclipse.jdt/org.eclipse.jdt.annotation -->

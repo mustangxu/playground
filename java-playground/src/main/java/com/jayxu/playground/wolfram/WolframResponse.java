@@ -1,7 +1,7 @@
 /**
  * Authored by jayxu @2022
  */
-package com.jayxu.wolfram;
+package com.jayxu.playground.wolfram;
 
 import java.util.HashMap;
 import java.util.List;
