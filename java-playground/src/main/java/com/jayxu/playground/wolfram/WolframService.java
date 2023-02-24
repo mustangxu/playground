@@ -1,42 +1,36 @@
 /**
- * Authored by jayxu @2022
+ * Authored by jayxu @2023
  */
 package com.jayxu.playground.wolfram;
 
-import com.google.gson.GsonBuilder;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.cloud.openfeign.support.SpringMvcContract;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import retrofit2.Call;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.GET;
-import retrofit2.http.Query;
+import feign.Feign;
+import feign.gson.GsonDecoder;
 
 /**
  * @author xujiajing
  */
+@FeignClient(name = "WolframService", url = WolframService.BASE_URL)
 public interface WolframService {
     String BASE_URL = "https://api.wolframalpha.com/v2/";
     String APP_ID = "THX44E-3GUJQYYWQL";
 
     static WolframService init() {
-        var gson = new GsonBuilder().setLenient().create();
-        // var interceptor = new HttpLoggingInterceptor();
-        // interceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS);
-
-        var retrofit = new Retrofit.Builder().baseUrl(WolframService.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create(gson))
-            // .client(
-            // new OkHttpClient.Builder().addInterceptor(interceptor).build())
-            .build();
-
-        return retrofit.create(WolframService.class);
+        return Feign.builder().contract(new SpringMvcContract())
+            .decoder(new GsonDecoder())
+            .target(WolframService.class, BASE_URL);
     }
 
-    @GET("query")
-    Call<WolframResponse> query(@Query("appid") String appID,
-            @Query("input") String input, @Query("output") String output);
+    @GetMapping("/query")
+    WolframResponse query(@RequestParam("appid") String appID,
+            @RequestParam("input") String input,
+            @RequestParam("output") String output);
 
-    default Call<WolframResponse> query(@Query("input") String input) {
+    default WolframResponse query(String input) {
         return this.query(APP_ID, input, "json");
     }
 }

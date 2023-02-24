@@ -6,6 +6,7 @@ package com.jayxu.playground.spring;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
@@ -20,7 +21,8 @@ import io.swagger.v3.oas.annotations.security.SecurityScheme;
 // @EnableWebSocket
 // @EnableWebFlux
 // @EnableJpaRepositories
-@ComponentScan(basePackages = { "com.jayxu" })
+@ComponentScan(basePackages = "com.jayxu")
+@EnableFeignClients(basePackages = "com.jayxu")
 @SecurityScheme(name = "security", type = SecuritySchemeType.APIKEY,
         in = SecuritySchemeIn.HEADER)
 public class PlaygroundApplication {

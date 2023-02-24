@@ -3,7 +3,6 @@
  */
 package com.jayxu.playground.algorithm;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
@@ -34,9 +33,8 @@ public class Fibonacci {
         // precision loss above 70
         if (n <= 70) {
             // Math.floor(Math.pow(phi, n) / SQRT_V + 0.5)
-            return CACHE.computeIfAbsent(n,
-                i -> PHI.pow(i).divide(SQRT_V, RoundingMode.HALF_UP).add(HALF)
-                    .toBigInteger());
+            return CACHE.computeIfAbsent(n, i -> PHI.pow(i)
+                .divide(SQRT_V, RoundingMode.HALF_UP).add(HALF).toBigInteger());
         }
 
         var result = CACHE.get(n);
@@ -48,8 +46,8 @@ public class Fibonacci {
         return result;
     }
 
-    public static BigInteger fibonacciFromWolfram(int n) throws IOException {
-        return WolframService.init().query("fibonacci(" + n + ")").execute()
-            .body().extractPrimaryResult(BigInteger::new);
+    public static BigInteger fibonacciFromWolfram(int n) {
+        return WolframService.init().query("fibonacci(" + n + ")")
+            .extractPrimaryResult(BigInteger::new);
     }
 }

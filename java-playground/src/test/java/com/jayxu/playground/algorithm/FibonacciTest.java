@@ -19,14 +19,13 @@ class FibonacciTest {
     @Test
     void testFibonacci() {
         for (var i = 1; i <= 200; i++) {
-            System.out
-                .println(i + ": " + Fibonacci.fibonacci(i));
+            System.out.println(i + ": " + Fibonacci.fibonacci(i));
             // System.out.println(Fibonacci.CACHE.size());
         }
     }
 
     @Test
-    void testFibonacciFromWolfram() throws Exception {
+    void testFibonacciFromWolfram() {
         final var N = 500;
         var n2 = Fibonacci.fibonacciFromWolfram(N);
         System.out.println(n2);
