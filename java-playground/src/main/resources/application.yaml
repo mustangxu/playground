@@ -59,14 +59,14 @@ spring:
       names: ds_1, ds_2
       ds_1:
         type: com.zaxxer.hikari.HikariDataSource
-#        jdbcUrl: jdbc:mysql://127.0.0.1/playground
-        jdbcUrl: jdbc:h2:~/h2/playground_1
+        jdbcUrl: jdbc:mysql://127.0.0.1/playground?connectionTimeZone=GMT%2B8
+#        jdbcUrl: jdbc:h2:~/h2/playground_1
         username: demo
         password: demo
       ds_2:
         type: com.zaxxer.hikari.HikariDataSource
-#        jdbcUrl: jdbc:mysql://127.0.0.1/playground_s
-        jdbcUrl: jdbc:h2:~/h2/playground_2
+        jdbcUrl: jdbc:mysql://127.0.0.1/playground_s?connectionTimeZone=GMT%2B8
+#        jdbcUrl: jdbc:h2:~/h2/playground_2
         username: demo
         password: demo
     
