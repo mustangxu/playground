@@ -117,7 +117,7 @@
             <groupId>org.openjdk.jmh</groupId>
             <artifactId>jmh-core</artifactId>
             <scope>test</scope>
-            <version>${jmh.version}</version>
+            <version>1.36</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -228,19 +228,20 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/io.github.openfeign/feign-micrometer -->
+        <dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-micrometer</artifactId>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/io.github.openfeign/feign-gson -->
         <dependency>
             <groupId>io.github.openfeign</groupId>
             <artifactId>feign-gson</artifactId>
         </dependency>
-        <!--dependency>
+        <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
-        </dependency-->
     </dependencies>
     <dependencyManagement>
         <dependencies>
@@ -269,7 +270,7 @@
                                     <tag>latest</tag>
                                     <tag>%v-${git.commit.id.abbrev}</tag>
                                 </tags>
-                                <!--<from>bellsoft/liberica-openjre-alpine-musl:17.0.5</from>-->
+                                <!--<from>bellsoft/liberica-openjre-alpine-musl:17.0.6</from>-->
                                 <from>apache/skywalking-java-agent:8.14.0-java17</from>
                                 <workdir>/app</workdir>
                                 <!--<dockerFile>Dockerfile-maven</dockerFile>-->

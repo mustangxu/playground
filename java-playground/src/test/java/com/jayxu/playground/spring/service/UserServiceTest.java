@@ -9,13 +9,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.test.context.ActiveProfiles;
 
-import lombok.extern.slf4j.XSlf4j;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author xujiajing
  */
 @SpringBootTest
-@XSlf4j
+@Slf4j
 @ActiveProfiles("test")
 class UserServiceTest {
     @Autowired

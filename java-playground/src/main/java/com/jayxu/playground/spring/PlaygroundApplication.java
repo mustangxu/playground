@@ -25,6 +25,7 @@ import io.swagger.v3.oas.annotations.security.SecurityScheme;
 @EnableFeignClients(basePackages = "com.jayxu")
 @SecurityScheme(name = "security", type = SecuritySchemeType.APIKEY,
         in = SecuritySchemeIn.HEADER)
+//@EnableDiscoveryClient
 public class PlaygroundApplication {
     private static final String[] skipArgs = {
         "--spring.output.ansi.enabled=always" };

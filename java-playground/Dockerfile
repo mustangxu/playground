@@ -1,19 +1,17 @@
 #
 # Build stage
 #
-FROM maven:3.8-openjdk-18-slim AS build
+FROM maven:3.9.0-eclipse-temurin-17-alpine AS build
 COPY src /home/app/src
 COPY pom.xml /home/app
 COPY docker/parent-pom.xml /home/pom.xml
 RUN mvn -f /home/app/pom.xml -DskipTests clean package
 
 #FROM apache/skywalking-base
-FROM bellsoft/liberica-openjre-alpine-musl:17.0.5
+FROM apache/skywalking-java-agent:8.14.0-java17
 WORKDIR /app
 EXPOSE 8000
 COPY --from=build /home/app/target/java-playground-1.0-SNAPSHOT.jar app.jar
-ADD docker/skywalking /skywalking
-VOLUME [ "/skywalking" ]
 ENTRYPOINT ["java","-Xmx1G","--enable-preview",\
     "-XX:+UnlockExperimentalVMOptions","-XX:+UseZGC",\
     "-javaagent:/skywalking/agent/skywalking-agent.jar","-jar","/app/app.jar"]

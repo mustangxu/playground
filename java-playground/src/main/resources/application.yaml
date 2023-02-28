@@ -27,23 +27,25 @@ spring:
   jpa:
     #generate-ddl: true
     show-sql: false
-    hibernate:
-      ddl-auto: update
+#    hibernate:
+#      ddl-auto: update
+    open-in-view: false
     properties:
-      hibernate:
+#      hibernate:
         #generate_statistics: ${useCache}
-        cache:
-          use_second_level_cache: ${useCache}
-          use_query_cache: ${useCache}
-          region:
+#        cache:
+#          use_second_level_cache: ${useCache}
+#          use_query_cache: ${useCache}
+#          region:
 #            factory_class: org.redisson.hibernate.RedissonRegionFactory
-              factory_class: jcache
+#              factory_class: jcache
 #          redisson:
 #            fallback: true
 #            config: redisson.yaml
       eclipselink:
         cache.query-results: ${useCache}
         ddl-generation: create-or-extend-tables
+#        logging.level: ALL
 #      jakarta:
 #        persistence:
 #          sharedCache:
@@ -114,7 +116,7 @@ spring:
             props:
 #              datetime-pattern: 'yyyy-MM-dd HH:mm:ss'
               datetime-lower: '2023-02-20 00:00:00'
-              datetime-upper: '2023-02-28 00:00:00'
+              datetime-upper: '2023-03-01 00:00:00'
 #              sharding-suffix-pattern: 'yyyyMMdd'
 #              datetime-interval-amount: 1
 #              datetime-interval-unit: 'DAYS'
@@ -133,6 +135,20 @@ spring:
       client:
         url:
         - http://127.0.0.1:9000
+        
+  cloud:
+    openfeign:
+      okhttp:
+        enabled: true
+      compression:
+        request:
+          enabled: true
+        response:
+          enabled: true
+      circuitbreaker:
+        enabled: true
+      micrometer:
+        enabled: true
 
 management:
   endpoint:
@@ -159,6 +175,17 @@ springdoc:
       enabled: true
 #  show-actuator: true
   
+eureka:
+  client:
+    enabled: false
+    healthcheck:
+      enabled: true
+#    service-url: 
+#      defaultZone: http://127.0.0.1:${server.port}/eureka/
+
+ribbon:
+  eureka:
+    enabled: true
 
 #---
 #spring:

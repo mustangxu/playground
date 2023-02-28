@@ -1,4 +1,4 @@
-package com.jayxu.playground.crypt;
+package com.jayxu.playground.crypto;
 
 import java.io.IOException;
 import java.security.KeyFactory;

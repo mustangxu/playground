@@ -45,8 +45,7 @@ public class User implements Serializable {
     @Column(length = 36, nullable = false)
     @NotBlank
     private String username;
-    @Column(length = 48, nullable = false)
-    @NotBlank
+    @Column(length = 48)
     private String password;
     @Column(length = 256)
     @Email

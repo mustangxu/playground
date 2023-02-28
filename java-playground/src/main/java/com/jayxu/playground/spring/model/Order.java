@@ -17,7 +17,6 @@ import com.jayxu.playground.util.RandomUtils;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
@@ -43,7 +42,7 @@ public class Order {
     @UuidGenerator(name = "uuid")
     @Column(length = 36)
     private String id;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private User user;
     @Version
     private Integer version;
