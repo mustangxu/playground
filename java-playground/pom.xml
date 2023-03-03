@@ -205,8 +205,8 @@
         </dependency>
         <dependency>
             <groupId>org.apache.shardingsphere</groupId>
-            <artifactId>shardingsphere-jdbc-core-spring-boot-starter</artifactId>
-            <version>5.2.1</version>
+            <artifactId>shardingsphere-jdbc-core</artifactId>
+            <version>${shardingsphere.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>log4j</groupId>
@@ -214,7 +214,27 @@
                 </exclusion>
                 <exclusion>
                     <groupId>org.apache.shardingsphere</groupId>
+                    <artifactId>shardingsphere-sql-parser-sql92</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.shardingsphere</groupId>
+                    <artifactId>shardingsphere-sql-parser-sqlserver</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.shardingsphere</groupId>
+                    <artifactId>shardingsphere-sql-parser-opengauss</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.shardingsphere</groupId>
+                    <artifactId>shardingsphere-sql-parser-oracle</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.shardingsphere</groupId>
                     <artifactId>shardingsphere-postgresql-dialect-exception</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.shardingsphere</groupId>
+                    <artifactId>shardingsphere-sql-parser-postgresql</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -229,10 +249,10 @@
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
         <!-- https://mvnrepository.com/artifact/io.github.openfeign/feign-micrometer -->
-        <dependency>
+        <!--dependency>
             <groupId>io.github.openfeign</groupId>
             <artifactId>feign-micrometer</artifactId>
-        </dependency>
+        </dependency-->
         <!-- https://mvnrepository.com/artifact/io.github.openfeign/feign-gson -->
         <dependency>
             <groupId>io.github.openfeign</groupId>
