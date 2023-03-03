@@ -50,85 +50,13 @@ spring:
 #        persistence:
 #          sharedCache:
 #            mode: ENABLE_SELECTIVE
-
-  shardingsphere:
-    props:
-      sql-show: true
-    mode:
-      type: Standalone
-            
-    datasource:
-      names: ds_1, ds_2
-      ds_1:
-        type: com.zaxxer.hikari.HikariDataSource
-        jdbcUrl: jdbc:mysql://127.0.0.1/playground?connectionTimeZone=GMT%2B8
-#        jdbcUrl: jdbc:h2:~/h2/playground_1
-        username: demo
-        password: demo
-      ds_2:
-        type: com.zaxxer.hikari.HikariDataSource
-        jdbcUrl: jdbc:mysql://127.0.0.1/playground_s?connectionTimeZone=GMT%2B8
-#        jdbcUrl: jdbc:h2:~/h2/playground_2
-        username: demo
-        password: demo
-    
-    rules:
-      sharding:
-#        tables:
-#          orders:
-#            actualDataNodes: ds.orders_$->{202302..202303}
-#            shardingStrategy:
-#              standard:
-#                shardingColumn: createtime
-#                shardingAlgorithmName: daily
-         
-        auto-tables:
-          users:
-            actualDataSources: ds_1, ds_2
-            shardingStrategy:
-              standard:
-                shardingColumn: id
-                shardingAlgorithmName: mod
-          user_infos:
-            actualDataSources: ds_1, ds_2
-            shardingStrategy:
-              standard:
-                shardingColumn: id
-                shardingAlgorithmName: mod
-          orders:
-            actualDataSources: ds_1
-            shardingStrategy:
-              standard:
-                shardingColumn: createtime
-                shardingAlgorithmName: daily
-
-        sharding-algorithms:
-          user-id:
-            type: INLINE
-            props:
-              algorithm-expression: users_$->{id % 4}
-          mod:
-            type: MOD
-            props:
-              sharding-count: 4
-          daily:
-            type: AUTO_INTERVAL
-            props:
-#              datetime-pattern: 'yyyy-MM-dd HH:mm:ss'
-              datetime-lower: '2023-02-20 00:00:00'
-              datetime-upper: '2023-03-01 00:00:00'
-#              sharding-suffix-pattern: 'yyyyMMdd'
-#              datetime-interval-amount: 1
-#              datetime-interval-unit: 'DAYS'
-              sharding-seconds: 86400
-
-        binding-tables: users, orders, user_infos
+  datasource:
+    driver-class-name: org.apache.shardingsphere.driver.ShardingSphereDriver
+    url: jdbc:shardingsphere:classpath:sharding.yaml
         
   jackson:
     serialization:
       fail-on-empty-beans: false
-#  profiles:
-#    active: dev
 
   boot:
     admin:
@@ -204,6 +132,8 @@ spring:
   config:
     activate:
       on-profile: test
+  datasource:
+    url: jdbc:shardingsphere:classpath:sharding-test.yaml
   
   shardingsphere:
     props:
@@ -224,7 +154,11 @@ spring:
     admin:
       client:
         enabled: false
-        
+
+springdoc:
+  swagger-ui:
+    enabled: false
+
 management:
   endpoint:
     health:

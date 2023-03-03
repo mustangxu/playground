@@ -1,0 +1,61 @@
+mode:
+  type: Standalone
+
+props:
+  sql-show: true
+
+dataSources:
+  ds_1:
+    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    jdbcUrl: jdbc:mysql://127.0.0.1/playground?connectionTimeZone=GMT%2B8
+#        jdbcUrl: jdbc:h2:~/h2/playground_1
+    username: demo
+    password: demo
+  ds_2:
+    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    jdbcUrl: jdbc:mysql://127.0.0.1/playground_s?connectionTimeZone=GMT%2B8
+#        jdbcUrl: jdbc:h2:~/h2/playground_2
+    username: demo
+    password: demo
+
+rules:
+- !SHARDING
+  autoTables:
+    users:
+      actualDataSources: ds_1, ds_2
+      shardingStrategy:
+        standard:
+            shardingColumn: id
+            shardingAlgorithmName: mod
+    user_infos:
+      actualDataSources: ds_1, ds_2
+      shardingStrategy:
+        standard:
+            shardingColumn: id
+            shardingAlgorithmName: mod
+    orders:
+      actualDataSources: ds_1
+      shardingStrategy:
+        standard:
+            shardingColumn: createtime
+            shardingAlgorithmName: daily
+
+  shardingAlgorithms:
+    user-id:
+      type: INLINE
+      props:
+        algorithm-expression: users_$->{id % 4}
+    mod:
+      type: MOD
+      props:
+        sharding-count: 4
+    daily:
+      type: AUTO_INTERVAL
+      props:
+        datetime-lower: '2023-02-20 00:00:00'
+        datetime-upper: '2023-03-01 00:00:00'
+        sharding-seconds: 86400
+
+  broadcastTables:
+    - users, orders
+    - users, user_infos
