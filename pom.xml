@@ -28,6 +28,7 @@
         <!-- <postgresql.version>42.4.1</postgresql.version> -->
         <jmh.version>1.36</jmh.version>
         <shardingsphere.version>5.3.1</shardingsphere.version>
+        <snakeyaml.version>2.0</snakeyaml.version>
     </properties>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -111,7 +112,6 @@
                 <groupId>io.github.git-commit-id</groupId>
                 <artifactId>git-commit-id-maven-plugin</artifactId>
                 <configuration>
-                    <offline>true</offline>
                     <runOnlyOnce>true</runOnlyOnce>
                     <failOnNoGitDirectory>false</failOnNoGitDirectory>
                 </configuration>
