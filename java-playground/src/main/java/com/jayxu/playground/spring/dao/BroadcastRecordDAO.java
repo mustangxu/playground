@@ -3,7 +3,6 @@ package com.jayxu.playground.spring.dao;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
 
 import com.jayxu.playground.spring.model.BroadcastRecord;
 import com.jayxu.playground.spring.model.BuiltTransactionType;
@@ -11,18 +10,16 @@ import com.jayxu.playground.spring.model.BuiltTransactionType;
 /**
  * @author xujiajing
  */
-@Repository
 public interface BroadcastRecordDAO
         extends CrudRepository<BroadcastRecord, Long>,
         JpaSpecificationExecutor<BroadcastRecord> {
     default BroadcastRecord getByUniqueKey(long taskId, String assetName,
             String platformName, short builtTransactionType) {
         var spec = Specification.where(withColumn("taskId", taskId))
-            .and(withColumn("assetName", assetName)).and(withColumn(
-                "builtTransactionType", builtTransactionType));
+            .and(withColumn("assetName", assetName))
+            .and(withColumn("builtTransactionType", builtTransactionType));
 
-        if (builtTransactionType != BuiltTransactionType.WITHDRAW
-            .getCode()) {
+        if (builtTransactionType != BuiltTransactionType.WITHDRAW.getCode()) {
             spec = spec.and(withColumn("platformName", platformName));
         }
 
