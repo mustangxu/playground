@@ -5,6 +5,7 @@
     <version>1.0-SNAPSHOT</version>
     <url>https://github.com/mustangxu/playground</url>
     <name>Java coding playground</name>
+    <description>A playground project for all the open source projects I am interested in. Always bases on the lastest Spring Boot</description>
     <contributors>
         <contributor>
             <name>Jay Xu</name>

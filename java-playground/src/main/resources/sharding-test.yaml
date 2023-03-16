@@ -7,14 +7,12 @@ props:
 dataSources:
   ds_1:
     dataSourceClassName: com.zaxxer.hikari.HikariDataSource
-    jdbcUrl: jdbc:mysql://127.0.0.1/playground?connectionTimeZone=GMT%2B8
-#        jdbcUrl: jdbc:h2:~/h2/playground_1
+    jdbcUrl: jdbc:h2:~/h2/playground_1
     username: demo
     password: demo
   ds_2:
     dataSourceClassName: com.zaxxer.hikari.HikariDataSource
-    jdbcUrl: jdbc:mysql://127.0.0.1/playground_s?connectionTimeZone=GMT%2B8
-#        jdbcUrl: jdbc:h2:~/h2/playground_2
+    jdbcUrl: jdbc:h2:~/h2/playground_2
     username: demo
     password: demo
 

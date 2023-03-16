@@ -7,13 +7,13 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
 
-import org.eclipse.persistence.annotations.Cache;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.github.javafaker.Faker;
 
+import jakarta.persistence.Cacheable;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -34,8 +34,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "users", indexes = @Index(columnList = "username"))
 @Data
 @NoArgsConstructor
-// @Cacheable
-@Cache
+@Cacheable
 @EntityListeners(AuditingEntityListener.class)
 public class User implements Serializable {
     @Serial

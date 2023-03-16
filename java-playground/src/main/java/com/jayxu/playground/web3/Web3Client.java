@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @Slf4j
 public class Web3Client implements InitializingBean {
-    @Value("${web3.eth.url}")
+    @Value("${web3.eth.url:https://cloudflare-eth.com}")
     private String ethNetUrl;
     private Web3j web3;
 
