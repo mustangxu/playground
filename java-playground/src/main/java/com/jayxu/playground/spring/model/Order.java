@@ -10,13 +10,11 @@ import java.util.Random;
 import org.eclipse.persistence.annotations.UuidGenerator;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.jayxu.playground.util.RandomUtils;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
@@ -35,7 +33,7 @@ import lombok.Data;
         indexes = { @Index(columnList = "userId"),
             @Index(columnList = "createTime"), @Index(columnList = "state") })
 @Data
-@EntityListeners(AuditingEntityListener.class)
+//@EntityListeners(AuditingEntityListener.class)
 public class Order {
     @Id
     @GeneratedValue(generator = "uuid")
