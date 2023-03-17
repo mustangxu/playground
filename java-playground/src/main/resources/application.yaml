@@ -16,13 +16,11 @@ spring:
   main:
     allow-bean-definition-overriding: true
     allow-circular-references: true
-
+    
 #  datasource:
-    #url: jdbc:mysql://10.163.113.121/playground
 #    url: jdbc:mysql://127.0.0.1/playground
 #    url: jdbc:h2:~/h2/playground
 #    url: jdbc:postgresql://host.docker.internal/xujiajing
-    #url:  jdbc:hsqldb:${user.home}/hsqldb/playground
 #    hikari:
 #      username: demo
 #      password: demo
@@ -49,10 +47,10 @@ spring:
         cache.query-results: ${useCache}
         ddl-generation: create-or-extend-tables
 #        logging.level: ALL
-#      jakarta:
-#        persistence:
-#          sharedCache:
-#            mode: ENABLE_SELECTIVE
+      jakarta:
+        persistence:
+          sharedCache:
+            mode: ENABLE_SELECTIVE
   datasource:
     driver-class-name: org.apache.shardingsphere.driver.ShardingSphereDriver
     url: jdbc:shardingsphere:classpath:sharding.yaml
@@ -90,9 +88,9 @@ management:
       exposure:
         include: "*"
 
-logging:
-  level:
-    org:
+#logging:
+#  level:
+#    org:
 #      hibernate.cache: debug
 #      springframework:
 #        web.reactive: debug

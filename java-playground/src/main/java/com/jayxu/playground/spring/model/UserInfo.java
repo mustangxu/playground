@@ -12,6 +12,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import com.github.javafaker.Faker;
 import com.jayxu.playground.util.RandomUtils;
 
+import jakarta.persistence.Cacheable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
@@ -31,7 +32,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "user_infos")
 @Data
 @NoArgsConstructor
-// @Cacheable
+@Cacheable
 @EntityListeners(AuditingEntityListener.class)
 public class UserInfo {
     @Id
