@@ -56,7 +56,7 @@ public class Order {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateTime;
 
-    public static Order buildOrder(User user) {
+    public static Order fake(User user) {
         var r = new Random();
         var order = new Order();
         order.setUser(user);

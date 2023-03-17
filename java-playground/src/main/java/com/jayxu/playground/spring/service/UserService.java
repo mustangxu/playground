@@ -33,7 +33,7 @@ public class UserService {
     @Cacheable("users")
     public User getOrAddUser(long id) {
         return this.dao.findById(id).orElseGet(() -> {
-            var user = User.buildTestUser(id);
+            var user = User.fake(id);
             user = this.dao.save(user);
             UserService.log.info("User {} added", id);
 
@@ -65,8 +65,7 @@ public class UserService {
 
     public long addUsers(int count) {
         var users = IntStream.range(0, count)
-            .mapToObj(i -> User.buildTestUser(i + System.currentTimeMillis()))
-            .toList();
+            .mapToObj(i -> User.fake(i + System.currentTimeMillis())).toList();
         return this.dao.saveAll(users).spliterator().getExactSizeIfKnown();
     }
 }

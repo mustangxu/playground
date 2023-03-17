@@ -66,12 +66,12 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public static User buildTestUser(long id) {
+    public static User fake(long id) {
         var faker = new Faker();
 
         var user = new User(id, faker.name().username(), faker.crypto().md5());
         user.setEmail(faker.internet().emailAddress());
-        user.setUserInfo(UserInfo.build());
+        user.setUserInfo(UserInfo.fake());
 
         return user;
     }

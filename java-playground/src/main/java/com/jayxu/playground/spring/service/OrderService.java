@@ -37,11 +37,11 @@ public class OrderService {
     public long fillOrders(long userId, int size) {
         var user = this.userDAO.findById(userId).orElse(null);
         if (user == null) {
-            user = this.userDAO.save(User.buildTestUser(userId));
+            user = this.userDAO.save(User.fake(userId));
         }
 
         final var u = user;
-        var orders = IntStream.range(0, size).mapToObj(i -> Order.buildOrder(u))
+        var orders = IntStream.range(0, size).mapToObj(i -> Order.fake(u))
             .toList();
         return this.dao.saveAll(orders).spliterator().getExactSizeIfKnown();
     }

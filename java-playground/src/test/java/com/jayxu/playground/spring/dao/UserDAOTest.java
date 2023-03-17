@@ -35,7 +35,7 @@ class UserDAOTest {
         var count = 10;
 
         for (var i = 0; i < count; i++) {
-            var user = User.buildTestUser(System.currentTimeMillis() + i);
+            var user = User.fake(System.currentTimeMillis() + i);
             user = this.dao.save(user);
             UserDAOTest.log.info("{}", user);
         }
