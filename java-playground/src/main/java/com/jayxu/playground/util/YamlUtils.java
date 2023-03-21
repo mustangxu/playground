@@ -23,7 +23,7 @@ public class YamlUtils {
     public static String parseApollo(InputStream is) {
         var apollo = new Gson().fromJson(new InputStreamReader(is),
             ApolloConfig.class);
-        var value = apollo.getItems().get(0).getValue();
+        var value = apollo.items().get(0).value();
         // log.debug("items[0].value:\n{}", value);
 
         var yaml = new Yaml();

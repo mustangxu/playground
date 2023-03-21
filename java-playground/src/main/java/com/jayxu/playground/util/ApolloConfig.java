@@ -6,32 +6,12 @@ package com.jayxu.playground.util;
 import java.util.Date;
 import java.util.List;
 
-import lombok.Value;
-
 /**
  * @author xujiajing
  */
-@Value
-public class ApolloConfig {
-    private String appId;
-    private String clusterName;
-    private String namespaceName;
-    private String comment;
-    private String format;
-    private boolean isPublic;
-    private List<ApolloConfigItem> items;
-    private String dataChangeCreatedBy;
-    private String dataChangeLastModifiedBy;
-    private Date dataChangeCreatedTime;
-    private Date dataChangeLastModifiedTime;
-
-    @Value
-    public static class ApolloConfigItem {
-        private String key;
-        private String value;
-        private String dataChangeCreatedBy;
-        private String dataChangeLastModifiedBy;
-        private Date dataChangeCreatedTime;
-        private Date dataChangeLastModifiedTime;
-    }
+public record ApolloConfig(String appId, String clusterName,
+        String namespaceName, String comment, String format, boolean isPublic,
+        List<ApolloConfigItem> items, String dataChangeCreatedBy,
+        String dataChangeLastModifiedBy, Date dataChangeCreatedTime,
+        Date dataChangeLastModifiedTime) {
 }

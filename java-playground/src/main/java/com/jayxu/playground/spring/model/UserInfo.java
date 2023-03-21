@@ -54,7 +54,7 @@ public class UserInfo {
         FEMALE
     }
 
-    public static UserInfo build() {
+    public static UserInfo fake() {
         var faker = new Faker();
 
         var info = new UserInfo();

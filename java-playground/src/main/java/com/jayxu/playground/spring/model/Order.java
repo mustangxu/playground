@@ -54,11 +54,11 @@ public class Order {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateTime;
 
-    public static Order buildOrder(User user) {
+    public static Order fake(User user) {
         var r = new Random();
         var order = new Order();
         order.setUser(user);
-        order.setPrice(new BigDecimal(r.nextDouble(1_000_000)));
+        order.setPrice(new BigDecimal(r.nextDouble(1_000_000.)));
         order.setState(RandomUtils.randomEnum(OrderState.class));
 
         return order;
