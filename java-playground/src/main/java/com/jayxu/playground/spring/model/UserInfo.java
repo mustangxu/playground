@@ -7,6 +7,7 @@ import java.util.Date;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.github.javafaker.Faker;
 import com.jayxu.playground.util.RandomUtils;
@@ -14,6 +15,7 @@ import com.jayxu.playground.util.RandomUtils;
 import jakarta.persistence.Cacheable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -31,7 +33,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Cacheable
-//@EntityListeners(AuditingEntityListener.class)
+@EntityListeners(AuditingEntityListener.class)
 public class UserInfo {
     @Id
     @GeneratedValue
