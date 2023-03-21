@@ -18,7 +18,6 @@ public class ConsumerThread extends Thread {
     @Override
     public void run() {
         while (true) {
-
             synchronized (this.queue) {
                 System.out.println("Enter consumer's synchronized block");
 
@@ -29,7 +28,7 @@ public class ConsumerThread extends Thread {
                         System.out.println("Consumer is waiting ...");
                         this.queue.wait();
                     } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        Thread.currentThread().interrupt();
                     }
                 } else {
                     System.out
@@ -42,7 +41,7 @@ public class ConsumerThread extends Thread {
                     try {
                         Thread.sleep(this.interval);
                     } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        Thread.currentThread().interrupt();
                     }
                 }
             }

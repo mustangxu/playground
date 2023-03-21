@@ -31,7 +31,7 @@ public class ProducerThread extends Thread {
                         System.err.println("Producer is waiting ...");
                         this.queue.wait();
                     } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        Thread.currentThread().interrupt();
                     }
                 } else {
                     var n = this.r.nextInt();
@@ -46,7 +46,7 @@ public class ProducerThread extends Thread {
                     try {
                         Thread.sleep(this.interval);
                     } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        Thread.currentThread().interrupt();
                     }
                 }
             }

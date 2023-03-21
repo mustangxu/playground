@@ -3,6 +3,7 @@
  */
 package com.jayxu.playground.algorithm;
 
+import java.io.Serial;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -23,6 +24,7 @@ import lombok.ToString;
  * @author xujiajing
  */
 public class HuffmanTree<T> extends Tree<T, HuffmanTreeNode<T>> {
+    @Serial
     private static final long serialVersionUID = -2503306000582479972L;
     private LinkedList<HuffmanTreeNode<T>> dest;
 
@@ -32,6 +34,7 @@ public class HuffmanTree<T> extends Tree<T, HuffmanTreeNode<T>> {
     @EqualsAndHashCode(callSuper = true)
     public static class HuffmanTreeNode<T> extends TreeNode<T>
             implements Comparable<HuffmanTreeNode<T>> {
+        @Serial
         private static final long serialVersionUID = 4547144338353998776L;
         private int weight;
 

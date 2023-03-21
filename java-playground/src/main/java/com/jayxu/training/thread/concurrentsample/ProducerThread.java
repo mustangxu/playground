@@ -25,13 +25,13 @@ public class ProducerThread extends Thread {
             try {
                 this.queue.put(n);
             } catch (InterruptedException e1) {
-                e1.printStackTrace();
+                Thread.currentThread().interrupt();
             }
 
             try {
                 Thread.sleep(this.interval);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                Thread.currentThread().interrupt();
             }
         }
     }

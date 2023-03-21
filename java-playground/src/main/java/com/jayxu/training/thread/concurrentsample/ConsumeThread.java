@@ -20,14 +20,14 @@ public class ConsumeThread extends Thread {
             try {
                 System.out.println("Consumed [" + this.queue.take() + "]");
             } catch (InterruptedException e1) {
-                e1.printStackTrace();
+                Thread.currentThread().interrupt();
             }
             System.out.println("Notified producers");
 
             try {
                 Thread.sleep(this.interval);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                Thread.currentThread().interrupt();
             }
         }
     }

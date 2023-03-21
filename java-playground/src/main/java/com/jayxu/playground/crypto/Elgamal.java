@@ -19,7 +19,7 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
  * @author xujiajing
  */
 public class Elgamal {
-    private Cipher cipher = null;
+    private Cipher cipher;
     private SecureRandom random = new SecureRandom();
     private KeyPair keypair;
     private int keysize;

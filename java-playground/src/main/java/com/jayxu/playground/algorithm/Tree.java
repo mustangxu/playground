@@ -3,6 +3,7 @@
  */
 package com.jayxu.playground.algorithm;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.Arrays;
@@ -29,6 +30,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public abstract class Tree<T, N extends TreeNode<T>>
         implements Collection<T>, Serializable {
+    @Serial
     private static final long serialVersionUID = -2868930520060725242L;
     protected static final BinaryOperator<Boolean> OR = (a, b) -> a || b;
     @Getter
@@ -89,9 +91,8 @@ public abstract class Tree<T, N extends TreeNode<T>>
     @SuppressWarnings("unchecked")
     @Override
     public <E> E[] toArray(E[] a) {
-        var array = a.length >= this.size ? a
-            : (E[]) Array.newInstance(a.getClass().getComponentType(),
-                this.size);
+        var array = a.length >= this.size ? a : (E[]) Array
+            .newInstance(a.getClass().getComponentType(), this.size);
 
         if (this.root == null) {
             return array;
@@ -128,8 +129,9 @@ public abstract class Tree<T, N extends TreeNode<T>>
     }
 
     public Stream<N> nodeStream(@SuppressWarnings("hiding") Order order) {
-        return StreamSupport.stream(Spliterators
-            .spliterator(this.nodeIterator(order), this.size, 0), false);
+        return StreamSupport.stream(
+            Spliterators.spliterator(this.nodeIterator(order), this.size, 0),
+            false);
     }
 
     public Iterator<N> nodeIterator() {

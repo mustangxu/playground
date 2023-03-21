@@ -3,6 +3,7 @@
  */
 package com.jayxu.playground.algorithm;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.function.BiConsumer;
@@ -23,6 +24,7 @@ import lombok.ToString;
 @ToString(exclude = "parent")
 @NoArgsConstructor
 public abstract class TreeNode<T> implements Serializable, Cloneable {
+    @Serial
     private static final long serialVersionUID = 2971112099864422333L;
     protected T value;
     /**
@@ -46,8 +48,8 @@ public abstract class TreeNode<T> implements Serializable, Cloneable {
     }
 
     protected <V> void traverseOrdered(Counter counter,
-            BiConsumer<Counter, V> fun,
-            Function<TreeNode<T>, V> mapper, Order order) {
+            BiConsumer<Counter, V> fun, Function<TreeNode<T>, V> mapper,
+            Order order) {
         var v = mapper.apply(this);
 
         switch (order) {

@@ -27,9 +27,9 @@ public class FileCapitalizer {
             new InputStreamReader(new FileInputStream(original)));
                 var w = new BufferedWriter(new OutputStreamWriter(
                     new FileOutputStream(target)));) {
-            String s = null;
             var counter = 0;
 
+            String s;
             while ((s = r.readLine()) != null) {
                 counter += s.length();
                 w.write(s.toUpperCase());
