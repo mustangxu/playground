@@ -60,7 +60,7 @@ public class Order {
         var r = new Random();
         var order = new Order();
         order.setUser(user);
-        order.setPrice(new BigDecimal(r.nextDouble(1_000_000)));
+        order.setPrice(new BigDecimal(r.nextDouble(1_000_000.)));
         order.setState(RandomUtils.randomEnum(OrderState.class));
 
         return order;
