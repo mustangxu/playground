@@ -7,6 +7,11 @@
 
 ## Usage
 cd to main folder: `java-playground`, so far contains the following demos:
+* JDK 17 and spring boot 3.x
+* JDK new features:
+    * native memory access
+    * vector calculation
+    * record
 * eclipselink JPA
 * sharding sphere
 * openapi with swagger UI
@@ -17,9 +22,11 @@ cd to main folder: `java-playground`, so far contains the following demos:
 * jmdns
 * skywalking tracing, log
 * maven docker build task
-* eth RPC
+* eth RPC client
+* a [wolfram](https://www.wolframalpha.com/) client
 * spring boot client, a spring boot server docker image is [here](https://hub.docker.com/repository/docker/mustangxu/spring-boot-admin-server/general)
 * jmh performance test
+* jasypt-spring integration using [my another project](https://github.com/mustangxu/jasypt-spring-aws-kms-starter)
 
 run:
 ```shell

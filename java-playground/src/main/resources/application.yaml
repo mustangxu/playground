@@ -88,8 +88,9 @@ management:
       exposure:
         include: "*"
 
-#logging:
-#  level:
+logging:
+  level:
+    com.jayxu.playground.mailgun.MailgunService: debug
 #    org:
 #      hibernate.cache: debug
 #      springframework:
@@ -103,7 +104,7 @@ springdoc:
     csrf:
       enabled: true
 #  show-actuator: true
-  
+
 eureka:
   client:
     enabled: false
@@ -112,27 +113,20 @@ eureka:
 #    service-url: 
 #      defaultZone: http://127.0.0.1:${server.port}/eureka/
 
-ribbon:
-  eureka:
-    enabled: true
+mailgun:
+  domain: ENC(FUilrw7uoSPBUc7Weyzm7ifzei0dfZ4rwgPyXPrvR5gAcYxhXVr7Ixzf/zhMVBJx)
+  base-url: https://api.mailgun.net/v3/${mailgun.domain}
+  api-key: ENC(Q40HqUGYofLhrHaQjdF037T3XksYHkDumr+0Ng4h2kvtPcuHHbTKeGp6yFUhsJpf6m3Crnc1DTCwm5vmLuoG5r7wbHYQESMz6vYcsjaZI5Jbjfq3/oh8RKuhRT8Erma8)
+  
+wolfram:
+  api-key: ENC(vVHSJ1WNlRIK+A32fm3NgcQFPGqae7W2taUuFjsmiMcjHKRGTHwzDMaYxVVeZWhoXkP22UY5UcTIYMqw992Hrw==)
 
-#---
-#spring:
-#  config:
-#    activate:
-#      on-profile: [prod, dev]
-#
-#  datasource:
-#    #url: jdbc:mysql://10.163.113.121/playground
-#    #    url: jdbc:mysql://127.0.0.1/playground
-#    url: jdbc:postgresql://host.docker.internal/xujiajing
-#
 ---
 useCache: false
 spring:
   config:
     activate:
-      on-profile: test
+      on-profile: test, h2
   datasource:
     url: jdbc:shardingsphere:classpath:sharding-test.yaml
   
@@ -140,6 +134,8 @@ spring:
     admin:
       client:
         enabled: false
+  quartz:
+    auto-startup: false
 
 springdoc:
   swagger-ui:
@@ -151,11 +147,3 @@ management:
       enabled: false
   endpoints:
     enabled-by-default: false
-    
----
-spring:
-  config:
-    activate:
-      on-profile: h2
-  datasource:
-    url: jdbc:shardingsphere:classpath:sharding-test.yaml

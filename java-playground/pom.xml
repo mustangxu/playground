@@ -279,6 +279,11 @@
             <groupId>com.fasterxml.jackson.module</groupId>
             <artifactId>jackson-module-kotlin</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.jayxu</groupId>
+            <artifactId>jasypt-spring-aws-kms-starter</artifactId>
+            <version>0.7</version>
+        </dependency>
     </dependencies>
     <dependencyManagement>
         <dependencies>
