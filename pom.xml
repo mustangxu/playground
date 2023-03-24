@@ -189,10 +189,10 @@
             <id>spring-snapshot</id>
             <url>https://repo.spring.io/snapshot</url>
         </repository-->
-        <!--repository>
+        <repository>
             <id>sonatype</id>
             <url>https://s01.oss.sonatype.org/content/groups/public</url>
-        </repository-->
+        </repository>
         <!--		<repository>-->
         <!--			<id>space-maven</id>-->
         <!--			<url>https://maven.pkg.jetbrains.space/jayxu/p/playground/maven</url>-->

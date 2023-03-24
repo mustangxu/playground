@@ -19,6 +19,7 @@
         <groupId>com.jayxu.playground</groupId>
         <artifactId>playground-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
+        <relativePath>../</relativePath>
     </parent>
     <dependencies>
         <dependency>
