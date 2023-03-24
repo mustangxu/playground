@@ -27,6 +27,7 @@ cd to main folder: `java-playground`, so far contains the following demos:
 * spring boot client, a spring boot server docker image is [here](https://hub.docker.com/repository/docker/mustangxu/spring-boot-admin-server/general)
 * jmh performance test
 * jasypt-spring integration using [my another project](https://github.com/mustangxu/jasypt-spring-aws-kms-starter)
+* a openai client using [my another project](https://github.com/mustangxu/openai4j)
 
 run:
 ```shell

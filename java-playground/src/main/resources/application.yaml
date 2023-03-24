@@ -121,6 +121,9 @@ mailgun:
 wolfram:
   api-key: ENC(vVHSJ1WNlRIK+A32fm3NgcQFPGqae7W2taUuFjsmiMcjHKRGTHwzDMaYxVVeZWhoXkP22UY5UcTIYMqw992Hrw==)
 
+openai:
+  api-key: ENC(ij9JyrYMHXBYhAQXhnOoDD4cT3rScUrhlwzNGEyeJtFtSMpv1lsov3qE3tX329cgentwKwUI+ao513U/7wm8qfxFVCSJ7jdTRPbqh+3/WTmGXa49DEa7l7BMnscvVBSK)
+
 ---
 useCache: false
 spring:

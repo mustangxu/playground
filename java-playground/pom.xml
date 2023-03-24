@@ -284,6 +284,11 @@
             <artifactId>jasypt-spring-aws-kms-starter</artifactId>
             <version>0.7</version>
         </dependency>
+        <dependency>
+            <groupId>com.jayxu</groupId>
+            <artifactId>openai4j</artifactId>
+            <version>0.2-SNAPSHOT</version>
+        </dependency>
     </dependencies>
     <dependencyManagement>
         <dependencies>
