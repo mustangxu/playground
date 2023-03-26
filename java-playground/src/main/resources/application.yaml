@@ -124,12 +124,14 @@ wolfram:
 openai:
   api-key: ENC(ij9JyrYMHXBYhAQXhnOoDD4cT3rScUrhlwzNGEyeJtFtSMpv1lsov3qE3tX329cgentwKwUI+ao513U/7wm8qfxFVCSJ7jdTRPbqh+3/WTmGXa49DEa7l7BMnscvVBSK)
 
+
+
 ---
 useCache: false
 spring:
   config:
     activate:
-      on-profile: test, h2
+      on-profile: test
   datasource:
     url: jdbc:shardingsphere:classpath:sharding-test.yaml
   
@@ -143,6 +145,31 @@ spring:
 springdoc:
   swagger-ui:
     enabled: false
+
+management:
+  endpoint:
+    health:
+      enabled: false
+  endpoints:
+    enabled-by-default: false
+    
+
+
+---
+useCache: false
+spring:
+  config:
+    activate:
+      on-profile: h2
+  datasource:
+    url: jdbc:shardingsphere:classpath:sharding-test.yaml
+
+  boot:
+    admin:
+      client:
+        enabled: false
+  quartz:
+    auto-startup: false
 
 management:
   endpoint:
