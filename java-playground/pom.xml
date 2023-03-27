@@ -11,9 +11,7 @@
         <!-- <h2.version>2.1.212</h2.version> -->
         <!-- <postgresql.version>42.4.1</postgresql.version> -->
         <jmh.version>1.36</jmh.version>
-        <shardingsphere.version>5.3.1</shardingsphere.version>
         <!--snakeyaml.version>2.0</snakeyaml.version-->
-        <asm.version>9.1</asm.version>
     </properties>
     <parent>
         <groupId>com.jayxu.playground</groupId>
@@ -211,7 +209,7 @@
         <dependency>
             <groupId>org.apache.shardingsphere</groupId>
             <artifactId>shardingsphere-jdbc-core</artifactId>
-            <version>${shardingsphere.version}</version>
+            <version>5.3.1</version>
             <exclusions>
                 <exclusion>
                     <groupId>log4j</groupId>
@@ -219,27 +217,7 @@
                 </exclusion>
                 <exclusion>
                     <groupId>org.apache.shardingsphere</groupId>
-                    <artifactId>shardingsphere-sql-parser-sql92</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.apache.shardingsphere</groupId>
-                    <artifactId>shardingsphere-sql-parser-sqlserver</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.apache.shardingsphere</groupId>
-                    <artifactId>shardingsphere-sql-parser-opengauss</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.apache.shardingsphere</groupId>
-                    <artifactId>shardingsphere-sql-parser-oracle</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.apache.shardingsphere</groupId>
                     <artifactId>shardingsphere-postgresql-dialect-exception</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.apache.shardingsphere</groupId>
-                    <artifactId>shardingsphere-sql-parser-postgresql</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>

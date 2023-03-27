@@ -5,7 +5,6 @@ package com.jayxu.playground.spring.mvc;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -59,8 +58,8 @@ public class OpenAiController {
                     .enqueue(new StreamCallback<>(e, CompletionResponse.class));
             });
 
-            return flux.map(r -> r.getChoices().get(0).getDelta())
-                .filter(Objects::nonNull).map(Message::getContent);
+            return flux.mapNotNull(r -> r.getChoices().get(0).getDelta())
+                .mapNotNull(Message::getContent);
         }
 
         return Flux.just(this.service.createChat(req).execute().body()
