@@ -16,6 +16,7 @@ spring:
   main:
     allow-bean-definition-overriding: true
     allow-circular-references: true
+    web-application-type: reactive
     
 #  datasource:
 #    url: jdbc:mysql://127.0.0.1/playground
@@ -90,7 +91,9 @@ management:
 
 logging:
   level:
-    com.jayxu.playground.mailgun.MailgunService: debug
+    com.jayxu:
+      playground.mailgun.MailgunService: debug
+      openai4j: debug
 #    org:
 #      hibernate.cache: debug
 #      springframework:
