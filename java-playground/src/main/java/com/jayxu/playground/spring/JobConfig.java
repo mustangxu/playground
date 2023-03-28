@@ -27,7 +27,7 @@ public class JobConfig {
     @Bean
     Trigger trigger() {
         var scheduler = SimpleScheduleBuilder.simpleSchedule()
-            .withIntervalInSeconds(30).repeatForever();
+            .withIntervalInMinutes(1).repeatForever();
 
         return TriggerBuilder.newTrigger().withIdentity("trigger-30s")
             .forJob(this.simpleJob()).withSchedule(scheduler).build();
