@@ -9,12 +9,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.jayxu.playground.mailgun.MailgunService;
+import com.jayxu.playground.wolfram.WolframService;
 
 import feign.Feign;
 import feign.Logger.Level;
 import feign.auth.BasicAuthRequestInterceptor;
 import feign.form.spring.SpringFormEncoder;
-import feign.gson.GsonDecoder;
+import feign.jackson.JacksonDecoder;
 import feign.slf4j.Slf4jLogger;
 
 /**
@@ -29,12 +30,22 @@ public class FeignConfig {
 
     @Bean
     MailgunService mailgunService() {
-        return Feign.builder()
+        return feignBuilder()
             .requestInterceptor(
                 new BasicAuthRequestInterceptor("api", this.apiKey))
             .logger(new Slf4jLogger(MailgunService.class))
-            .logLevel(Level.HEADERS).contract(new SpringMvcContract())
-            .decoder(new GsonDecoder()).encoder(new SpringFormEncoder())
             .target(MailgunService.class, this.baseUrl);
+    }
+
+    @Bean
+    WolframService wolframService() {
+        return feignBuilder().logger(new Slf4jLogger(WolframService.class))
+            .target(WolframService.class, WolframService.BASE_URL);
+    }
+
+    private static Feign.Builder feignBuilder() {
+        return Feign.builder().logLevel(Level.HEADERS)
+            .contract(new SpringMvcContract()).decoder(new JacksonDecoder())
+            .encoder(new SpringFormEncoder());
     }
 }

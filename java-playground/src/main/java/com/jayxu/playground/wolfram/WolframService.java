@@ -3,25 +3,23 @@
  */
 package com.jayxu.playground.wolfram;
 
-import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.cloud.openfeign.support.SpringMvcContract;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import feign.Feign;
-import feign.gson.GsonDecoder;
+import feign.jackson.JacksonDecoder;
 
 /**
  * @author xujiajing
  */
-@FeignClient(name = "WolframService", url = WolframService.BASE_URL)
 public interface WolframService {
     String BASE_URL = "https://api.wolframalpha.com/v2/";
     String APP_ID = "THX44E-3GUJQYYWQL";
 
     static WolframService init() {
         return Feign.builder().contract(new SpringMvcContract())
-            .decoder(new GsonDecoder())
+            .decoder(new JacksonDecoder())
             .target(WolframService.class, BASE_URL);
     }
 

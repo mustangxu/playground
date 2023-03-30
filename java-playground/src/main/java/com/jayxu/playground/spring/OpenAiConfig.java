@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.jayxu.openai4j.OpenAiService;
+import com.jayxu.openai4j.StreamOpenAiService;
 
 /**
  * @author xujiajing
@@ -20,5 +21,11 @@ public class OpenAiConfig {
     @Bean
     OpenAiService openAiService() {
         return OpenAiService.init(this.apikey);
+    }
+
+    @Bean
+    StreamOpenAiService streamOpenAiService() {
+        return StreamOpenAiService.builder().debug(true).apikey(this.apikey)
+            .build().init();
     }
 }
