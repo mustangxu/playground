@@ -12,7 +12,6 @@
         <!--okhttp.version>4.10.0</okhttp.version-->
         <!-- <h2.version>2.1.212</h2.version> -->
         <!-- <postgresql.version>42.4.1</postgresql.version> -->
-        <jmh.version>1.36</jmh.version>
         <!--snakeyaml.version>2.0</snakeyaml.version-->
     </properties>
     <parent>
@@ -368,6 +367,13 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>build-info</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <configuration>
                     <image>
                         <builder>paketobuildpacks/builder:tiny</builder>
