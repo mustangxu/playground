@@ -1,4 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <artifactId>java-playground</artifactId>
     <properties>
@@ -92,14 +94,14 @@
         </dependency-->
         <!-- <dependency>
 			<groupId>org.springframework.experimental</groupId>
-			<artifactId>spring-native</artifactId>
-			<version>${spring.native.version}</version>
+        <artifactId>spring-native</artifactId>
+        <version>${spring.native.version}</version>
 		</dependency> -->
         <!-- https://mvnrepository.com/artifact/com.graphql-java-kickstart/graphql-spring-boot-starter -->
         <!-- <dependency>
 			<groupId>com.graphql-java-kickstart</groupId>
-			<artifactId>graphql-spring-boot-starter</artifactId>
-			<version>11.1.0</version>
+        <artifactId>graphql-spring-boot-starter</artifactId>
+        <version>11.1.0</version>
 		</dependency> -->
         <dependency>
             <groupId>org.springdoc</groupId>
@@ -108,8 +110,8 @@
         </dependency>
         <!-- dependency>
             <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>2.0.4</version>
+        <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+        <version>2.0.4</version>
         </dependency -->
         <dependency>
             <groupId>de.codecentric</groupId>
@@ -214,6 +216,30 @@
                 <exclusion>
                     <groupId>log4j</groupId>
                     <artifactId>log4j</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.shardingsphere</groupId>
+                    <artifactId>shardingsphere-postgresql-dialect-exception</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.shardingsphere</groupId>
+                    <artifactId>shardingsphere-sql-parser-opengauss</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.shardingsphere</groupId>
+                    <artifactId>shardingsphere-sql-parser-sqlserver</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.shardingsphere</groupId>
+                    <artifactId>shardingsphere-sql-parser-oracle</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.shardingsphere</groupId>
+                    <artifactId>shardingsphere-sql-parser-sql92</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.shardingsphere</groupId>
+                    <artifactId>shardingsphere-sql-parser-postgresql</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -325,19 +351,19 @@
             </plugin>
             <!-- <plugin>
 				<groupId>org.springframework.experimental</groupId>
-				<artifactId>spring-aot-maven-plugin</artifactId>
-				<version>${spring.native.version}</version>
+            <artifactId>spring-aot-maven-plugin</artifactId>
+            <version>${spring.native.version}</version>
 				<configuration>
-					<mainClass>com.jayxu.playground.spring.PlaygroundApplication</mainClass>
-				</configuration>
+            <mainClass>com.jayxu.playground.spring.PlaygroundApplication</mainClass>
+            </configuration>
 				<executions>
 					<execution>
 						<id>generate</id>
-						<goals>
+            <goals>
 							<goal>generate</goal>
 						</goals>
 					</execution>
-				</executions>
+            </executions>
 			</plugin> -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
