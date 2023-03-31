@@ -3,25 +3,34 @@
  */
 package com.jayxu.playground.lambda;
 
-import java.util.Map;
-
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
+import com.amazonaws.services.lambda.runtime.events.SNSEvent;
 
 /**
  * @author Jay Xu @2023
  */
-public class LambdaHandler
-        implements RequestHandler<Map<String, String>, String> {
+public class LambdaHandler implements RequestHandler<SNSEvent, String> {
 
     @Override
-    public String handleRequest(Map<String, String> map, Context context) {
+    public String handleRequest(SNSEvent event, Context context) {
         var log = context.getLogger();
-        var name = map.getOrDefault("name", "DEFAULT");
+        var records = event.getRecords();
 
-        log.log("name: " + name + "\n");
+        for (var r : records) {
+            log.log("EventSource: " + r.getEventSource() + "\n");
 
-        return "Hello, " + name;
+            var sns = r.getSNS();
+            log.log("Subject: " + sns.getSubject() + "\n");
+            log.log("Message: " + sns.getMessage() + "\n");
+            log.log("Type: " + sns.getType() + "\n");
+
+            sns.getMessageAttributes().forEach((k, v) -> {
+                log.log(k + ": " + v + "\n");
+            });
+        }
+
+        return event.toString();
     }
 
 }
