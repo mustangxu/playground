@@ -13,7 +13,7 @@ dataSources:
     password: demo
   ds_2:
     dataSourceClassName: com.zaxxer.hikari.HikariDataSource
-    jdbcUrl: jdbc:mysql://127.0.0.1/playground_s?connectionTimeZone=GMT%2B8
+    jdbcUrl: jdbc:mysql://127.0.0.1/playground_s?connectionTimeZone=GMT%2B8&allowPublicKeyRetrieval=true
 #        jdbcUrl: jdbc:h2:~/h2/playground_2
     username: demo
     password: demo
