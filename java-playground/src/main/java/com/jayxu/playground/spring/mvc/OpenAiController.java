@@ -3,6 +3,7 @@
  */
 package com.jayxu.playground.spring.mvc;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jayxu.openai4j.OpenAiService;
 import com.jayxu.openai4j.StreamOpenAiService;
 import com.jayxu.openai4j.model.CompletionRequest;
+import com.jayxu.openai4j.model.CompletionResponse;
 import com.jayxu.openai4j.model.ImageRequest;
+import com.jayxu.openai4j.model.ImageResponse;
 import com.jayxu.openai4j.model.Message;
 import com.jayxu.openai4j.model.Model;
+import com.jayxu.openai4j.model.ModelList;
 import com.jayxu.openai4j.model.ModelType;
 import com.jayxu.openai4j.model.Url;
 
@@ -40,8 +44,9 @@ public class OpenAiController {
     @GetMapping("/models")
     @SneakyThrows
     public List<String> getModels() {
-        return this.service.listModels().execute().body().getData().stream()
-            .map(Model::getId).sorted().toList();
+        ModelList body = this.service.listModels().execute().body();
+        return body == null ? Collections.EMPTY_LIST
+            : body.getData().stream().map(Model::getId).sorted().toList();
     }
 
     @SneakyThrows
@@ -58,8 +63,9 @@ public class OpenAiController {
                 .mapNotNull(Message::getContent);
         }
 
-        return Flux.just(this.service.createChat(req).execute().body()
-            .getChoices().get(0).getMessage().getContent());
+        CompletionResponse body = this.service.createChat(req).execute().body();
+        return body == null ? Flux.empty()
+            : Flux.just(body.getChoices().get(0).getMessage().getContent());
     }
 
     @SneakyThrows
@@ -75,8 +81,10 @@ public class OpenAiController {
                 .mapNotNull(r -> r.getChoices().get(0).getText());
         }
 
-        return Flux.just(this.service.createCompletions(req).execute().body()
-            .getChoices().get(0).getText());
+        CompletionResponse body = this.service.createCompletions(req).execute()
+            .body();
+        return body == null ? Flux.empty()
+            : Flux.just(body.getChoices().get(0).getText());
     }
 
     @SneakyThrows
@@ -85,6 +93,7 @@ public class OpenAiController {
             @RequestParam(defaultValue = "1024x1024") String size) {
         var req = ImageRequest.builder().size(size).prompt(prompt).build();
 
-        return this.service.createImage(req).execute().body().getData();
+        ImageResponse body = this.service.createImage(req).execute().body();
+        return body == null ? Collections.EMPTY_LIST : body.getData();
     }
 }

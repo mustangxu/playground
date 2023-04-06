@@ -2,7 +2,7 @@ mode:
   type: Standalone
 
 props:
-  sql-show: true
+  sql-show: false
 
 dataSources:
   ds_1:
