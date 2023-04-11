@@ -3,9 +3,17 @@ web3:
   eth:
     url: https://cloudflare-eth.com
 
-server:
-  port: 8000
 debug: false
+server:
+  http2:
+    enabled: true
+  port: 8000
+  ssl:
+    key-store: classpath:jayxu.p12
+    key-store-password: changeit
+    client-auth: want
+    trust-store: classpath:jayxu-ca.p12
+    trust-store-password: changeit,
 
 spring:
   output:

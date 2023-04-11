@@ -3,6 +3,8 @@
  */
 package com.jayxu.playground.algorithm;
 
+import java.io.Serial;
+
 import com.jayxu.playground.algorithm.BinaryTree.BinaryTreeNode;
 
 import lombok.NoArgsConstructor;
@@ -14,6 +16,7 @@ import lombok.NonNull;
 @NoArgsConstructor
 public class BinaryTree<T extends Comparable<T>>
         extends Tree<T, BinaryTreeNode<T>> {
+    @Serial
     private static final long serialVersionUID = -2587073973029359971L;
 
     public BinaryTree(Order order) {
@@ -22,6 +25,7 @@ public class BinaryTree<T extends Comparable<T>>
 
     public static class BinaryTreeNode<T extends Comparable<T>>
             extends TreeNode<T> {
+        @Serial
         private static final long serialVersionUID = 3051936643420669043L;
 
         public BinaryTreeNode(T v) {
@@ -34,13 +38,11 @@ public class BinaryTree<T extends Comparable<T>>
                 return this;
             }
 
-            if (v.compareTo(this.value) < 0
-                && this.left != null) {
+            if (v.compareTo(this.value) < 0 && this.left != null) {
                 return (BinaryTreeNode<T>) this.left.traverseMatch(v);
             }
 
-            if (v.compareTo(this.value) > 0
-                && this.right != null) {
+            if (v.compareTo(this.value) > 0 && this.right != null) {
                 return (BinaryTreeNode<T>) this.right.traverseMatch(v);
             }
 

@@ -308,14 +308,14 @@
                                     <tag>%v-${git.commit.id.abbrev}</tag>
                                 </tags>
                                 <!--<from>bellsoft/liberica-openjre-alpine-musl:17.0.6</from>-->
-                                <from>apache/skywalking-java-agent:8.14.0-java17</from>
+                                <from>apache/skywalking-java-agent:8.15.0-java17</from>
                                 <workdir>/app</workdir>
                                 <!--<dockerFile>Dockerfile-maven</dockerFile>-->
                                 <!--<contextDir>${project.basedir}</contextDir>-->
                                 <entryPoint>
                                     <exec>
                                         <arg>java</arg>
-                                        <arg>-Xmx1G</arg>
+                                        <arg>-Xmx2G</arg>
                                         <arg>--enable-preview</arg>
                                         <arg>-XX:+UnlockExperimentalVMOptions</arg>
                                         <arg>-XX:+UseZGC</arg>

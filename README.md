@@ -33,6 +33,7 @@ cd to main folder: `java-playground`, so far contains the following demos:
 * jasypt-spring integration using [my another project](https://github.com/mustangxu/jasypt-spring-aws-kms-starter) [![Maven Central](https://img.shields.io/maven-central/v/com.jayxu/jasypt-spring-aws-kms-starter)](https://search.maven.org/artifact/com.jayxu/jasypt-spring-aws-kms-starter)
 * a openai client using [my another project](https://github.com/mustangxu/openai4j) 
 [![Maven Central](https://img.shields.io/maven-central/v/com.jayxu/openai4j)](https://search.maven.org/artifact/com.jayxu/openai4j)
+* AWS lambda function demo
 
 run:
 ```shell
