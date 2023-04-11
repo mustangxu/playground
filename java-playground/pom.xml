@@ -304,7 +304,7 @@
                             <name>mustangxu/%a</name>
                             <build>
                                 <tags>
-                                    <tag>latest</tag>
+                                    <!--tag>latest</tag-->
                                     <tag>%v-${git.commit.id.abbrev}</tag>
                                 </tags>
                                 <!--<from>bellsoft/liberica-openjre-alpine-musl:17.0.6</from>-->
@@ -348,22 +348,6 @@
                     </images>
                 </configuration>
             </plugin>
-            <!-- <plugin>
-				<groupId>org.springframework.experimental</groupId>
-            <artifactId>spring-aot-maven-plugin</artifactId>
-            <version>${spring.native.version}</version>
-				<configuration>
-            <mainClass>com.jayxu.playground.spring.PlaygroundApplication</mainClass>
-            </configuration>
-				<executions>
-					<execution>
-						<id>generate</id>
-            <goals>
-							<goal>generate</goal>
-						</goals>
-					</execution>
-            </executions>
-			</plugin> -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -376,22 +360,13 @@
                 </executions>
                 <configuration>
                     <image>
-                        <builder>paketobuildpacks/builder:tiny</builder>
                         <env>
-                            <!-- <BP_NATIVE_IMAGE>true</BP_NATIVE_IMAGE> -->
                             <BP_JVM_VERSION>17</BP_JVM_VERSION>
-                            <JAVA_TOOL_OPTIONS>-javaagent:/skywalking/agent/skywalking-agent.jar</JAVA_TOOL_OPTIONS>
+                            <GRAALVM_QUICK_BUILD>true</GRAALVM_QUICK_BUILD>
+                            <!--BP_LOG_LEVEL>DEBUG</BP_LOG_LEVEL-->
                         </env>
-                        <buildCache>
-                            <volume>
-                                <name>build-cache</name>
-                            </volume>
-                        </buildCache>
-                        <name>mustangxu/playground-tiny:${project.version}-${git.commit.id.abbrev}</name>
+                        <name>mustangxu/playground-native:${project.version}-${git.commit.id.abbrev}</name>
                     </image>
-                    <layers>
-                        <enabled>true</enabled>
-                    </layers>
                     <mainClass>com.jayxu.playground.spring.PlaygroundApplication</mainClass>
                 </configuration>
             </plugin>
