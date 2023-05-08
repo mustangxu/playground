@@ -18,7 +18,7 @@ import lombok.experimental.UtilityClass;
  */
 @UtilityClass
 public class Fibonacci {
-    private static final BigDecimal SQRT_V = new BigDecimal(Math.sqrt(5));
+    private static final BigDecimal SQRT_V = BigDecimal.valueOf(Math.sqrt(5));
     private static final BigDecimal HALF = new BigDecimal("0.5");
     private static final BigDecimal PHI = SQRT_V.add(BigDecimal.ONE)
         .multiply(HALF);

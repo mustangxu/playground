@@ -75,8 +75,8 @@ public class HuffmanTree<T> extends Tree<T, HuffmanTreeNode<T>> {
         this.size = copy.size();
 
         while (copy.size() > 1) {
-            var n1 = copy.pollFirst();
-            var n2 = copy.pollFirst();
+            var n1 = copy.removeFirst();
+            var n2 = copy.removeFirst();
 
             var p = this.buildParent(n1, n2);
             copy.add(p);
