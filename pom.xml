@@ -36,64 +36,6 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-compress</artifactId>
-                <version>1.23.0</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.experimental</groupId>
-                <artifactId>spring-modulith-bom</artifactId>
-                <version>0.3.0</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
-            <!--dependency>
-                <groupId>org.springframework.data</groupId>
-                <artifactId>spring-data-bom</artifactId>
-                <version>2022.0.0</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency-->
-            <!-- https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java -->
-            <dependency>
-                <groupId>com.google.protobuf</groupId>
-                <artifactId>protobuf-java</artifactId>
-                <version>3.23.1</version>
-            </dependency>
-            <!--            <dependency>-->
-            <!--                <groupId>org.antlr</groupId>-->
-            <!--                <artifactId>antlr4-runtime</artifactId>-->
-            <!--                <version>4.9.2</version>-->
-            <!--            </dependency>-->
-            <!-- https://mvnrepository.com/artifact/com.github.jnr/jnr-posix -->
-            <dependency>
-                <groupId>com.github.jnr</groupId>
-                <artifactId>jnr-posix</artifactId>
-                <version>3.1.16</version>
-            </dependency>
-            <!-- https://mvnrepository.com/artifact/org.java-websocket/Java-WebSocket -->
-            <dependency>
-                <groupId>org.java-websocket</groupId>
-                <artifactId>Java-WebSocket</artifactId>
-                <version>1.5.3</version>
-            </dependency>
-            <!-- https://mvnrepository.com/artifact/org.codehaus.jettison/jettison -->
-            <dependency>
-                <groupId>org.codehaus.jettison</groupId>
-                <artifactId>jettison</artifactId>
-                <version>1.5.4</version>
-            </dependency>
-            <!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
-            <dependency>
-                <groupId>commons-fileupload</groupId>
-                <artifactId>commons-fileupload</artifactId>
-                <version>1.5</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
     <build>
         <plugins>
             <plugin>
