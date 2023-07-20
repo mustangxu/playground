@@ -56,6 +56,6 @@ rules:
         datetime-upper: '2023-03-01 00:00:00'
         sharding-seconds: 86400
 
-  broadcastTables:
-    - users, orders
-    - users, user_infos
+ # broadcastTables:
+ #   - users, orders
+ #   - users, user_infos
