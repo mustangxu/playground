@@ -1,13 +1,13 @@
 #
 # Build stage
 #
-FROM maven:3.9.0-eclipse-temurin-17-alpine AS build
+FROM maven:3.9 AS build
 COPY src /home/app/src
 COPY pom.xml /home/app
 COPY docker/parent-pom.xml /home/pom.xml
 RUN mvn -f /home/app/pom.xml -DskipTests clean package
 
-FROM apache/skywalking-java-agent:8.15.0-java17
+FROM apache/skywalking-java-agent:8.16.0-java17
 WORKDIR /app
 EXPOSE 8000
 COPY --from=build /home/app/target/java-playground-1.0-SNAPSHOT.jar app.jar

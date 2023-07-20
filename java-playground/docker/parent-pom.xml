@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.0</version>
+        <version>3.1.2</version>
     </parent>
     <properties>
         <jmh.version>1.36</jmh.version>
@@ -47,7 +47,7 @@
             <dependency>
                 <groupId>com.google.protobuf</groupId>
                 <artifactId>protobuf-java</artifactId>
-                <version>3.23.2</version>
+                <version>3.23.4</version>
             </dependency>
             <!--            <dependency>-->
             <!--                <groupId>org.antlr</groupId>-->
