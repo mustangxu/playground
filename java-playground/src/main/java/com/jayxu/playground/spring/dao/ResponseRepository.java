@@ -4,6 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.jayxu.playground.spring.model.Response;
 
-public interface ResponseRepository extends CrudRepository<Response, Integer> {
+public interface ResponseRepository extends CrudRepository<Response, Long> {
 
 }

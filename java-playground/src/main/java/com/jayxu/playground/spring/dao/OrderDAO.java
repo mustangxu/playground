@@ -13,7 +13,7 @@ import com.jayxu.playground.spring.model.Order;
 /**
  * @author xujiajing
  */
-public interface OrderDAO extends PagingAndSortingRepository<Order, Long>,
-        CrudRepository<Order, Long> {
+public interface OrderDAO extends PagingAndSortingRepository<Order, String>,
+        CrudRepository<Order, String> {
     Page<Order> findByUserId(long userId, Pageable page);
 }
