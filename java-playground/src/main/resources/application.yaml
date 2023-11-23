@@ -26,17 +26,16 @@ spring:
     allow-circular-references: true
     web-application-type: reactive
     
-#  datasource:
+  datasource:
 #    url: jdbc:mysql://127.0.0.1/playground
 #    url: jdbc:h2:~/h2/playground
 #    url: jdbc:postgresql://host.docker.internal/xujiajing
-#    hikari:
-#      username: demo
-#      password: demo
+#    driver-class-name: org.apache.shardingsphere.driver.ShardingSphereDriver
+    url: jdbc:shardingsphere:classpath:sharding.yaml
 
   jpa:
     #generate-ddl: true
-    show-sql: false
+    show-sql: true
 #    hibernate:
 #      ddl-auto: update
     open-in-view: false
@@ -60,10 +59,7 @@ spring:
         persistence:
           sharedCache:
             mode: ENABLE_SELECTIVE
-  datasource:
-    driver-class-name: org.apache.shardingsphere.driver.ShardingSphereDriver
-    url: jdbc:shardingsphere:classpath:sharding.yaml
-        
+
   jackson:
     serialization:
       fail-on-empty-beans: false
@@ -173,7 +169,10 @@ spring:
     activate:
       on-profile: h2
   datasource:
-    url: jdbc:shardingsphere:classpath:sharding-test.yaml
+    #url: jdbc:shardingsphere:classpath:sharding-test.yaml
+    url: jdbc:h2:~/h2/playground_test
+    username: demo
+    password: demo
 
   boot:
     admin:
