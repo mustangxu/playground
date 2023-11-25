@@ -25,6 +25,10 @@ spring:
     allow-bean-definition-overriding: true
     allow-circular-references: true
     web-application-type: reactive
+  
+  threads:
+    virtual:
+      enabled: true
     
   datasource:
 #    url: jdbc:mysql://127.0.0.1/playground
