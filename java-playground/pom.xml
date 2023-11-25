@@ -373,17 +373,17 @@
                         </goals>
                     </execution>
                 </executions>
-                <configuration>
-                    <image>
-                        <env>
-                            <BP_JVM_VERSION>17</BP_JVM_VERSION>
-                            <GRAALVM_QUICK_BUILD>true</GRAALVM_QUICK_BUILD>
-                            <!--BP_LOG_LEVEL>DEBUG</BP_LOG_LEVEL-->
-                        </env>
-                        <name>mustangxu/playground-native:${project.version}-${git.commit.id.abbrev}</name>
-                    </image>
-                    <mainClass>com.jayxu.playground.spring.PlaygroundApplication</mainClass>
-                </configuration>
+<!--                <configuration>-->
+<!--                    <image>-->
+<!--                        <env>-->
+<!--                            <BP_JVM_VERSION>17</BP_JVM_VERSION>-->
+<!--                            <GRAALVM_QUICK_BUILD>true</GRAALVM_QUICK_BUILD>-->
+<!--                            &lt;!&ndash;BP_LOG_LEVEL>DEBUG</BP_LOG_LEVEL&ndash;&gt;-->
+<!--                        </env>-->
+<!--                        <name>mustangxu/playground-native:${project.version}-${git.commit.id.abbrev}</name>-->
+<!--                    </image>-->
+<!--                    <mainClass>com.jayxu.playground.spring.PlaygroundApplication</mainClass>-->
+<!--                </configuration>-->
             </plugin>
         </plugins>
     </build>
