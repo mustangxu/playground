@@ -171,10 +171,11 @@ useCache: false
 spring:
   config:
     activate:
-      on-profile: h2
+      on-profile: embedded
   datasource:
     #url: jdbc:shardingsphere:classpath:sharding-test.yaml
-    url: jdbc:h2:~/h2/playground_test
+#    url: jdbc:h2:~/h2/playground_test
+    url: jdbc:sqlite:${user.home}/sqlite/playground_test.db
     username: demo
     password: demo
 
