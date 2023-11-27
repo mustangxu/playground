@@ -11,7 +11,7 @@ import feign.Feign;
 import feign.jackson.JacksonDecoder;
 
 /**
- * @author xujiajing
+ * @author jayxu
  */
 public interface WolframService {
     String BASE_URL = "https://api.wolframalpha.com/v2/";

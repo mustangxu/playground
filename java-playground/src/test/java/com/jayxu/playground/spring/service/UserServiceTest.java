@@ -12,7 +12,7 @@ import org.springframework.test.context.ActiveProfiles;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * @author xujiajing
+ * @author jayxu
  */
 @SpringBootTest
 @Slf4j

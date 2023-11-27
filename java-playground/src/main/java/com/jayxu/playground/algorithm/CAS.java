@@ -7,7 +7,7 @@ import lombok.Data;
 import sun.misc.Unsafe;
 
 /**
- * @author xujiajing
+ * @author jayxu
  */
 @Data
 public class CAS {

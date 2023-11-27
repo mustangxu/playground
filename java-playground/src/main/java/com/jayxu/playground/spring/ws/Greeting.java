@@ -4,7 +4,7 @@
 package com.jayxu.playground.spring.ws;
 
 /**
- * @author xujiajing
+ * @author jayxu
  */
 public record Greeting(String content) {
 

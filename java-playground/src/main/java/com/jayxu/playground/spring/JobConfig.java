@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
 import com.jayxu.playground.spring.job.SimpleJob;
 
 /**
- * @author xujiajing
+ * @author jayxu
  */
 @Configuration
 public class JobConfig {

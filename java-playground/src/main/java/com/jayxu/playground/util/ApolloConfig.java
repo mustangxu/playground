@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author xujiajing
+ * @author jayxu
  */
 public record ApolloConfig(String appId, String clusterName,
         String namespaceName, String comment, String format, boolean isPublic,

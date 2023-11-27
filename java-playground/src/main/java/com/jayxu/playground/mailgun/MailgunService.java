@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 /**
- * @author xujiajing
+ * @author jayxu
  */
 public interface MailgunService {
     @PostMapping(path = "/messages",

@@ -22,7 +22,7 @@ import com.jayxu.playground.spring.model.User;
 import lombok.extern.slf4j.XSlf4j;
 
 /**
- * @author xujiajing
+ * @author jayxu
  */
 @Service
 @Transactional

@@ -8,7 +8,7 @@ import java.util.LinkedList;
 import java.util.function.Function;
 
 /**
- * @author xujiajing
+ * @author jayxu
  */
 public class TreeIterator<V> implements Iterator<V> {
     private LinkedList<TreeNode<?>> list;

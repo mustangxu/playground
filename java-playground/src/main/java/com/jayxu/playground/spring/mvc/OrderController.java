@@ -18,7 +18,7 @@ import com.jayxu.playground.spring.model.Order;
 import com.jayxu.playground.spring.service.OrderService;
 
 /**
- * @author xujiajing
+ * @author jayxu
  */
 @RestController
 @RequestMapping("/orders")

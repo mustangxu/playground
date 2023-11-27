@@ -23,7 +23,7 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 import com.google.common.math.BigIntegerMath;
 
 /**
- * @author xujiajing
+ * @author jayxu
  */
 @BenchmarkMode(Mode.Throughput)
 @Measurement(iterations = 3, time = 5, timeUnit = TimeUnit.SECONDS)

@@ -16,7 +16,7 @@ import javax.crypto.NoSuchPaddingException;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 /**
- * @author xujiajing
+ * @author jayxu
  */
 public class Elgamal {
     private Cipher cipher;

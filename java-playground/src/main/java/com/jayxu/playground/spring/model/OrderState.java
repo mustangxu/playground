@@ -4,7 +4,7 @@
 package com.jayxu.playground.spring.model;
 
 /**
- * @author xujiajing
+ * @author jayxu
  */
 public enum OrderState {
     OPEN,

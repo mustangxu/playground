@@ -22,7 +22,7 @@ import org.web3j.protocol.http.HttpService;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * @author xujiajing
+ * @author jayxu
  */
 @Component
 @Slf4j

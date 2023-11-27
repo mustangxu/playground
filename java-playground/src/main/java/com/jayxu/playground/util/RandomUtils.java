@@ -8,7 +8,7 @@ import java.util.Random;
 import lombok.experimental.UtilityClass;
 
 /**
- * @author xujiajing
+ * @author jayxu
  */
 @UtilityClass
 public class RandomUtils {

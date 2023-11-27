@@ -18,7 +18,7 @@ import com.jayxu.playground.spring.model.Order;
 import com.jayxu.playground.spring.model.User;
 
 /**
- * @author xujiajing
+ * @author jayxu
  */
 @Service
 @Transactional

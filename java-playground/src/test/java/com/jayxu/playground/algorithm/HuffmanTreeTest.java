@@ -15,7 +15,7 @@ import java.util.stream.IntStream;
 import org.junit.jupiter.api.Test;
 
 /**
- * @author xujiajing
+ * @author jayxu
  */
 class HuffmanTreeTest {
 

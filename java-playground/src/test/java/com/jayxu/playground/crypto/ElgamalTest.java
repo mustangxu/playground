@@ -6,7 +6,7 @@ package com.jayxu.playground.crypto;
 import java.util.Arrays;
 
 /**
- * @author xujiajing
+ * @author jayxu
  */
 class ElgamalTest {
 

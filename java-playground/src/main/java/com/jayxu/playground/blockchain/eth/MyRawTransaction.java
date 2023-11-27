@@ -20,7 +20,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * @author xujiajing
+ * @author jayxu
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

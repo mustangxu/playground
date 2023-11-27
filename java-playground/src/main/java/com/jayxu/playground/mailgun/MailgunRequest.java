@@ -8,7 +8,7 @@ import java.util.List;
 import lombok.Data;
 
 /**
- * @author xujiajing
+ * @author jayxu
  */
 @Data
 public class MailgunRequest {

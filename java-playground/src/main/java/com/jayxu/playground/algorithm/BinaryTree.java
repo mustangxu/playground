@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 /**
- * @author xujiajing
+ * @author jayxu
  */
 @NoArgsConstructor
 public class BinaryTree<T extends Comparable<T>>

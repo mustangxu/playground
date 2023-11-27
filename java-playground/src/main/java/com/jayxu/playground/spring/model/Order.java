@@ -28,7 +28,7 @@ import jakarta.persistence.Version;
 import lombok.Data;
 
 /**
- * @author xujiajing
+ * @author jayxu
  */
 @Entity
 @Table(name = "orders",

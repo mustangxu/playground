@@ -7,7 +7,7 @@
 // import jdk.incubator.vector.VectorSpecies;
 //
 /// **
-// * @author xujiajing
+// * @author jayxu
 // */
 // public class VectorDemo {
 // private static final VectorSpecies<Integer> SPECIES =

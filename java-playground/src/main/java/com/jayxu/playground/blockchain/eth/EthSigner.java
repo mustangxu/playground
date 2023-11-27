@@ -24,7 +24,7 @@ import org.web3j.utils.Numeric;
 /**
  * Impl. using BC, only use ECKey from EthereumJ
  *
- * @author xujiajing
+ * @author jayxu
  */
 public class EthSigner implements KeyGenerator {
     private static final X9ECParameters params = SECNamedCurves

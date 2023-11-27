@@ -21,7 +21,7 @@ import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 
 /**
- * @author xujiajing
+ * @author jayxu
  */
 @BenchmarkMode(Mode.Throughput)
 @Measurement(iterations = 5, time = 5, timeUnit = TimeUnit.SECONDS)

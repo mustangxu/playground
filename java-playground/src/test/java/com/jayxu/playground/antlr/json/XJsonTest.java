@@ -22,7 +22,7 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 import lombok.extern.slf4j.XSlf4j;
 
 /**
- * @author xujiajing
+ * @author jayxu
  */
 @BenchmarkMode(Mode.Throughput)
 @Measurement(iterations = 5, time = 5, timeUnit = TimeUnit.SECONDS)
