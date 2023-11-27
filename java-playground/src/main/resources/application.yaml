@@ -58,12 +58,13 @@ spring:
       eclipselink:
         cache.query-results: ${useCache}
         ddl-generation: create-or-extend-tables
-#        logging.level: ALL
+#        jdbc.batch-writing.size: 100
+        logging.level: INFO
       jakarta:
         persistence:
           sharedCache:
             mode: ENABLE_SELECTIVE
-
+          
   jackson:
     serialization:
       fail-on-empty-beans: false

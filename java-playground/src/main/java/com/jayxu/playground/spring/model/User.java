@@ -25,6 +25,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.persistence.Transient;
 import jakarta.persistence.Version;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -63,6 +64,8 @@ public class User implements Serializable {
     @LastModifiedDate
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateTime;
+    @Transient
+    private Integer sequence;
 
     public User(Long id, String username, String password) {
         this.id = id;
