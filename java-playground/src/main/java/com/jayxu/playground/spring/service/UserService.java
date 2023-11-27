@@ -4,7 +4,8 @@
 package com.jayxu.playground.spring.service;
 
 import java.util.Optional;
-import java.util.stream.LongStream;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
@@ -35,7 +36,7 @@ public class UserService {
         return this.dao.findById(id).orElseGet(() -> {
             var user = User.fake(id);
             user = this.dao.save(user);
-            UserService.log.info("User {} added", id);
+            log.info("User {} added", id);
 
             return user;
         });
@@ -63,10 +64,17 @@ public class UserService {
         return this.dao.findAll(p);
     }
 
-    public long addUsers(int count) {
-        var users = LongStream.range(0, count).parallel()
-            .mapToObj(i -> User.fake(null)).toList();
+    public long addUsers(int count, int batchSize) {
+        var userMap = IntStream.range(0, count).parallel().mapToObj(i -> {
+            var u = User.fake(null);
+            u.setSequence(i);
+            return u;
+        }).collect(Collectors.groupingBy(u -> u.getSequence() / batchSize));
 
-        return this.dao.saveAll(users).spliterator().getExactSizeIfKnown();
+        userMap.forEach(
+            (k, v) -> log.info("key: {}, size: {}", k, v.size()));
+
+        return userMap.values().stream().map(this.dao::saveAll)
+            .mapToLong(it -> it.spliterator().estimateSize()).sum();
     }
 }

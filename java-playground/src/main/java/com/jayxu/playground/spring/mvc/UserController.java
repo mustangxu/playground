@@ -54,7 +54,7 @@ public class UserController {
 
     @PostMapping("/add")
     public long addUsers(@RequestParam(defaultValue = "10") int count) {
-        return this.service.addUsers(count);
+        return this.service.addUsers(count, 100);
     }
 
     @PutMapping("/{id}")
