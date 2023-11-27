@@ -6,7 +6,7 @@ package com.jayxu.playground.util;
 import java.util.Date;
 
 /**
- * @author xujiajing
+ * @author jayxu
  */
 public record ApolloConfigItem(String key, String value,
         String dataChangeCreatedBy, String dataChangeLastModifiedBy,

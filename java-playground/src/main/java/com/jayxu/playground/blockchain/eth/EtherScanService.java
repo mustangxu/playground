@@ -11,7 +11,7 @@ import com.jayxu.playground.blockchain.ChainService;
 import lombok.extern.slf4j.XSlf4j;
 
 /**
- * @author xujiajing
+ * @author jayxu
  */
 @Service
 @XSlf4j

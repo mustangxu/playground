@@ -8,7 +8,7 @@ import com.jayxu.playground.spring.model.BroadcastRecord;
 import com.jayxu.playground.spring.model.BuiltTransactionType;
 
 /**
- * @author xujiajing
+ * @author jayxu
  */
 public interface BroadcastRecordDAO
         extends CrudRepository<BroadcastRecord, Long>,

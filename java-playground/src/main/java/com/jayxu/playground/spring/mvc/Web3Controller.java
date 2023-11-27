@@ -21,7 +21,7 @@ import com.jayxu.playground.web3.Web3Client;
 import lombok.SneakyThrows;
 
 /**
- * @author xujiajing
+ * @author jayxu
  */
 @RestController("/web3")
 public class Web3Controller {

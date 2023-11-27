@@ -16,7 +16,7 @@ import com.jayxu.playground.lang.ClassIntrospector;
 import com.jayxu.playground.math.AKS;
 
 /**
- * @author xujiajing
+ * @author jayxu
  */
 class BloomFilterTest {
     @Test

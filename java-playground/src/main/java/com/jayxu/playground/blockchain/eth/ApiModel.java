@@ -6,7 +6,7 @@ package com.jayxu.playground.blockchain.eth;
 import lombok.Data;
 
 /**
- * @author xujiajing
+ * @author jayxu
  */
 @Data
 public class ApiModel {

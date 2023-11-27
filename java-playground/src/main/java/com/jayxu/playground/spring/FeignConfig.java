@@ -19,7 +19,7 @@ import feign.jackson.JacksonDecoder;
 import feign.slf4j.Slf4jLogger;
 
 /**
- * @author xujiajing
+ * @author jayxu
  */
 @Configuration
 public class FeignConfig {

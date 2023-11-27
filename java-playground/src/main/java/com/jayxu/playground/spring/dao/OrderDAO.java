@@ -11,7 +11,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import com.jayxu.playground.spring.model.Order;
 
 /**
- * @author xujiajing
+ * @author jayxu
  */
 public interface OrderDAO extends PagingAndSortingRepository<Order, String>,
         CrudRepository<Order, String> {

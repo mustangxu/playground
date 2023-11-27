@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * @author xujiajing
+ * @author jayxu
  */
 public class HuffmanTree<T> extends Tree<T, HuffmanTreeNode<T>> {
     @Serial

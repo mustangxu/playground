@@ -11,7 +11,7 @@ import com.jayxu.openai4j.OpenAiService;
 import com.jayxu.openai4j.StreamOpenAiService;
 
 /**
- * @author xujiajing
+ * @author jayxu
  */
 @Configuration
 public class OpenAiConfig {

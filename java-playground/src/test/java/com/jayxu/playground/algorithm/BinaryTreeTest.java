@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 /**
- * @author xujiajing
+ * @author jayxu
  */
 class BinaryTreeTest {
     @Test

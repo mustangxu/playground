@@ -16,7 +16,7 @@ import com.jayxu.playground.mailgun.MailgunRequest;
 import com.jayxu.playground.mailgun.MailgunService;
 
 /**
- * @author xujiajing
+ * @author jayxu
  */
 @RestController
 @RequestMapping("/mailgun")

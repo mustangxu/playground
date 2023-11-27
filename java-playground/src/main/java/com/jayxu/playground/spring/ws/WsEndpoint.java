@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.HtmlUtils;
 
 /**
- * @author xujiajing
+ * @author jayxu
  */
 @RestController
 public class WsEndpoint {

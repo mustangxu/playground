@@ -31,7 +31,7 @@ import lombok.SneakyThrows;
 import reactor.core.publisher.Flux;
 
 /**
- * @author xujiajing
+ * @author jayxu
  */
 @RestController
 @RequestMapping("/openai")

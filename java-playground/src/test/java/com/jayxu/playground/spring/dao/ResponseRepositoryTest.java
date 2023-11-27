@@ -17,7 +17,7 @@ import com.google.gson.Gson;
 import com.jayxu.playground.spring.model.Response;
 
 /**
- * @author xujiajing
+ * @author jayxu
  */
 @SpringBootTest
 @ActiveProfiles("test")

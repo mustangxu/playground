@@ -18,7 +18,7 @@ import org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter;
 import org.springframework.transaction.jta.JtaTransactionManager;
 
 /**
- * @author xujiajing
+ * @author jayxu
  */
 @Configuration
 @EnableJpaAuditing

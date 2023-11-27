@@ -12,7 +12,7 @@ import org.quartz.JobExecutionException;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * @author xujiajing
+ * @author jayxu
  */
 @Slf4j
 public class SimpleJob implements Job {

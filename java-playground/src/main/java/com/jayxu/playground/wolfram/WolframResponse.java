@@ -571,7 +571,7 @@ import lombok.Data;
 }
  * </pre>
  *
- * @author xujiajing
+ * @author jayxu
  */
 @Data
 public class WolframResponse {

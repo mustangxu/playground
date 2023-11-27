@@ -13,7 +13,7 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 
 /**
- * @author xujiajing
+ * @author jayxu
  */
 @Configuration
 public class OpenApiConfig {

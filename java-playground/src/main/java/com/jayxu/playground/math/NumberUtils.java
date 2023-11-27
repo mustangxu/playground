@@ -8,7 +8,7 @@ import java.math.BigInteger;
 import lombok.experimental.UtilityClass;
 
 /**
- * @author xujiajing
+ * @author jayxu
  */
 @UtilityClass
 public class NumberUtils {

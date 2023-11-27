@@ -26,7 +26,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * @author xujiajing
+ * @author jayxu
  */
 @Entity
 @Table(name = "user_infos")

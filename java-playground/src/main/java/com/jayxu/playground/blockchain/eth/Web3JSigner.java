@@ -7,7 +7,7 @@ import org.web3j.crypto.Sign.SignatureData;
 /**
  * Use Web3j lib
  *
- * @author xujiajing
+ * @author jayxu
  */
 public class Web3JSigner extends EthSigner {
     @Override

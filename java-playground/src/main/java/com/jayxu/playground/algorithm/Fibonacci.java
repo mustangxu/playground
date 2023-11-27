@@ -14,7 +14,7 @@ import com.jayxu.playground.wolfram.WolframService;
 import lombok.experimental.UtilityClass;
 
 /**
- * @author xujiajing
+ * @author jayxu
  */
 @UtilityClass
 public class Fibonacci {

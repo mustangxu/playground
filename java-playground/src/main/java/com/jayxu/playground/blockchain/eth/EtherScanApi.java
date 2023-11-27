@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
- * @author xujiajing
+ * @author jayxu
  */
 @FeignClient(name = "EtherScanApi", url = "https://api.etherscan.io/")
 public interface EtherScanApi {
