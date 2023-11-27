@@ -82,6 +82,11 @@
         <!--            <groupId>org.postgresql</groupId>-->
         <!--            <artifactId>postgresql</artifactId>-->
         <!--        </dependency>-->
+        <!-- https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc -->
+        <dependency>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
@@ -247,11 +252,6 @@
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-        </dependency>
         <!-- https://mvnrepository.com/artifact/org.eclipse.persistence/org.eclipse.persistence.jpa -->
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
@@ -373,7 +373,7 @@
                         </goals>
                     </execution>
                 </executions>
-<!--                <configuration>-->
+                <configuration>
 <!--                    <image>-->
 <!--                        <env>-->
 <!--                            <BP_JVM_VERSION>17</BP_JVM_VERSION>-->
@@ -382,8 +382,8 @@
 <!--                        </env>-->
 <!--                        <name>mustangxu/playground-native:${project.version}-${git.commit.id.abbrev}</name>-->
 <!--                    </image>-->
-<!--                    <mainClass>com.jayxu.playground.spring.PlaygroundApplication</mainClass>-->
-<!--                </configuration>-->
+                    <mainClass>com.jayxu.playground.spring.PlaygroundApplication</mainClass>
+                </configuration>
             </plugin>
         </plugins>
     </build>

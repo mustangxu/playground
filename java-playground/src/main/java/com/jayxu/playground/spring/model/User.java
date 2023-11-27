@@ -18,6 +18,7 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
 import jakarta.persistence.OneToOne;
@@ -29,6 +30,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.XSlf4j;
 
 @Entity
 @Table(name = "users", indexes = @Index(columnList = "username"))
@@ -36,10 +38,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Cacheable
 @EntityListeners(AuditingEntityListener.class)
+@XSlf4j
 public class User implements Serializable {
     @Serial
     private static final long serialVersionUID = -9020200257408632559L;
     @Id
+    @GeneratedValue
     private Long id;
     @Column(length = 36, nullable = false)
     @NotBlank
@@ -64,9 +68,11 @@ public class User implements Serializable {
         this.id = id;
         this.username = username;
         this.password = password;
+
+        User.log.debug(this.toString());
     }
 
-    public static User fake(long id) {
+    public static User fake(Long id) {
         var faker = new Faker();
 
         var user = new User(id, faker.name().username(), faker.crypto().md5());

@@ -4,7 +4,7 @@
 package com.jayxu.playground.spring.service;
 
 import java.util.Optional;
-import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
@@ -64,8 +64,9 @@ public class UserService {
     }
 
     public long addUsers(int count) {
-        var users = IntStream.range(0, count)
-            .mapToObj(i -> User.fake(i + System.currentTimeMillis())).toList();
+        var users = LongStream.range(0, count).parallel()
+            .mapToObj(i -> User.fake(null)).toList();
+
         return this.dao.saveAll(users).spliterator().getExactSizeIfKnown();
     }
 }
