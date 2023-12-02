@@ -10,7 +10,7 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class Collections {
     public static int[] bitmapSort(int[] set) {
-        var max = Arrays.stream(set).max().getAsInt();
+        var max = Arrays.stream(set).max().orElse(0);
         var array = new int[max + 1];
         var ret = new int[set.length];
 
