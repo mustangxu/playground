@@ -5,6 +5,7 @@ package com.jayxu.training.thread.simplesample;
 
 import java.awt.BorderLayout;
 import java.awt.Toolkit;
+import java.io.Serial;
 import java.util.Date;
 
 import javax.swing.JButton;
@@ -17,6 +18,7 @@ import javax.swing.WindowConstants;
 
 public class StopWatchFrame extends JFrame {
 
+	@Serial
 	private static final long serialVersionUID = -8186549854034665566L;
 	private JLabel label;
 	private JButton buttonPause;

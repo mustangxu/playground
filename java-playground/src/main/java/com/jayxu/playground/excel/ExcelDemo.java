@@ -5,6 +5,7 @@ package com.jayxu.playground.excel;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +31,7 @@ public class ExcelDemo {
             return list.stream().limit(limit).peek(System.out::println)
                 .map(o -> Arrays.stream(columns)
                     .mapToObj(c -> new BigDecimal(
-                        ((Map<Integer, String>) o).get(c)).setScale(20))
+                        ((Map<Integer, String>) o).get(c)).setScale(20, RoundingMode.HALF_UP))
                     .toArray(BigDecimal[]::new))
                 .collect(Collectors.toList());
         }

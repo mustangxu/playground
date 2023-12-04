@@ -5,6 +5,7 @@ package com.jayxu.training.thread.concurrentsample;
 
 import java.awt.BorderLayout;
 import java.awt.Toolkit;
+import java.io.Serial;
 import java.util.Random;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -18,6 +19,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
 public class LotteryFrame extends JFrame {
+    @Serial
     private static final long serialVersionUID = -8186549854034665566L;
 
     private JLabel label;

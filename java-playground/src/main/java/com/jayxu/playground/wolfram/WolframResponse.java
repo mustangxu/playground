@@ -644,8 +644,8 @@ public class WolframResponse {
 
     public <T> T extractPrimaryResult(Function<String, T> mapper) {
         return this.queryresult.pods.stream().filter(Pod::isPrimary).findFirst()
-            .map(Pod::getSubpods).get().stream().findFirst()
-            .map(Pod::getPlaintext).map(mapper).get();
+            .map(Pod::getSubpods).orElseThrow().stream().findFirst()
+            .map(Pod::getPlaintext).map(mapper).orElseThrow();
     }
 
     public String extractRawResult() {
