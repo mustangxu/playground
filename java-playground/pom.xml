@@ -293,6 +293,12 @@
             <artifactId>jaxb-runtime</artifactId>
             <version>2.3.9</version><!--$NO-MVN-MAN-VER$-->
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.github.luben/zstd-jni -->
+        <dependency>
+            <groupId>com.github.luben</groupId>
+            <artifactId>zstd-jni</artifactId>
+            <version>1.5.5-11</version>
+        </dependency>
     </dependencies>
     <dependencyManagement>
         <dependencies>
@@ -373,14 +379,14 @@
                     </execution>
                 </executions>
                 <configuration>
-<!--                    <image>-->
-<!--                        <env>-->
-<!--                            <BP_JVM_VERSION>17</BP_JVM_VERSION>-->
-<!--                            <GRAALVM_QUICK_BUILD>true</GRAALVM_QUICK_BUILD>-->
+                    <!--                    <image>-->
+                    <!--                        <env>-->
+                    <!--                            <BP_JVM_VERSION>17</BP_JVM_VERSION>-->
+                    <!--                            <GRAALVM_QUICK_BUILD>true</GRAALVM_QUICK_BUILD>-->
 <!--                            &lt;!&ndash;BP_LOG_LEVEL>DEBUG</BP_LOG_LEVEL&ndash;&gt;-->
-<!--                        </env>-->
+                    <!--                        </env>-->
 <!--                        <name>mustangxu/playground-native:${project.version}-${git.commit.id.abbrev}</name>-->
-<!--                    </image>-->
+                    <!--                    </image>-->
                     <mainClass>com.jayxu.playground.spring.PlaygroundApplication</mainClass>
                 </configuration>
             </plugin>

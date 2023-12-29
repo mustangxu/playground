@@ -34,10 +34,11 @@ cd to main folder: `java-playground`, so far contains the following demos:
 * a openai client using [my another project](https://github.com/mustangxu/openai4j) 
 [![Maven Central](https://img.shields.io/maven-central/v/com.jayxu/openai4j)](https://search.maven.org/artifact/com.jayxu/openai4j)
 * AWS lambda function demo
+* zstd-jni lib
 
 run:
 ```shell
 cd java-playground
 mvn spring-boot:run -DskipTests # use mysql as datasource, or
-mvn spring-boot:run -DskipTests -Dspring-boot.run.profiles=h2 # use h2 in memory db as ds
+mvn spring-boot:run -DskipTests -Dspring-boot.run.profiles=embedded # use in memory db as ds
 ```
