@@ -5,7 +5,7 @@
     <artifactId>java-playground</artifactId>
     <properties>
         <java.version>21</java.version>
-        <graalvm.version>23.1.1</graalvm.version>
+        <graalvm.version>23.1.2</graalvm.version>
         <skywalking.version>9.6.0</skywalking.version>
         <!-- <spring.native.version>0.12.2</spring.native.version>-->
         <!-- <gson.version>2.9.0</gson.version> -->
@@ -119,7 +119,7 @@
         <dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-client</artifactId>
-            <version>3.1.8</version>
+            <version>3.2.2</version>
         </dependency>
         <dependency>
             <groupId>org.openjdk.jmh</groupId>
@@ -193,7 +193,7 @@
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>bootstrap</artifactId>
-            <version>5.3.2</version>
+            <version>5.3.3</version>
         </dependency>
         <dependency>
             <groupId>org.webjars</groupId>
@@ -293,6 +293,12 @@
             <artifactId>jaxb-runtime</artifactId>
             <version>2.3.9</version><!--$NO-MVN-MAN-VER$-->
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.github.luben/zstd-jni -->
+        <dependency>
+            <groupId>com.github.luben</groupId>
+            <artifactId>zstd-jni</artifactId>
+            <version>1.5.5-11</version>
+        </dependency>
     </dependencies>
     <dependencyManagement>
         <dependencies>
@@ -317,7 +323,7 @@
             <plugin>
                 <groupId>io.fabric8</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
-                <version>0.43.4</version>
+                <version>0.44.0</version>
                 <configuration>
                     <verbose>true</verbose>
                     <images>
@@ -380,14 +386,14 @@
                     </execution>
                 </executions>
                 <configuration>
-<!--                    <image>-->
-<!--                        <env>-->
-<!--                            <BP_JVM_VERSION>17</BP_JVM_VERSION>-->
-<!--                            <GRAALVM_QUICK_BUILD>true</GRAALVM_QUICK_BUILD>-->
+                    <!--                    <image>-->
+                    <!--                        <env>-->
+                    <!--                            <BP_JVM_VERSION>17</BP_JVM_VERSION>-->
+                    <!--                            <GRAALVM_QUICK_BUILD>true</GRAALVM_QUICK_BUILD>-->
 <!--                            &lt;!&ndash;BP_LOG_LEVEL>DEBUG</BP_LOG_LEVEL&ndash;&gt;-->
-<!--                        </env>-->
+                    <!--                        </env>-->
 <!--                        <name>mustangxu/playground-native:${project.version}-${git.commit.id.abbrev}</name>-->
-<!--                    </image>-->
+                    <!--                    </image>-->
                     <mainClass>com.jayxu.playground.spring.PlaygroundApplication</mainClass>
                 </configuration>
             </plugin>
