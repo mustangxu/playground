@@ -7,6 +7,8 @@ package com.jayxu.playground.experiment;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StopWatch;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * @author jayxu
  */
@@ -22,7 +24,7 @@ public class VirtualThreadDemo {
             // virtual thread
             Thread.ofVirtual().name("virtual-thread-demo-" + i).start(() -> {
                 try {
-                    Thread.sleep(30_000L);
+                    TimeUnit.SECONDS.sleep(30);
                 } catch (InterruptedException _) {
                     log.warn(STR."\{Thread.currentThread()} interrupted");
                 }
