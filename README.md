@@ -38,6 +38,7 @@ cd to main folder: `java-playground`, so far contains the following demos:
 [![Maven Central](https://img.shields.io/maven-central/v/com.jayxu/openai4j)](https://search.maven.org/artifact/com.jayxu/openai4j)
 * AWS lambda function demo
 * zstd-jni lib
+* Spring AI
 
 run:
 ```shell
