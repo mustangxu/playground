@@ -6,6 +6,13 @@ package com.jayxu.playground.spring.mvc;
 import java.util.Collections;
 import java.util.List;
 
+import org.springframework.ai.chat.prompt.Prompt;
+import org.springframework.ai.image.ImagePrompt;
+import org.springframework.ai.image.ImageResponse;
+import org.springframework.ai.openai.OpenAiChatClient;
+import org.springframework.ai.openai.OpenAiChatOptions;
+import org.springframework.ai.openai.OpenAiImageClient;
+import org.springframework.ai.openai.OpenAiImageOptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,16 +23,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jayxu.openai4j.OpenAiService;
-import com.jayxu.openai4j.StreamOpenAiService;
-import com.jayxu.openai4j.model.CompletionRequest;
-import com.jayxu.openai4j.model.CompletionResponse;
-import com.jayxu.openai4j.model.ImageRequest;
-import com.jayxu.openai4j.model.ImageResponse;
-import com.jayxu.openai4j.model.Message;
 import com.jayxu.openai4j.model.Model;
 import com.jayxu.openai4j.model.ModelList;
-import com.jayxu.openai4j.model.ModelType;
-import com.jayxu.openai4j.model.Url;
 
 import lombok.SneakyThrows;
 import reactor.core.publisher.Flux;
@@ -39,7 +38,9 @@ public class OpenAiController {
     @Autowired
     private OpenAiService service;
     @Autowired
-    private StreamOpenAiService streamService;
+    private OpenAiChatClient client;
+    @Autowired
+    private OpenAiImageClient imageClient;
 
     @GetMapping("/models")
     @SneakyThrows
@@ -51,49 +52,73 @@ public class OpenAiController {
 
     @SneakyThrows
     @PostMapping(path = "/chat", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<String> createChat(@RequestBody String content,
-            @RequestParam ModelType model, @RequestParam boolean stream) {
-        var msg = Message.builder().content(content).build();
-        var req = CompletionRequest.builder().model(model.value()).message(msg)
-            .stream(stream).build();
+    public Flux<String> createChat(@RequestBody String prompt,
+            @RequestParam ModelType model,
+            @RequestParam(defaultValue = "false") boolean stream) {
+        var p = new Prompt(prompt,
+            OpenAiChatOptions.builder().withModel(model.value()).build());
 
         if (stream) {
-            return this.streamService.createChat(req)
-                .mapNotNull(r -> r.getChoices().get(0).getDelta())
-                .mapNotNull(Message::getContent);
+            return this.client.stream(p)
+                .mapNotNull(r -> r.getResult().getOutput().getContent());
         }
 
-        CompletionResponse body = this.service.createChat(req).execute().body();
-        return body == null ? Flux.empty()
-            : Flux.just(body.getChoices().get(0).getMessage().getContent());
+        return Flux
+            .just(this.client.call(p).getResult().getOutput().getContent());
     }
 
-    @SneakyThrows
-    @PostMapping(path = "/completions",
-            produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<String> createCompletions(@RequestBody List<String> prompt,
-            @RequestParam ModelType model, @RequestParam boolean stream) {
-        var req = CompletionRequest.builder().model(model.value())
-            .prompt(prompt).stream(stream).build();
-
-        if (stream) {
-            return this.streamService.createCompletions(req)
-                .mapNotNull(r -> r.getChoices().get(0).getText());
-        }
-
-        CompletionResponse body = this.service.createCompletions(req).execute()
-            .body();
-        return body == null ? Flux.empty()
-            : Flux.just(body.getChoices().get(0).getText());
-    }
+//    @SneakyThrows
+//    @PostMapping(path = "/completions",
+//            produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+//    public Flux<String> createCompletions(@RequestBody List<String> prompt,
+//            @RequestParam ModelType model,
+//            @RequestParam(defaultValue = "false") boolean stream) {
+//        var req = CompletionRequest.builder().model(model.value())
+//            .prompt(prompt).stream(stream).build();
+//
+//        if (stream) {
+//            return this.streamService.createCompletions(req)
+//                .mapNotNull(r -> r.getChoices().get(0).getText());
+//        }
+//
+//        CompletionResponse body = this.service.createCompletions(req).execute()
+//            .body();
+//        return body == null ? Flux.empty()
+//            : Flux.just(body.getChoices().get(0).getText());
+//    }
 
     @SneakyThrows
     @PostMapping("/image/create")
-    public List<Url> createImage(@RequestBody String prompt,
-            @RequestParam(defaultValue = "1024x1024") String size) {
-        var req = ImageRequest.builder().size(size).prompt(prompt).build();
+    public Flux<String> createImage(@RequestBody String prompt,
+            @RequestParam ModelType model,
+            @RequestParam(defaultValue = "1024") int width,
+            @RequestParam(defaultValue = "1024") int height,
+            @RequestParam(defaultValue = "natural") String style,
+            @RequestParam(defaultValue = "1") int n) {
+        var p = new ImagePrompt(prompt,
+            OpenAiImageOptions.builder().withModel(model.value())
+                .withHeight(height).withWidth(width).withQuality("hd")
+                .withStyle(style).withN(n).build());
+        ImageResponse body = this.imageClient.call(p);
+        return body == null ? Flux.empty()
+            : Flux.fromStream(body.getResults().stream())
+                .mapNotNull(r -> r.getOutput().getUrl());
+    }
 
-        ImageResponse body = this.service.createImage(req).execute().body();
-        return body == null ? Collections.EMPTY_LIST : body.getData();
+    enum ModelType {
+        GPT_35_TURBO("gpt-3.5-turbo"),
+        TEXT_DAVINCI_003("text-davinci-003"),
+        DALL_E_2("dall-e-2"),
+        DALL_E_3("dall-e-3");
+
+        private final String value;
+
+        ModelType(String value) {
+            this.value = value;
+        }
+
+        public String value() {
+            return this.value;
+        }
     }
 }

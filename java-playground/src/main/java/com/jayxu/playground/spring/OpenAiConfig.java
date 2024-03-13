@@ -6,9 +6,9 @@ package com.jayxu.playground.spring;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.client.RestClient;
 
 import com.jayxu.openai4j.OpenAiService;
-import com.jayxu.openai4j.StreamOpenAiService;
 
 /**
  * @author jayxu
@@ -23,9 +23,14 @@ public class OpenAiConfig {
         return OpenAiService.init(this.apikey);
     }
 
+//    @Bean
+//    StreamOpenAiService streamOpenAiService() {
+//        return StreamOpenAiService.builder().debug(true).apikey(this.apikey)
+//            .build().init();
+//    }
+
     @Bean
-    StreamOpenAiService streamOpenAiService() {
-        return StreamOpenAiService.builder().debug(true).apikey(this.apikey)
-            .build().init();
+    RestClient.Builder builder() {
+        return RestClient.builder();
     }
 }
