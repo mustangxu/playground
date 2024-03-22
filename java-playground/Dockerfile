@@ -7,7 +7,7 @@ COPY pom.xml /home/app
 COPY docker/parent-pom.xml /home/pom.xml
 RUN mvn -f /home/app/pom.xml -DskipTests clean package
 
-FROM apache/skywalking-java-agent:9.0.0-java17
+FROM apache/skywalking-java-agent:9.1.0-java21
 WORKDIR /app
 EXPOSE 8000
 COPY --from=build /home/app/target/java-playground-1.0-SNAPSHOT.jar app.jar
