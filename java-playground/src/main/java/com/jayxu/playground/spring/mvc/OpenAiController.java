@@ -105,7 +105,7 @@ public class OpenAiController {
                 .mapNotNull(r -> r.getOutput().getUrl());
     }
 
-    enum ModelType {
+    public enum ModelType {
         GPT_35_TURBO("gpt-3.5-turbo"),
         TEXT_DAVINCI_003("text-davinci-003"),
         DALL_E_2("dall-e-2"),
