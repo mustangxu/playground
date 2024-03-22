@@ -325,6 +325,13 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <compilerArgs>--enable-preview</compilerArgs>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>io.fabric8</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>0.44.0</version>
@@ -399,6 +406,7 @@
 <!--                        <name>mustangxu/playground-native:${project.version}-${git.commit.id.abbrev}</name>-->
                     <!--                    </image>-->
                     <mainClass>com.jayxu.playground.spring.PlaygroundApplication</mainClass>
+                    <jvmArguments>--enable-preview</jvmArguments>
                 </configuration>
             </plugin>
         </plugins>
