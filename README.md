@@ -11,7 +11,7 @@
 
 ## Usage
 cd to main folder: `java-playground`, so far contains the following demos:
-* JDK 21 and spring boot 3.2.x
+* JDK 21 / 22 and spring boot 3.2.x
 * JDK new features:
     * native memory access
     * vector calculation
@@ -19,6 +19,7 @@ cd to main folder: `java-playground`, so far contains the following demos:
     * virtual thread
     * string templates
     * unnamed variables
+    * scoped value
 * eclipselink JPA
 * sharding sphere
 * openapi with swagger UI
