@@ -1,11 +1,14 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.jayxu.playground</groupId>
     <artifactId>playground-parent</artifactId>
     <version>1.0-SNAPSHOT</version>
     <url>https://github.com/mustangxu/playground</url>
     <name>Java coding playground</name>
-    <description>A playground project for all the open source projects I am interested in. Always bases on the lastest Spring Boot</description>
+    <description>A playground project for all the open source projects I am
+        interested in. Always bases on the lastest Spring Boot</description>
     <contributors>
         <contributor>
             <name>Jay Xu</name>
@@ -73,11 +76,11 @@
                 <artifactId>commons-fileupload</artifactId>
                 <version>1.5</version>
             </dependency>
-            <!--dependency>
-                <groupId>org.yaml</groupId>
-                <artifactId>snakeyaml</artifactId>
-                <version>2.0</version>
-            </dependency-->
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>33.2.0-jre</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <build>
