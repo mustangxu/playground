@@ -1,7 +1,7 @@
 #
 # Build stage
 #
-FROM maven:3.9.5 AS build
+FROM maven:3.9.7 AS build
 COPY src /home/app/src
 COPY pom.xml /home/app
 COPY docker/parent-pom.xml /home/pom.xml
