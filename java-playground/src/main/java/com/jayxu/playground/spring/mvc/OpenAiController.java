@@ -9,9 +9,9 @@ import java.util.List;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.image.ImagePrompt;
 import org.springframework.ai.image.ImageResponse;
-import org.springframework.ai.openai.OpenAiChatClient;
+import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.ai.openai.OpenAiChatOptions;
-import org.springframework.ai.openai.OpenAiImageClient;
+import org.springframework.ai.openai.OpenAiImageModel;
 import org.springframework.ai.openai.OpenAiImageOptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -38,9 +38,9 @@ public class OpenAiController {
     @Autowired
     private OpenAiService service;
     @Autowired
-    private OpenAiChatClient client;
+    private OpenAiChatModel client;
     @Autowired
-    private OpenAiImageClient imageClient;
+    private OpenAiImageModel imageClient;
 
     @GetMapping("/models")
     @SneakyThrows

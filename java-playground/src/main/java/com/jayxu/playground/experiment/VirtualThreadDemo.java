@@ -4,10 +4,13 @@
  */
 package com.jayxu.playground.experiment;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.util.StopWatch;
+import static java.lang.StringTemplate.STR;
 
 import java.util.concurrent.TimeUnit;
+
+import org.springframework.util.StopWatch;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author jayxu
@@ -17,7 +20,7 @@ public class VirtualThreadDemo {
     public void tryVirtualThread() {
         var watch = new StopWatch("virtual thread demo");
         watch.start("creation");
-        final var N = 1_000_000;
+        final var N = 1_000;
 
         // virtual thread demo
         for (var i = 0; i < N; i++) {
@@ -30,11 +33,11 @@ public class VirtualThreadDemo {
                 }
 
                 // string templates
-                log.info(STR."\{Thread.currentThread()} ended");
+                        log.info(STR."\{Thread.currentThread()} ended");
             });
         }
 
-        log.info(STR."\{N} virtual threads created");
+                            log.info(STR."\{N} virtual threads created");
         watch.stop();
         log.info(watch.toString());
     }

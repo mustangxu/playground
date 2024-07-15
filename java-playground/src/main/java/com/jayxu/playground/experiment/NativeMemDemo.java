@@ -62,9 +62,9 @@ public class NativeMemDemo {
             System.out.println(ArrayUtils.toString(value));
 
             // size_t strlen(char*);
-            invoke("strlen", arena.allocateUtf8String("hello world"));
+            invoke("strlen", arena.allocateFrom("hello world"));
             // printf(char*)
-            invoke("printf", arena.allocateUtf8String("hello world"));
+            invoke("printf", arena.allocateFrom("hello world"));
         }
     }
 
