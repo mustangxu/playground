@@ -357,6 +357,7 @@
                                 <env>
                                     <spring_profiles_active>embedded</spring_profiles_active>
                                     <db_root>/app</db_root>
+                                    <jasypt.encryptor.password>helloworld</jasypt.encryptor.password>
                                 </env>
                                 <runCmds>
                                     <run>apt -y update</run>
