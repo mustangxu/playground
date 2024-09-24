@@ -8,7 +8,7 @@ COPY docker/parent-pom.xml /home/pom.xml
 RUN mvn -f /home/app/pom.xml -T1C -DskipTests clean package
 
 #FROM apache/skywalking-java-agent:9.2.0-java21
-FROM bellsoft/liberica-openjdk-debian:22
+FROM bellsoft/liberica-openjdk-debian:23
 RUN apt -y update
 RUN apt -y upgrade
 RUN apt install -y sqlite3
