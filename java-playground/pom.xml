@@ -349,7 +349,7 @@
                                     <!--tag>latest</tag-->
                                     <tag>%v-${git.commit.id.abbrev}</tag>
                                 </tags>
-                                <from>bellsoft/liberica-openjdk-debian:22</from>
+                                <from>bellsoft/liberica-openjdk-debian:23</from>
                                 <!--from>apache/skywalking-java-agent:9.2.0-java21</from-->
                                 <workdir>/app</workdir>
                                 <!--<dockerFile>Dockerfile-maven</dockerFile>-->
@@ -368,7 +368,7 @@
                                     <exec>
                                         <arg>java</arg>
                                         <arg>-Xmx2G</arg>
-                                        <arg>--enable-preview</arg>
+                                        <!--arg>\-\-enable-preview</arg-->
                                         <arg>-XX:+UnlockExperimentalVMOptions</arg>
                                         <arg>-XX:+UseZGC</arg>
                                         <!--arg>-javaagent:/skywalking/agent/skywalking-agent.jar</arg-->

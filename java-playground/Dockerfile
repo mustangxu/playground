@@ -18,7 +18,8 @@ COPY --from=build /home/app/target/java-playground-1.0-SNAPSHOT.jar app.jar
 ENV spring_profiles_active=embedded
 ENV db_root=/app
 ENV jasypt.encryptor.password=helloworld
-ENTRYPOINT ["java","-Xmx2G","--enable-preview",\
+ENTRYPOINT ["java","-Xmx2G",\
+    #"--enable-preview",\
     "-XX:+UnlockExperimentalVMOptions","-XX:+UseZGC",\
     #"-javaagent:/skywalking/agent/skywalking-agent.jar",\
     "-jar","/app/app.jar"]
