@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>java-playground</artifactId>
     <properties>
-        <java.version>23</java.version>
+        <java.version>22</java.version>
         <graalvm.version>24.1.0</graalvm.version>
         <skywalking.version>9.6.0</skywalking.version>
         <!-- <spring.native.version>0.12.2</spring.native.version>-->
@@ -368,7 +368,7 @@
                                     <exec>
                                         <arg>java</arg>
                                         <arg>-Xmx2G</arg>
-                                        <!--arg>\-\-enable-preview</arg-->
+                                        <arg>--enable-preview</arg>
                                         <arg>-XX:+UnlockExperimentalVMOptions</arg>
                                         <arg>-XX:+UseZGC</arg>
                                         <!--arg>-javaagent:/skywalking/agent/skywalking-agent.jar</arg-->
