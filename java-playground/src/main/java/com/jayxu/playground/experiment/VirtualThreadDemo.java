@@ -4,8 +4,6 @@
  */
 package com.jayxu.playground.experiment;
 
-import static java.lang.StringTemplate.STR;
-
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.util.StopWatch;
@@ -29,15 +27,15 @@ public class VirtualThreadDemo {
                 try {
                     TimeUnit.SECONDS.sleep(30);
                 } catch (InterruptedException _) {
-                    log.warn(STR."\{Thread.currentThread()} interrupted");
+                    log.warn("{} interrupted", Thread.currentThread());
                 }
 
                 // string templates
-                        log.info(STR."\{Thread.currentThread()} ended");
+                log.info("{} ended", Thread.currentThread());
             });
         }
 
-                            log.info(STR."\{N} virtual threads created");
+        log.info("{} virtual threads created", N);
         watch.stop();
         log.info(watch.toString());
     }

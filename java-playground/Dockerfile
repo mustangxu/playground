@@ -19,7 +19,7 @@ ENV spring_profiles_active=embedded
 ENV db_root=/app
 ENV jasypt.encryptor.password=helloworld
 ENTRYPOINT ["java","-Xmx2G",\
-    #"--enable-preview",\
+    "--enable-preview",\
     "-XX:+UnlockExperimentalVMOptions","-XX:+UseZGC",\
     #"-javaagent:/skywalking/agent/skywalking-agent.jar",\
     "-jar","/app/app.jar"]
