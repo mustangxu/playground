@@ -1,3 +1,29 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:1b84a353c4eb80ecc87849a93415b1343504195ed97991ff66f4ce7db3f54d4a
-size 875
+{
+    "glossary": {
+        "title": "example glossary",
+        "count": 5.6,
+        "new": true,
+        "time": null,
+        "address": {},
+        "GlossDiv": {
+            "title": "S",
+            "GlossList": {
+                "GlossEntry": {
+                    "ID": "SGML",
+                    "SortAs": "SGML",
+                    "GlossTerm": "Standard Generalized Markup Language",
+                    "Acronym": "SGML",
+                    "Abbrev": "ISO 8879:1986",
+                    "GlossDef": {
+                        "para": "A meta-markup language, used to create markup languages such as DocBook.",
+                        "GlossSeeAlso": [
+                            "GML",
+                            "XML"
+                        ]
+                    },
+                    "GlossSee": "markup"
+                }
+            }
+        }
+    }
+}
