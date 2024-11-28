@@ -11,7 +11,7 @@
 
 ## Usage
 cd to main folder: `java-playground`, so far contains the following demos:
-* JDK 21 / 22 and spring boot 3.2.x
+* JDK 21 / 22 and spring boot 3.4.x
 * JDK new features:
   * native memory access
   * vector calculation
@@ -23,7 +23,7 @@ cd to main folder: `java-playground`, so far contains the following demos:
 * eclipselink JPA
 * sharding sphere
 * openapi with swagger UI
-* websocket
+* websocket with SockJS (enabled if `jakarta.websocket.WebSocketContainer` on classpath)
 * open feign
 * quartz
 * easyexcel
@@ -40,6 +40,8 @@ cd to main folder: `java-playground`, so far contains the following demos:
 * AWS lambda function demo
 * zstd-jni lib
 * Spring AI
+* http2
+* http3 (enable by set `http3.enabled` property to `true`)
 
 run:
 ```shell

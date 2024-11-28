@@ -2,18 +2,15 @@ useCache: true
 web3:
   eth:
     url: https://cloudflare-eth.com
+http3.enabled: false
 
 debug: false
 server:
   http2:
     enabled: true
-  port: 8000
-#  ssl:
-#    key-store: classpath:jayxu.p12
-#    key-store-password: changeit
-#    client-auth: want
-#    trust-store: classpath:jayxu-ca.p12
-#    trust-store-password: changeit,
+  port: 8443
+  ssl:
+    bundle: https
 
 spring:
   output:
@@ -29,7 +26,16 @@ spring:
   threads:
     virtual:
       enabled: true
-    
+      
+  ssl:
+    bundle:
+      pem:
+        https:
+          keystore:
+            certificate: classpath:localhost.pem
+            private-key: classpath:localhost-key.pem
+
+
   datasource:
 #    url: jdbc:mysql://127.0.0.1/playground
 #    url: jdbc:h2:~/h2/playground
@@ -92,6 +98,7 @@ spring:
   ai:
     openai:
       api-key: ENC(ij9JyrYMHXBYhAQXhnOoDD4cT3rScUrhlwzNGEyeJtFtSMpv1lsov3qE3tX329cgentwKwUI+ao513U/7wm8qfxFVCSJ7jdTRPbqh+3/WTmGXa49DEa7l7BMnscvVBSK)
+      
 
 management:
   endpoint:

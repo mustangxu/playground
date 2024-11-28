@@ -31,7 +31,7 @@ public class VirtualThreadDemo {
                 }
 
                 // string templates
-                log.info("{} ended", Thread.currentThread());
+                log.debug("{} ended", Thread.currentThread());
             });
         }
 
