@@ -34,6 +34,7 @@ import reactor.core.publisher.Flux;
  */
 @RestController
 @RequestMapping("/openai")
+@Deprecated
 public class OpenAiController {
     @Autowired
     private OpenAiService service;
