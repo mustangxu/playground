@@ -312,6 +312,12 @@
         <dependency>
             <groupId>org.springframework.ai</groupId>
             <artifactId>spring-ai-milvus-store-spring-boot-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.hadoop</groupId>
+                    <artifactId>hadoop-client</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>io.netty.incubator</groupId>
