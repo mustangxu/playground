@@ -97,7 +97,24 @@ spring:
   
   ai:
     openai:
-      api-key: ENC(ij9JyrYMHXBYhAQXhnOoDD4cT3rScUrhlwzNGEyeJtFtSMpv1lsov3qE3tX329cgentwKwUI+ao513U/7wm8qfxFVCSJ7jdTRPbqh+3/WTmGXa49DEa7l7BMnscvVBSK)
+      base-url: https://api.deepseek.com
+#      api-key: ENC(ij9JyrYMHXBYhAQXhnOoDD4cT3rScUrhlwzNGEyeJtFtSMpv1lsov3qE3tX329cgentwKwUI+ao513U/7wm8qfxFVCSJ7jdTRPbqh+3/WTmGXa49DEa7l7BMnscvVBSK)
+      api-key: ENC(cnUKOU7k86ukzzDqY7y94MLJ2Cqc9rJfS+gxNHFJRw1r/WQgBqF2Qszsgt0EVYNWsrHLhS5AcFLlEya7g12wXgH270X4fYr9t6JQiQK1aFw=)
+      chat:
+        options:
+          model: deepseek-chat
+    vectorstore:
+          milvus:
+            client:
+              host: in03-56cdbd2fa6bf6d3.serverless.ali-cn-hangzhou.cloud.zilliz.com.cn
+              port: 443
+              username: "root"
+              password: "milvus"
+            databaseName: "default"
+            collectionName: "vector_store"
+            embeddingDimension: 1536
+            indexType: IVF_FLAT
+            metricType: COSINE
       
 
 management:

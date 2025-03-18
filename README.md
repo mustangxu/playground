@@ -35,11 +35,12 @@ cd to main folder: `java-playground`, so far contains the following demos:
 * spring boot client, a spring boot server docker image can be found [here](https://hub.docker.com/repository/docker/mustangxu/spring-boot-admin-server/general) [![Docker Pulls](https://img.shields.io/docker/pulls/mustangxu/spring-boot-admin-server)](https://hub.docker.com/r/mustangxu/spring-boot-admin-server)
 * jmh performance test
 * jasypt-spring integration using [my another project](https://github.com/mustangxu/jasypt-spring-aws-kms-starter) [![Maven Central](https://img.shields.io/maven-central/v/com.jayxu/jasypt-spring-aws-kms-starter)](https://search.maven.org/artifact/com.jayxu/jasypt-spring-aws-kms-starter)
-* a openai client using [my another project](https://github.com/mustangxu/openai4j) 
+* ~~a openai client using [my another project](https://github.com/mustangxu/openai4j) ~~
 [![Maven Central](https://img.shields.io/maven-central/v/com.jayxu/openai4j)](https://search.maven.org/artifact/com.jayxu/openai4j)
 * AWS lambda function demo
 * zstd-jni lib
 * Spring AI
+  * deepseek
 * http2
 * http3 (enable by set `http3.enabled` property to `true`)
 

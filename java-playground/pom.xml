@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>java-playground</artifactId>
     <properties>
-        <java.version>22</java.version>
+        <java.version>23</java.version>
         <graalvm.version>24.1.2</graalvm.version>
         <skywalking.version>9.6.0</skywalking.version>
         <okhttp.version>4.12.0</okhttp.version>
@@ -310,6 +310,10 @@
             <artifactId>spring-ai-openai-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-milvus-store-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.netty.incubator</groupId>
             <artifactId>netty-incubator-codec-http3</artifactId>
              <version>0.0.28.Final</version>
@@ -442,7 +446,7 @@
 <!--                        <name>mustangxu/playground-native:${project.version}-${git.commit.id.abbrev}</name>-->
                     <!--                    </image>-->
                     <mainClass>com.jayxu.playground.spring.PlaygroundApplication</mainClass>
-                    <jvmArguments>--enable-preview</jvmArguments>
+                    <!--arguments>\-\-enable-preview</arguments-->
                 </configuration>
             </plugin>
         </plugins>
