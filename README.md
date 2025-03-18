@@ -2,12 +2,8 @@
 
 [![Codacy Security Scan](https://github.com/mustangxu/playground/actions/workflows/codacy.yml/badge.svg?branch=master)](https://github.com/mustangxu/playground/actions/workflows/codacy.yml)
 [![CodeQL](https://github.com/mustangxu/playground/actions/workflows/codeql.yml/badge.svg)](https://github.com/mustangxu/playground/actions/workflows/codeql.yml)
-[![Qodana](https://github.com/mustangxu/playground/actions/workflows/code_quality.yml/badge.svg)](https://github.com/mustangxu/playground/actions/workflows/code_quality.yml)
 [![Docker Image CI](https://github.com/mustangxu/playground/actions/workflows/docker-image.yml/badge.svg)](https://github.com/mustangxu/playground/actions/workflows/docker-image.yml)
-[![snyk](https://img.shields.io/snyk/vulnerabilities/github/mustangxu/playground)](https://app.snyk.io/org/mustangxu/project/2148a4dd-96b2-4399-a098-c3a3debd8c51)
-
- [![Docker](https://img.shields.io/docker/cloud/build/mustangxu/playground)](https://hub.docker.com/r/mustangxu/playground)
- [![Docker Pulls](https://img.shields.io/docker/pulls/mustangxu/playground)](https://hub.docker.com/r/mustangxu/playground)
+[![Docker Pulls](https://img.shields.io/docker/pulls/mustangxu/playground)](https://hub.docker.com/r/mustangxu/playground)
 
 ## Usage
 cd to main folder: `java-playground`, so far contains the following demos:
