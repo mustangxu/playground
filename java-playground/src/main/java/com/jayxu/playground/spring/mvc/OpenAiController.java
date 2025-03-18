@@ -57,15 +57,14 @@ public class OpenAiController {
             @RequestParam ModelType model,
             @RequestParam(defaultValue = "false") boolean stream) {
         var p = new Prompt(prompt,
-            OpenAiChatOptions.builder().withModel(model.value()).build());
+            OpenAiChatOptions.builder().model(model.value()).build());
 
         if (stream) {
             return this.client.stream(p)
-                .mapNotNull(r -> r.getResult().getOutput().getContent());
+                .mapNotNull(r -> r.getResult().getOutput().getText());
         }
 
-        return Flux
-            .just(this.client.call(p).getResult().getOutput().getContent());
+        return Flux.just(this.client.call(p).getResult().getOutput().getText());
     }
 
 //    @SneakyThrows
