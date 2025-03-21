@@ -5,7 +5,7 @@
     <artifactId>java-playground</artifactId>
     <properties>
         <java.version>23</java.version>
-        <graalvm.version>24.1.2</graalvm.version>
+        <graalvm.version>24.2.0</graalvm.version>
         <skywalking.version>9.6.0</skywalking.version>
         <okhttp.version>4.12.0</okhttp.version>
         <!-- <spring.native.version>0.12.2</spring.native.version>-->
