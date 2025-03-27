@@ -322,7 +322,7 @@
         <dependency>
             <groupId>io.netty.incubator</groupId>
             <artifactId>netty-incubator-codec-http3</artifactId>
-             <version>0.0.28.Final</version>
+             <version>0.0.29.Final</version>
         </dependency>
     </dependencies>
     <dependencyManagement>
