@@ -16,7 +16,7 @@ updates:
     directory: "/java-playground"
     # Check for updates once a week
     schedule:
-      interval: "weekly"
+      interval: "daily"
 
-  # - name: Maven Dependency Tree Dependency Submission
-  #   uses: advanced-security/maven-dependency-submission-action@v3.0.0
+  - name: Maven Dependency Tree Dependency Submission
+    uses: advanced-security/maven-dependency-submission-action@v3.0.0
