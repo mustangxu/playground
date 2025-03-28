@@ -33,8 +33,12 @@ public class EclipseLinkConfig extends JpaBaseConfiguration {
         return new EclipseLinkJpaVendorAdapter();
     }
 
+//    @Override
+//    protected Map<String, Object> getVendorProperties() {
+//    }
+
     @Override
-    protected Map<String, Object> getVendorProperties() {
+    protected Map<String, Object> getVendorProperties(DataSource dataSource) {
         return new HashMap<>(this.getProperties().getProperties());
     }
 }
