@@ -11,33 +11,35 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jayxu.playground.crypto.TOTP;
 import com.jayxu.playground.crypto.TOTP.Algorithm;
 
+import reactor.core.publisher.Mono;
+
 @RestController
 @RequestMapping("/otp")
 public class TOTPController {
     @GetMapping("/secret")
-    public String generateSecret(@RequestHeader(defaultValue = "SHA1",
+    public Mono<String> generateSecret(@RequestHeader(defaultValue = "SHA1",
             required = false) Algorithm algorithm) {
-        return TOTP.generateSecret(algorithm);
+        return Mono.just(TOTP.generateSecret(algorithm));
     }
 
     @GetMapping("/code")
-    public String generateCode(
+    public Mono<String> generateCode(
             @RequestHeader(defaultValue = "SHA1",
                     required = false) Algorithm algorithm,
             @RequestHeader String secret, @RequestHeader(defaultValue = "6",
                     required = false) int codeLength) {
-        return TOTP.builder().algorithm(algorithm).secret(secret)
-            .codeLength(codeLength).build().generateCode();
+        return Mono.just(TOTP.builder().algorithm(algorithm).secret(secret)
+            .codeLength(codeLength).build().generateCode());
     }
 
     @GetMapping("/verify")
-    public boolean verify(
+    public Mono<Boolean> verify(
             @RequestHeader(defaultValue = "SHA1",
                     required = false) Algorithm algorithm,
             @RequestHeader String secret,
             @RequestHeader(defaultValue = "6", required = false) int codeLength,
             String code) {
-        return TOTP.builder().algorithm(algorithm).secret(secret)
-            .codeLength(codeLength).build().verify(code);
+        return Mono.just(TOTP.builder().algorithm(algorithm).secret(secret)
+            .codeLength(codeLength).build().verify(code));
     }
 }

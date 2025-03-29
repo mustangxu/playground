@@ -19,6 +19,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 /**
  * @author jayxu
@@ -32,18 +33,18 @@ public class DefaultController {
 
     @GetMapping("/hello")
     @SecurityRequirement(name = "security")
-    public String helloWorld() {
-        return "world";
+    public Mono<String> helloWorld() {
+        return Mono.just("world");
     }
 
     @GetMapping("/enc")
-    public String encrypt(@RequestParam String raw) {
-        return this.encryptor.encrypt(raw);
+    public Mono<String> encrypt(@RequestParam String raw) {
+        return Mono.just(this.encryptor.encrypt(raw));
     }
 
     @GetMapping("/env")
-    public String getEnv(@RequestParam String key) {
-        return this.env.getProperty(key);
+    public Mono<String> getEnv(@RequestParam String key) {
+        return Mono.just(this.env.getProperty(key));
     }
 
     @GetMapping(path = "/sse/event",
