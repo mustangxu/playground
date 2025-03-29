@@ -88,7 +88,7 @@ public final class TOTP {
         }
 
         var mac = Mac.getInstance(this.algorithm.hmac());
-        mac.init(new SecretKeySpec(secret, "RAW"));
+        mac.init(new SecretKeySpec(secret, this.algorithm.hmac()));
 
         return mac.doFinal(counter);
     }
