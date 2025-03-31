@@ -5,7 +5,7 @@ package com.jayxu.playground.algorithm;
 
 import java.io.Serial;
 
-import com.jayxu.playground.algorithm.BinaryTree.BinaryTreeNode;
+import javax.annotation.Nonnull;
 
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -14,8 +14,7 @@ import lombok.NonNull;
  * @author jayxu
  */
 @NoArgsConstructor
-public class BinaryTree<T extends Comparable<T>>
-        extends Tree<T, BinaryTreeNode<T>> {
+public class BinaryTree<T extends Comparable<T>> extends Tree<T> {
     @Serial
     private static final long serialVersionUID = -2587073973029359971L;
 
@@ -33,7 +32,7 @@ public class BinaryTree<T extends Comparable<T>>
         }
 
         @Override
-        public BinaryTreeNode<T> traverseMatch(T v) {
+        public BinaryTreeNode<T> traverseMatch(@Nonnull T v) {
             if (this.value.equals(v)) {
                 return this;
             }
@@ -75,7 +74,6 @@ public class BinaryTree<T extends Comparable<T>>
         return true;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public boolean remove(@NonNull Object o) {
         if (this.root == null) {
@@ -101,7 +99,7 @@ public class BinaryTree<T extends Comparable<T>>
             }
 
             if (node.isRoot()) {
-                this.root = (BinaryTreeNode<T>) child;
+                this.root = child;
             } else if (parent.left == node) {
                 parent.left = child;
             } else {
@@ -120,7 +118,7 @@ public class BinaryTree<T extends Comparable<T>>
 
                 var newNode = node.replace(left.value);
                 if (node.isRoot()) {
-                    this.root = (BinaryTreeNode<T>) newNode;
+                    this.root = newNode;
                 }
 
                 left.parent.left = null; // delete

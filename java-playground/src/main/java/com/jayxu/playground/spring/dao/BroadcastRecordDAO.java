@@ -15,7 +15,7 @@ public interface BroadcastRecordDAO
         JpaSpecificationExecutor<BroadcastRecord> {
     default BroadcastRecord getByUniqueKey(long taskId, String assetName,
             String platformName, short builtTransactionType) {
-        var spec = Specification.where(withColumn("taskId", taskId))
+        var spec = Specification.allOf(withColumn("taskId", taskId))
             .and(withColumn("assetName", assetName))
             .and(withColumn("builtTransactionType", builtTransactionType));
 
@@ -27,7 +27,7 @@ public interface BroadcastRecordDAO
     }
 
     static Specification<BroadcastRecord> withColumn(String col, Object value) {
-        return (root, q, b) -> value == null ? b.isNull(root.get(col))
+        return (root, _, b) -> value == null ? b.isNull(root.get(col))
             : b.equal(root.get(col), b.literal(value));
     }
 

@@ -41,7 +41,7 @@ public class OrderService {
         }
 
         final var u = user;
-        var orders = IntStream.range(0, size).mapToObj(i -> Order.fake(u))
+        var orders = IntStream.range(0, size).mapToObj(_ -> Order.fake(u))
             .toList();
         return this.dao.saveAll(orders).spliterator().getExactSizeIfKnown();
     }

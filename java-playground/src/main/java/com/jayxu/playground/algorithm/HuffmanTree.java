@@ -13,7 +13,6 @@ import java.util.Map.Entry;
 import java.util.Objects;
 
 import com.google.common.collect.Lists;
-import com.jayxu.playground.algorithm.HuffmanTree.HuffmanTreeNode;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -22,8 +21,9 @@ import lombok.ToString;
 
 /**
  * @author jayxu
+ * @param <T>
  */
-public class HuffmanTree<T> extends Tree<T, HuffmanTreeNode<T>> {
+public class HuffmanTree<T> extends Tree<T> {
     @Serial
     private static final long serialVersionUID = -2503306000582479972L;
     private LinkedList<HuffmanTreeNode<T>> dest;
@@ -161,7 +161,7 @@ public class HuffmanTree<T> extends Tree<T, HuffmanTreeNode<T>> {
     }
 
     public T decode(byte[] code) {
-        TreeNode<T> node = this.root;
+        var node = this.root;
 
         for (byte b : code) {
             node = b == 0 ? node.left : node.right;

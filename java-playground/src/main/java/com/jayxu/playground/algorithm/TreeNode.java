@@ -19,6 +19,7 @@ import lombok.ToString;
 
 /**
  * @author jayxu
+ * @param <T>
  */
 @Data
 @ToString(exclude = "parent")
@@ -118,7 +119,7 @@ public abstract class TreeNode<T> implements Serializable, Cloneable {
 
     public <V> void traverse(Consumer<V> fun, Function<TreeNode<T>, V> mapper,
             Order order) {
-        this.traverseOrdered(new Counter(), (i, v) -> fun.accept(v), mapper,
+        this.traverseOrdered(new Counter(), (_, v) -> fun.accept(v), mapper,
             order);
     }
 
@@ -184,7 +185,6 @@ public abstract class TreeNode<T> implements Serializable, Cloneable {
         return this.insertRight(v);
     }
 
-    @SuppressWarnings("unchecked")
     protected TreeNode<T> replace(@NonNull T v) {
         try {
             var newNode = (TreeNode<T>) this.clone();

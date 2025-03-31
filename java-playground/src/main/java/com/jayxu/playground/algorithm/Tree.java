@@ -16,25 +16,25 @@ import java.util.stream.StreamSupport;
 
 import org.eclipse.collections.impl.Counter;
 
+import jakarta.annotation.Nullable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
 
 /**
- * @author     xujiajing
- *
- * @param  <V> value type
- * @param  <N> node type
+ * @author xujiajing
+ * @param <T>
+ *        value type
  */
 @NoArgsConstructor
-public abstract class Tree<T, N extends TreeNode<T>>
-        implements Collection<T>, Serializable {
+public abstract class Tree<T> implements Collection<T>, Serializable {
     @Serial
     private static final long serialVersionUID = -2868930520060725242L;
     protected static final BinaryOperator<Boolean> OR = (a, b) -> a || b;
     @Getter
-    protected N root;
+    @Nullable
+    protected TreeNode<T> root;
     protected int size;
     @Getter
     @Setter
@@ -73,7 +73,6 @@ public abstract class Tree<T, N extends TreeNode<T>>
             .toString();
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public boolean contains(Object o) {
         if (this.root == null || o == null) {
@@ -88,7 +87,6 @@ public abstract class Tree<T, N extends TreeNode<T>>
         return this.toArray(new Object[this.size]);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public <E> E[] toArray(E[] a) {
         var array = a.length >= this.size ? a : (E[]) Array
@@ -124,23 +122,25 @@ public abstract class Tree<T, N extends TreeNode<T>>
         return this.size == 0;
     }
 
-    public Stream<N> nodeStream() {
+    public Stream<? extends TreeNode<T>> nodeStream() {
         return this.nodeStream(this.order);
     }
 
-    public Stream<N> nodeStream(@SuppressWarnings("hiding") Order order) {
+    public Stream<? extends TreeNode<T>>
+            nodeStream(@SuppressWarnings("hiding") Order order) {
         return StreamSupport.stream(
             Spliterators.spliterator(this.nodeIterator(order), this.size, 0),
             false);
     }
 
-    public Iterator<N> nodeIterator() {
+    public Iterator<? extends TreeNode<T>> nodeIterator() {
         return this.nodeIterator(this.order);
     }
 
-    @SuppressWarnings("unchecked")
-    public Iterator<N> nodeIterator(@SuppressWarnings("hiding") Order order) {
-        return (Iterator<N>) TreeIterator.nodeIterator(this.root, order);
+    public Iterator<? extends TreeNode<T>>
+            nodeIterator(@SuppressWarnings("hiding") Order order) {
+        return (Iterator<TreeNode<T>>) TreeIterator.nodeIterator(this.root,
+            order);
     }
 
     protected void recalculateLevelsNDepth() {

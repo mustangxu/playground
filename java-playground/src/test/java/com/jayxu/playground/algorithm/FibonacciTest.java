@@ -14,7 +14,7 @@ class FibonacciTest {
 
     /**
      * Test method for
-     * {@link com.jayxu.playground.algorithm.Fibonacci#fibonacci(long)}.
+     * {@link com.jayxu.playground.algorithm.Fibonacci#fibonacci(int)}.
      */
     @Test
     void testFibonacci() {

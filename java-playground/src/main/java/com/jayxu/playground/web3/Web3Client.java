@@ -54,7 +54,7 @@ public class Web3Client implements InitializingBean {
     }
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         this.web3 = Web3j.build(new HttpService(this.ethNetUrl));
         log.info(
             ToStringBuilder.reflectionToString(this.web3) + " initialized");

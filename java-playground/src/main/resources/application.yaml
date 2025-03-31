@@ -189,10 +189,10 @@ springdoc:
 management:
   endpoint:
     health:
-      enabled: false
+      access: read-only
   endpoints:
-    enabled-by-default: false
-    
+    access:
+      default: none
 
 
 ---

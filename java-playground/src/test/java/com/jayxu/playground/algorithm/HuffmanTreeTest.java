@@ -14,6 +14,8 @@ import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.Test;
 
+import com.jayxu.playground.algorithm.HuffmanTree.HuffmanTreeNode;
+
 /**
  * @author jayxu
  */
@@ -23,9 +25,8 @@ class HuffmanTreeTest {
     void test() throws Exception {
         Map<Character, Integer> freq = new ConcurrentHashMap<>();
 
-        try (var r = new BufferedReader(new InputStreamReader(
-            this.getClass().getClassLoader()
-                .getResourceAsStream("sample-text")));) {
+        try (var r = new BufferedReader(new InputStreamReader(this.getClass()
+            .getClassLoader().getResourceAsStream("sample-text")));) {
             r.lines().parallel().map(String::chars).reduce(IntStream::concat)
                 .get().parallel()
                 .forEach(ch -> freq.merge((char) ch, 1, Math::addExact));
@@ -59,9 +60,9 @@ class HuffmanTreeTest {
     }
 
     private static void printTree(HuffmanTree<?> tree) {
-        tree.nodeStream().forEach(n -> System.out
-            .println(
-                n.getValue() + " [w: " + n.getWeight() + "], Lv."
-                    + n.getLevel()));
+        tree.nodeStream().forEach(n -> {
+            System.out.println(n.getValue() + " [w: "
+                + ((HuffmanTreeNode) n).getWeight() + "], Lv." + n.getLevel());
+        });
     }
 }

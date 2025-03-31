@@ -39,17 +39,18 @@ public class JettyConfiguration extends OncePerRequestFilter
 //            HttpConfiguration httpConfig = new HttpConfiguration();
 //            httpConfig.addCustomizer(new SecureRequestCustomizer());
 
-            var connector = new QuicServerConnector(server, quicConfig,
+            try (var connector = new QuicServerConnector(server, quicConfig,
                 new HTTP3ServerConnectionFactory(quicConfig
 //                    , httpConfig
-            ));
+            ));) {
 
 //            HTTP3ServerConnector connector = new HTTP3ServerConnector(server,
 //                sslContextFactory,
 //                new HTTP3ServerConnectionFactory(quicConfig, httpConfig));
 
-            connector.setPort(JettyConfiguration.this.serverPort);
-            server.addConnector(connector);
+                connector.setPort(JettyConfiguration.this.serverPort);
+                server.addConnector(connector);
+            }
         });
     }
 

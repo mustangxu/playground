@@ -16,8 +16,8 @@ import org.antlr.v4.runtime.tree.TerminalNode;
  * of the available methods.
  *
  * @param <T>
- *            The return type of the visit operation. Use {@link Void} for
- *            operations with no return type.
+ *        The return type of the visit operation. Use {@link Void} for
+ *        operations with no return type.
  */
 @SuppressWarnings("unchecked")
 public class JSONBaseVisitor<T> extends AbstractParseTreeVisitor<T>
@@ -80,7 +80,6 @@ public class JSONBaseVisitor<T> extends AbstractParseTreeVisitor<T>
         return (T) new HashMap<>();
     }
 
-    @SuppressWarnings("rawtypes")
     @Override
     protected T aggregateResult(T t1, T t2) {
 //        log.info("t1: {}, t2: {}", t1, t2);

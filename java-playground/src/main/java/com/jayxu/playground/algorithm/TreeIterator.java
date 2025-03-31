@@ -14,8 +14,8 @@ public class TreeIterator<V> implements Iterator<V> {
     private LinkedList<TreeNode<?>> list;
     private Function<TreeNode<?>, V> mapper;
 
-    public TreeIterator(TreeNode<?> from,
-            Function<TreeNode<?>, V> mapper, Order order) {
+    public TreeIterator(TreeNode<?> from, Function<TreeNode<?>, V> mapper,
+            Order order) {
         this.list = new LinkedList<>();
         this.mapper = mapper;
 
@@ -24,16 +24,13 @@ public class TreeIterator<V> implements Iterator<V> {
         }
     }
 
-    public static Iterator<? extends TreeNode<?>>
-            nodeIterator(TreeNode<?> from, Order order) {
+    public static Iterator<? extends TreeNode<?>> nodeIterator(TreeNode<?> from,
+            Order order) {
         return new TreeIterator<>(from, n -> n, order);
     }
 
-    @SuppressWarnings("unchecked")
-    public static <T> Iterator<T> valueIterator(TreeNode<T> from,
-            Order order) {
-        return new TreeIterator<>(from, v -> (T) v.getValue(),
-            order);
+    public static <T> Iterator<T> valueIterator(TreeNode<T> from, Order order) {
+        return new TreeIterator<>(from, v -> (T) v.getValue(), order);
     }
 
     @Override

@@ -15,14 +15,16 @@ class YamlUtilsTest {
 
     @Test
     void test() throws Exception {
-        var string = YamlUtils.parseApollo(this.getClass().getClassLoader()
-            .getResourceAsStream("apollo.yaml"));
+        try (var is = this.getClass().getClassLoader()
+            .getResourceAsStream("apollo.yaml");) {
+            var string = YamlUtils.parseApollo(is);
 
-        var f = File.createTempFile("apollo-", ".yaml");
-        System.out.println(f.getAbsolutePath());
+            var f = File.createTempFile("apollo-", ".yaml");
+            System.out.println(f.getAbsolutePath());
 
-        try (var w = new FileWriter(f)) {
-            w.write(string);
+            try (var w = new FileWriter(f)) {
+                w.write(string);
+            }
         }
     }
 

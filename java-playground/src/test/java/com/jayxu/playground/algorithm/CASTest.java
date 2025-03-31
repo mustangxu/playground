@@ -34,16 +34,17 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 @State(Scope.Benchmark)
 public class CASTest {
     private ExecutorService executor;
+    private int counter;
 
     public static void main(String[] args) throws Exception {
-        var opt = new OptionsBuilder()
-            .include(CASTest.class.getSimpleName()).build();
+        var opt = new OptionsBuilder().include(CASTest.class.getSimpleName())
+            .build();
         new Runner(opt).run();
     }
 
     @Setup
     public void setup() {
-        this.executor = Executors.newFixedThreadPool(8);
+        this.executor = Executors.newVirtualThreadPerTaskExecutor();
     }
 
     @TearDown
@@ -66,7 +67,7 @@ public class CASTest {
     public void benchmarkCAS() throws Exception {
         var cas = new CAS();
 
-        this.doBenchmark(() -> cas.updateValue(1));
+        this.doBenchmark(() -> cas.updateValue(this.counter++));
     }
 
     @Benchmark

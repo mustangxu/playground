@@ -30,7 +30,7 @@ public class ProducerThread extends Thread {
                     try {
                         System.err.println("Producer is waiting ...");
                         this.queue.wait();
-                    } catch (InterruptedException e) {
+                    } catch (InterruptedException _) {
                         Thread.currentThread().interrupt();
                     }
                 } else {
@@ -45,7 +45,7 @@ public class ProducerThread extends Thread {
                 if (this.queue.size() < this.capacity) {
                     try {
                         Thread.sleep(this.interval);
-                    } catch (InterruptedException e) {
+                    } catch (InterruptedException _) {
                         Thread.currentThread().interrupt();
                     }
                 }

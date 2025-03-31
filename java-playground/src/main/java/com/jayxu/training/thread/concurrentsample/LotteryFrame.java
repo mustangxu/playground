@@ -74,7 +74,7 @@ public class LotteryFrame extends JFrame {
         this.buttonRead = new JButton("Read");
 
         var panelBottom = new JPanel();
-        this.buttonWrite.addActionListener(e -> new Thread() {
+        this.buttonWrite.addActionListener(_ -> new Thread() {
             @Override
             public void run() {
                 LotteryFrame.this.writeLock.lock();
@@ -90,7 +90,7 @@ public class LotteryFrame extends JFrame {
         }.start());
         panelBottom.add(this.buttonWrite);
 
-        this.buttonRead.addActionListener(e -> new Thread() {
+        this.buttonRead.addActionListener(_ -> new Thread() {
             @Override
             public void run() {
                 LotteryFrame.this.readLockB.lock();

@@ -3,8 +3,6 @@
  */
 package com.jayxu.playground.blockchain.eth;
 
-import java.io.IOException;
-import java.security.GeneralSecurityException;
 import java.util.Objects;
 
 import org.bouncycastle.asn1.sec.SECNamedCurves;
@@ -38,12 +36,7 @@ public class EthSigner implements KeyGenerator {
         return ECKeyPair.create(Hex.decode(privKeyHex));
     }
 
-    /**
-     * @throws GeneralSecurityException
-     * @throws IOException
-     */
-    public SignatureData signTx(ECKeyPair key, MyRawTransaction tx)
-            throws GeneralSecurityException, IOException {
+    public SignatureData signTx(ECKeyPair key, MyRawTransaction tx) {
         var raw = tx.hash();
 
         var signer = new ECDSASigner(

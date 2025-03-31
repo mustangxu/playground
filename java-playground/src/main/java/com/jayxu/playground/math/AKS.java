@@ -43,11 +43,11 @@ import com.jayxu.playground.math.AKS.LongAKS;
  *         Arijit Banerjee
  *         Suchit Maindola
  *         Srikanth Manikarnike
- *
- * @see    https://github.com/smanikar/primality-testing/blob/master/proposal/src/AKS.java
+ * @see "https://github.com/smanikar/primality-testing/blob/master/proposal/src/AKS.java"
  */
 
-public sealed abstract class AKS<T extends Number> permits LongAKS, BigIntegerAKS {
+public sealed abstract class AKS<T extends Number>
+        permits LongAKS, BigIntegerAKS {
     public static final LongAKS AKS_LONG = new LongAKS();
     public static final BigIntegerAKS AKS_BIG_INTEGER = new BigIntegerAKS();
     private static final boolean[] SIEVE_ARRAY;
@@ -130,9 +130,8 @@ public sealed abstract class AKS<T extends Number> permits LongAKS, BigIntegerAK
     }
 
     /**
-     * @param  n
-     *
-     * @return   true for primes
+     * @param n
+     * @return true for primes
      */
     protected boolean hitSieveArray(Number n) {
         return this.checkInSieveArray(n) && !SIEVE_ARRAY[n.intValue()];
@@ -166,7 +165,7 @@ public sealed abstract class AKS<T extends Number> permits LongAKS, BigIntegerAK
 
             var lowR = 2L;
             for (; lowR < input; lowR++) {
-                if (LongMath.gcd(lowR, input) != 1) {
+                if (LongMath.gcd(lowR, input) <= 0) {
                     return false;
                 }
 
@@ -252,13 +251,12 @@ public sealed abstract class AKS<T extends Number> permits LongAKS, BigIntegerAK
 
     static final class BigIntegerAKS extends AKS<BigInteger> {
         @Override
-        protected BigInteger mPower(BigInteger x, BigInteger y,
-                BigInteger n) {
+        protected BigInteger mPower(BigInteger x, BigInteger y, BigInteger n) {
             var m = y;
             var p = ONE;
             var z = x;
 
-            while (m.signum() == 1) {
+            while (m.signum() > 0) {
                 while (!m.testBit(0)) { // even number
                     m = m.shiftRight(1);
                     z = z.multiply(z).mod(n);
@@ -369,14 +367,14 @@ public sealed abstract class AKS<T extends Number> permits LongAKS, BigIntegerAK
         var primes = LongStream.rangeClosed(1, max)
             .filter(n -> AKS.isPrime(n, true)).count();
         System.out.println("Checked [1 .. " + max + "] as Long DONE in "
-            + (System.currentTimeMillis() - start) + " ms, got: "
-            + primes + ", " + primes * 100. / max + "%");
+            + (System.currentTimeMillis() - start) + " ms, got: " + primes
+            + ", " + primes * 100. / max + "%");
 
         primes = LongStream.rangeClosed(1, max)
             .filter(n -> AKS.isPrime(BigInteger.valueOf(n), true)).count();
         System.out.println("Checked [1 .. " + max + "] as BigInteger DONE in "
-            + (System.currentTimeMillis() - start) + " ms, got: "
-            + primes + ", " + primes * 100. / max + "%");
+            + (System.currentTimeMillis() - start) + " ms, got: " + primes
+            + ", " + primes * 100. / max + "%");
 
         var n = new BigInteger("1311148946153119849132111651651616161651651");
         start = System.currentTimeMillis();

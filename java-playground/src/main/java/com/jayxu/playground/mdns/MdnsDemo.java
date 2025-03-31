@@ -17,17 +17,16 @@ public class MdnsDemo {
     private static final String SERVICE = "_http._tcp.local.";
 
     public static void main(String[] args) throws Exception {
-        var pool = Executors.newFixedThreadPool(2);
-        var server = pool.submit(MdnsDemo::startServer);
-        pool.submit(MdnsDemo::startClient);
+        try (var pool = Executors.newVirtualThreadPerTaskExecutor();) {
+            var server = pool.submit(MdnsDemo::startServer);
+            pool.submit(MdnsDemo::startClient);
 
-        Thread.sleep(10_000);
-        try (var jmDNS = server.get();) {
-            jmDNS.unregisterAllServices();
-            System.out.println("Done");
+            Thread.sleep(10_000);
+            try (var jmDNS = server.get();) {
+                jmDNS.unregisterAllServices();
+                System.out.println("Done");
+            }
         }
-
-        System.exit(0);
     }
 
     private static JmDNS startClient() {

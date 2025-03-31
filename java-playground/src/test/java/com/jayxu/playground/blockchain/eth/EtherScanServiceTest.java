@@ -16,11 +16,9 @@ public class EtherScanServiceTest {
     /**
      * Test method for
      * {@link com.jayxu.playground.blockchain.eth.EtherScanService#getHeight()}.
-     *
-     * @throws Exception
      */
     @Test
-    void testGetHeight() throws Exception {
+    void testGetHeight() {
         var height = new EtherScanService().getHeight();
         System.out.println(height);
         assertTrue(height > 0, "height");

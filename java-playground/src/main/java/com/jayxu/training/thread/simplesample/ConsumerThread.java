@@ -27,7 +27,7 @@ public class ConsumerThread extends Thread {
                     try {
                         System.out.println("Consumer is waiting ...");
                         this.queue.wait();
-                    } catch (InterruptedException e) {
+                    } catch (InterruptedException _) {
                         Thread.currentThread().interrupt();
                     }
                 } else {
@@ -40,7 +40,7 @@ public class ConsumerThread extends Thread {
                 if (!this.queue.isEmpty()) {
                     try {
                         Thread.sleep(this.interval);
-                    } catch (InterruptedException e) {
+                    } catch (InterruptedException _) {
                         Thread.currentThread().interrupt();
                     }
                 }
