@@ -319,11 +319,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <dependency>
-            <groupId>io.netty.incubator</groupId>
-            <artifactId>netty-incubator-codec-http3</artifactId>
-             <version>0.0.29.Final</version>
-        </dependency>
     </dependencies>
     <dependencyManagement>
         <dependencies>
@@ -472,9 +467,9 @@
                     <!--                        <env>-->
                     <!--                            <BP_JVM_VERSION>17</BP_JVM_VERSION>-->
                     <!--                            <GRAALVM_QUICK_BUILD>true</GRAALVM_QUICK_BUILD>-->
-<!--                            &lt;!&ndash;BP_LOG_LEVEL>DEBUG</BP_LOG_LEVEL&ndash;&gt;-->
+                    <!--                            &lt;!&ndash;BP_LOG_LEVEL>DEBUG</BP_LOG_LEVEL&ndash;&gt;-->
                     <!--                        </env>-->
-<!--                        <name>mustangxu/playground-native:${project.version}-${git.commit.id.abbrev}</name>-->
+                    <!--                        <name>mustangxu/playground-native:${project.version}-${git.commit.id.abbrev}</name>-->
                     <!--                    </image>-->
                     <mainClass>com.jayxu.playground.spring.PlaygroundApplication</mainClass>
                     <!--arguments>\-\-enable-preview</arguments-->

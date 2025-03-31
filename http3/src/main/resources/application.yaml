@@ -1,0 +1,21 @@
+#debug: true
+
+server:
+  port: 8443
+  http2:
+    enabled: true
+  ssl:
+    bundle: https
+
+spring:
+  ssl:
+    bundle:
+      pem:
+        https:
+          keystore:
+            certificate: classpath:jay.local.pem
+            private-key: classpath:jay.local-key.pem
+
+  threads:
+    virtual:
+      enabled: true

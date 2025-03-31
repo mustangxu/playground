@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jayxu.playground.spring.dao.UserDAO;
 import com.jayxu.playground.spring.model.User;
 import com.jayxu.playground.spring.service.UserService;
 
@@ -28,8 +27,6 @@ import lombok.extern.slf4j.Slf4j;
 public class UserController {
     @Autowired
     private UserService service;
-    @Autowired
-    private UserDAO dao;
 
     @GetMapping("/{id}")
     public User getUserById(@PathVariable int id) {

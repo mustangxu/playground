@@ -38,7 +38,7 @@ cd to main folder: `java-playground`, so far contains the following demos:
 * Spring AI
   * deepseek
 * http2
-* http3 (enable by set `http3.enabled` property to `true`)
+* http3 (~~enable by set `http3.enabled` property to `true`~~ under `http3` project)
 
 run:
 ```shell

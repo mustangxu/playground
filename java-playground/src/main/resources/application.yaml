@@ -2,7 +2,7 @@ useCache: true
 web3:
   eth:
     url: https://cloudflare-eth.com
-http3.enabled: false
+#http3.enabled: false
 
 debug: false
 server:
