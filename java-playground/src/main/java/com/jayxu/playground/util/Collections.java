@@ -14,7 +14,7 @@ public class Collections {
         var array = new int[max + 1];
         var ret = new int[set.length];
 
-        for (int i : set) {
+        for (var i : set) {
             array[i] = 1;
         }
 

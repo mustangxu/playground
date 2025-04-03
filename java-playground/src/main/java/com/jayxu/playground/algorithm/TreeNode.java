@@ -18,8 +18,9 @@ import lombok.NonNull;
 import lombok.ToString;
 
 /**
- * @author jayxu
  * @param <T>
+ *
+ * @author jayxu
  */
 @Data
 @ToString(exclude = "parent")
@@ -48,9 +49,8 @@ public abstract class TreeNode<T> implements Serializable, Cloneable {
         return this.left == null && this.right == null;
     }
 
-    protected <V> void traverseOrdered(Counter counter,
-            BiConsumer<Counter, V> fun, Function<TreeNode<T>, V> mapper,
-            Order order) {
+    protected <V> void traverseOrdered(Counter counter, BiConsumer<Counter, V> fun, Function<TreeNode<T>, V> mapper,
+                                       Order order) {
         var v = mapper.apply(this);
 
         switch (order) {
@@ -117,10 +117,8 @@ public abstract class TreeNode<T> implements Serializable, Cloneable {
         }
     }
 
-    public <V> void traverse(Consumer<V> fun, Function<TreeNode<T>, V> mapper,
-            Order order) {
-        this.traverseOrdered(new Counter(), (_, v) -> fun.accept(v), mapper,
-            order);
+    public <V> void traverse(Consumer<V> fun, Function<TreeNode<T>, V> mapper, Order order) {
+        this.traverseOrdered(new Counter(), (_, v) -> fun.accept(v), mapper, order);
     }
 
     public void traverseValue(Consumer<T> fun, Order order) {
@@ -145,9 +143,7 @@ public abstract class TreeNode<T> implements Serializable, Cloneable {
 
         if (this.right != null) {
             var ret = this.right.traverseMatch(v);
-            if (ret != null) {
-                return ret;
-            }
+            return ret;
         }
 
         return null;

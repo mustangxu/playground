@@ -20,20 +20,30 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * @author jayxu
  * @param <T>
+ *
+ * @author jayxu
  */
 public class HuffmanTree<T> extends Tree<T> {
     @Serial
     private static final long serialVersionUID = -2503306000582479972L;
-    private LinkedList<HuffmanTreeNode<T>> dest;
+    private final LinkedList<HuffmanTreeNode<T>> dest;
+
+    public HuffmanTree(Map<T, Integer> weightedMap) {
+        super(Order.LEVEL_ORDER);
+
+        this.dest = Lists.newLinkedList();
+        weightedMap.entrySet().stream().map(this::buildNode).sorted(Comparator.comparing(HuffmanTreeNode<T>::getWeight))
+                   .forEach(this.dest::add);
+
+        this.buildTree();
+    }
 
     @NoArgsConstructor
     @Data
     @ToString(callSuper = true)
     @EqualsAndHashCode(callSuper = true)
-    public static class HuffmanTreeNode<T> extends TreeNode<T>
-            implements Comparable<HuffmanTreeNode<T>> {
+    public static class HuffmanTreeNode<T> extends TreeNode<T> implements Comparable<HuffmanTreeNode<T>> {
         @Serial
         private static final long serialVersionUID = 4547144338353998776L;
         private int weight;
@@ -44,8 +54,7 @@ public class HuffmanTree<T> extends Tree<T> {
 
         @Override
         public int compareTo(HuffmanTreeNode<T> o) {
-            return Objects.compare(this, o,
-                Comparator.comparingInt(HuffmanTreeNode::getWeight));
+            return Objects.compare(this, o, Comparator.comparingInt(HuffmanTreeNode::getWeight));
         }
 
         @Override
@@ -57,17 +66,6 @@ public class HuffmanTree<T> extends Tree<T> {
         protected boolean chooseLeft(T v) {
             return true;
         }
-    }
-
-    public HuffmanTree(Map<T, Integer> weightedMap) {
-        super(Order.LEVEL_ORDER);
-
-        this.dest = Lists.newLinkedList();
-        weightedMap.entrySet().stream().map(this::buildNode)
-            .sorted(Comparator.comparing(HuffmanTreeNode<T>::getWeight))
-            .forEach(this.dest::add);
-
-        this.buildTree();
     }
 
     private void buildTree() {
@@ -95,8 +93,7 @@ public class HuffmanTree<T> extends Tree<T> {
         return node;
     }
 
-    private HuffmanTreeNode<T> buildParent(HuffmanTreeNode<T> n1,
-            HuffmanTreeNode<T> n2) {
+    private HuffmanTreeNode<T> buildParent(HuffmanTreeNode<T> n1, HuffmanTreeNode<T> n2) {
         var node = new HuffmanTreeNode<T>();
         node.weight = n1.weight + n2.weight;
         n1.parent = node;
@@ -116,6 +113,12 @@ public class HuffmanTree<T> extends Tree<T> {
     @Override
     public Iterator<T> iterator() {
         return TreeIterator.valueIterator(this.root, Order.LEVEL_ORDER);
+    }
+
+    @Override
+    public void clear() {
+        super.clear();
+        this.dest.clear();
     }
 
     @Override
@@ -168,11 +171,5 @@ public class HuffmanTree<T> extends Tree<T> {
         }
 
         return node.value;
-    }
-
-    @Override
-    public void clear() {
-        super.clear();
-        this.dest.clear();
     }
 }

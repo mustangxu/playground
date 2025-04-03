@@ -11,11 +11,10 @@ import java.util.function.Function;
  * @author jayxu
  */
 public class TreeIterator<V> implements Iterator<V> {
-    private LinkedList<TreeNode<?>> list;
-    private Function<TreeNode<?>, V> mapper;
+    private final Function<TreeNode<?>, V> mapper;
+    private final LinkedList<TreeNode<?>> list;
 
-    public TreeIterator(TreeNode<?> from, Function<TreeNode<?>, V> mapper,
-            Order order) {
+    public TreeIterator(TreeNode<?> from, Function<TreeNode<?>, V> mapper, Order order) {
         this.list = new LinkedList<>();
         this.mapper = mapper;
 
@@ -24,8 +23,7 @@ public class TreeIterator<V> implements Iterator<V> {
         }
     }
 
-    public static Iterator<? extends TreeNode<?>> nodeIterator(TreeNode<?> from,
-            Order order) {
+    public static Iterator<? extends TreeNode<?>> nodeIterator(TreeNode<?> from, Order order) {
         return new TreeIterator<>(from, n -> n, order);
     }
 

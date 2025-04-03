@@ -8,7 +8,10 @@ import java.util.Date;
 /**
  * @author jayxu
  */
-public record ApolloConfigItem(String key, String value,
-        String dataChangeCreatedBy, String dataChangeLastModifiedBy,
-        Date dataChangeCreatedTime, Date dataChangeLastModifiedTime) {
+public record ApolloConfigItem(String key,
+                               String value,
+                               String dataChangeCreatedBy,
+                               String dataChangeLastModifiedBy,
+                               Date dataChangeCreatedTime,
+                               Date dataChangeLastModifiedTime) {
 }

@@ -9,9 +9,15 @@ import java.util.List;
 /**
  * @author jayxu
  */
-public record ApolloConfig(String appId, String clusterName,
-        String namespaceName, String comment, String format, boolean isPublic,
-        List<ApolloConfigItem> items, String dataChangeCreatedBy,
-        String dataChangeLastModifiedBy, Date dataChangeCreatedTime,
-        Date dataChangeLastModifiedTime) {
+public record ApolloConfig(String appId,
+                           String clusterName,
+                           String namespaceName,
+                           String comment,
+                           String format,
+                           boolean isPublic,
+                           List<ApolloConfigItem> items,
+                           String dataChangeCreatedBy,
+                           String dataChangeLastModifiedBy,
+                           Date dataChangeCreatedTime,
+                           Date dataChangeLastModifiedTime) {
 }

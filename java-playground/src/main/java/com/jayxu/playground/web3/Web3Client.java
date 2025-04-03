@@ -44,9 +44,7 @@ public class Web3Client implements InitializingBean {
     }
 
     public EthBlock getBlockByNumber(BigInteger number) throws IOException {
-        return this.web3
-            .ethGetBlockByNumber(DefaultBlockParameter.valueOf(number), false)
-            .send();
+        return this.web3.ethGetBlockByNumber(DefaultBlockParameter.valueOf(number), false).send();
     }
 
     public EthBlockNumber ethBlockNumber() throws IOException {
@@ -56,7 +54,6 @@ public class Web3Client implements InitializingBean {
     @Override
     public void afterPropertiesSet() {
         this.web3 = Web3j.build(new HttpService(this.ethNetUrl));
-        log.info(
-            ToStringBuilder.reflectionToString(this.web3) + " initialized");
+        log.info("{} initialized", ToStringBuilder.reflectionToString(this.web3));
     }
 }

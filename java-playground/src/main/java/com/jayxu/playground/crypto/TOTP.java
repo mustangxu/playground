@@ -12,7 +12,6 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base32;
 import org.apache.commons.lang3.ArrayUtils;
-
 import com.google.common.primitives.Ints;
 import com.google.common.primitives.Longs;
 
@@ -41,8 +40,13 @@ public final class TOTP {
         SHA256(256, "HmacSHA256"),
         SHA512(512, "HmacSHA512");
 
-        private int bits;
-        private String hmac;
+        private final int bits;
+        private final String hmac;
+
+        Algorithm(int bits, String hmac) {
+            this.bits = bits;
+            this.hmac = hmac;
+        }
 
         public int bits() {
             return this.bits;
@@ -52,33 +56,27 @@ public final class TOTP {
             return this.hmac;
         }
 
-        Algorithm(int bits, String hmac) {
-            this.bits = bits;
-            this.hmac = hmac;
-        }
-
     }
 
     public static String generateSecret(Algorithm algorithm) {
         var random = new byte[algorithm.bits() / 8];
         TOTP.sr.nextBytes(random);
 
-        return log.exit(base32.encodeToString(random));
+        return TOTP.log.exit(TOTP.base32.encodeToString(random));
     }
 
     @SneakyThrows
     public String generateCode(Date time) {
         Long counter = time.getTime() / 1000 / this.period;
-        log.entry(this.secret, counter);
+        TOTP.log.entry(this.secret, counter);
 
-        var hash = this.generateHash(base32.decode(this.secret),
-            Longs.toByteArray(counter));
-        return log.exit(this.getCodeFromHash(hash));
+        var hash = this.generateHash(TOTP.base32.decode(this.secret), Longs.toByteArray(counter));
+        return TOTP.log.exit(this.getCodeFromHash(hash));
     }
 
     @SneakyThrows
     public String generateCode() {
-        return generateCode(new Date());
+        return this.generateCode(new Date());
     }
 
     @SneakyThrows
@@ -120,8 +118,7 @@ public final class TOTP {
         var offset = hash[hash.length - 1] & 0xF;
 
         // Get 4 bytes from hash from offset to offset + 3
-        var truncatedHashInBytes = ArrayUtils.subarray(hash, offset,
-            offset + 4);
+        var truncatedHashInBytes = ArrayUtils.subarray(hash, offset, offset + 4);
 
         var truncatedHash = Ints.fromByteArray(truncatedHashInBytes);
 

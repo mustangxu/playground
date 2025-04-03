@@ -22,8 +22,7 @@ public class WsEndpoint {
     @MessageMapping("/hello")
     @SendTo("/topic/greetings")
     public Greeting greeting(HelloMessage message) {
-        return new Greeting(
-            "Hello, " + HtmlUtils.htmlEscape(message.name()) + "!");
+        return new Greeting("Hello, " + HtmlUtils.htmlEscape(message.name()) + "!");
     }
 
 }

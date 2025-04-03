@@ -22,8 +22,7 @@ public class BinaryTree<T extends Comparable<T>> extends Tree<T> {
         super(order);
     }
 
-    public static class BinaryTreeNode<T extends Comparable<T>>
-            extends TreeNode<T> {
+    public static class BinaryTreeNode<T extends Comparable<T>> extends TreeNode<T> {
         @Serial
         private static final long serialVersionUID = 3051936643420669043L;
 
