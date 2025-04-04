@@ -1,6 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+         xmlns = "http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation = "http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.jayxu.playground</groupId>
     <artifactId>playground-parent</artifactId>
@@ -8,7 +8,8 @@
     <url>https://github.com/mustangxu/playground</url>
     <name>Java coding playground</name>
     <description>A playground project for all the open source projects I am
-        interested in. Always bases on the lastest Spring Boot</description>
+        interested in. Always bases on the lastest Spring Boot
+    </description>
     <contributors>
         <contributor>
             <name>Jay Xu</name>
@@ -29,6 +30,7 @@
     </parent>
     <properties>
         <jmh.version>1.37</jmh.version>
+        <maven.compiler.proc>full</maven.compiler.proc>
     </properties>
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.eclipse.jdt/org.eclipse.jdt.annotation -->
@@ -90,7 +92,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <annotationProcessorPaths>
+                    <!--annotationProcessorPaths>
                         <path>
                             <groupId>org.openjdk.jmh</groupId>
                             <artifactId>jmh-generator-annprocess</artifactId>
@@ -101,7 +103,7 @@
                             <artifactId>lombok</artifactId>
                             <version>${lombok.version}</version>
                         </path>
-                    </annotationProcessorPaths>
+                    </annotationProcessorPaths-->
                 </configuration>
             </plugin>
         </plugins>
@@ -123,6 +125,7 @@
         <module>java-playground</module>
         <!-- <module>java-newfeature</module> -->
         <module>lambda</module>
+        <module>http3</module>
     </modules>
     <pluginRepositories>
         <pluginRepository>
@@ -133,10 +136,16 @@
             <id>spring-release</id>
             <url>https://repo.spring.io/release</url>
         </pluginRepository-->
-        <!--pluginRepository>
+        <pluginRepository>
             <id>spring-snapshot</id>
             <url>https://repo.spring.io/snapshot</url>
-        </pluginRepository-->
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <!--snapshots>
+                <updatePolicy>always</updatePolicy>
+            </snapshots-->
+        </pluginRepository>
     </pluginRepositories>
     <repositories>
         <!--repository>
@@ -158,11 +167,17 @@
         <repository>
             <id>spring-snapshot</id>
             <url>https://repo.spring.io/snapshot</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <!--snapshots>
+                <updatePolicy>always</updatePolicy>
+            </snapshots-->
         </repository>
-        <repository>
+        <!--repository>
             <id>sonatype</id>
             <url>https://s01.oss.sonatype.org/content/groups/public</url>
-        </repository>
+        </repository-->
         <!--		<repository>-->
         <!--			<id>space-maven</id>-->
         <!--			<url>https://maven.pkg.jetbrains.space/jayxu/p/playground/maven</url>-->
@@ -173,12 +188,12 @@
             <id>space-maven</id>
             <url>https://maven.pkg.jetbrains.space/jayxu/p/playground/maven</url>
         </repository-->
-        <repository>
+        <!--repository>
             <id>github</id>
             <url>https://maven.pkg.github.com/mustangxu/playground</url>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
-        </repository>
+        </repository-->
     </distributionManagement>
 </project>
