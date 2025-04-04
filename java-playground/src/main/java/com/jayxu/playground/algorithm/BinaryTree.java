@@ -5,7 +5,7 @@ package com.jayxu.playground.algorithm;
 
 import java.io.Serial;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -80,7 +80,8 @@ public class BinaryTree<T extends Comparable<T>> extends Tree<T> {
         }
 
         var node = this.root.traverseMatch((T) o);
-        if (node == null) { // not include
+        // not include
+        if (node == null) {
             return false;
         }
 

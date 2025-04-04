@@ -136,10 +136,16 @@
             <id>spring-release</id>
             <url>https://repo.spring.io/release</url>
         </pluginRepository-->
-        <!--pluginRepository>
+        <pluginRepository>
             <id>spring-snapshot</id>
             <url>https://repo.spring.io/snapshot</url>
-        </pluginRepository-->
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <!--snapshots>
+                <updatePolicy>always</updatePolicy>
+            </snapshots-->
+        </pluginRepository>
     </pluginRepositories>
     <repositories>
         <!--repository>
@@ -161,11 +167,17 @@
         <repository>
             <id>spring-snapshot</id>
             <url>https://repo.spring.io/snapshot</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <!--snapshots>
+                <updatePolicy>always</updatePolicy>
+            </snapshots-->
         </repository>
-        <repository>
+        <!--repository>
             <id>sonatype</id>
             <url>https://s01.oss.sonatype.org/content/groups/public</url>
-        </repository>
+        </repository-->
         <!--		<repository>-->
         <!--			<id>space-maven</id>-->
         <!--			<url>https://maven.pkg.jetbrains.space/jayxu/p/playground/maven</url>-->

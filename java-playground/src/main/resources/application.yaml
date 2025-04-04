@@ -22,11 +22,11 @@ spring:
     allow-bean-definition-overriding: true
     allow-circular-references: true
     web-application-type: reactive
-  
+
   threads:
     virtual:
       enabled: true
-      
+
   ssl:
     bundle:
       pem:
@@ -37,40 +37,40 @@ spring:
 
 
   datasource:
-#    url: jdbc:mysql://127.0.0.1/playground
-#    url: jdbc:h2:~/h2/playground
-#    url: jdbc:postgresql://host.docker.internal/xujiajing
-#    driver-class-name: org.apache.shardingsphere.driver.ShardingSphereDriver
+    #    url: jdbc:mysql://127.0.0.1/playground
+    #    url: jdbc:h2:~/h2/playground
+    #    url: jdbc:postgresql://host.docker.internal/xujiajing
+    #    driver-class-name: org.apache.shardingsphere.driver.ShardingSphereDriver
     url: jdbc:shardingsphere:classpath:sharding.yaml
 
   jpa:
     #generate-ddl: true
     show-sql: true
-#    hibernate:
-#      ddl-auto: update
+    #    hibernate:
+    #      ddl-auto: update
     open-in-view: false
     properties:
-#      hibernate:
-        #generate_statistics: ${useCache}
-#        cache:
-#          use_second_level_cache: ${useCache}
-#          use_query_cache: ${useCache}
-#          region:
-#            factory_class: org.redisson.hibernate.RedissonRegionFactory
-#              factory_class: jcache
-#          redisson:
-#            fallback: true
-#            config: redisson.yaml
+      #      hibernate:
+      #generate_statistics: ${useCache}
+      #        cache:
+      #          use_second_level_cache: ${useCache}
+      #          use_query_cache: ${useCache}
+      #          region:
+      #            factory_class: org.redisson.hibernate.RedissonRegionFactory
+      #              factory_class: jcache
+      #          redisson:
+      #            fallback: true
+      #            config: redisson.yaml
       eclipselink:
         cache.query-results: ${useCache}
         ddl-generation: create-or-extend-tables
-#        jdbc.batch-writing.size: 100
+        #        jdbc.batch-writing.size: 100
         logging.level: INFO
       jakarta:
         persistence:
           sharedCache:
             mode: ENABLE_SELECTIVE
-          
+
   jackson:
     serialization:
       fail-on-empty-beans: false
@@ -79,8 +79,8 @@ spring:
     admin:
       client:
         url:
-        - http://127.0.0.1:9000
-        
+          - http://127.0.0.1:9000
+
   cloud:
     openfeign:
       okhttp:
@@ -94,28 +94,28 @@ spring:
         enabled: true
       micrometer:
         enabled: true
-  
+
   ai:
     openai:
       base-url: https://api.deepseek.com
-#      api-key: ENC(ij9JyrYMHXBYhAQXhnOoDD4cT3rScUrhlwzNGEyeJtFtSMpv1lsov3qE3tX329cgentwKwUI+ao513U/7wm8qfxFVCSJ7jdTRPbqh+3/WTmGXa49DEa7l7BMnscvVBSK)
+      #      api-key: ENC(ij9JyrYMHXBYhAQXhnOoDD4cT3rScUrhlwzNGEyeJtFtSMpv1lsov3qE3tX329cgentwKwUI+ao513U/7wm8qfxFVCSJ7jdTRPbqh+3/WTmGXa49DEa7l7BMnscvVBSK)
       api-key: ENC(cnUKOU7k86ukzzDqY7y94MLJ2Cqc9rJfS+gxNHFJRw1r/WQgBqF2Qszsgt0EVYNWsrHLhS5AcFLlEya7g12wXgH270X4fYr9t6JQiQK1aFw=)
       chat:
         options:
           model: deepseek-chat
-    vectorstore:
-          milvus:
-            client:
-              host: in03-56cdbd2fa6bf6d3.serverless.ali-cn-hangzhou.cloud.zilliz.com.cn
-              port: 443
-              username: "root"
-              password: "milvus"
-            databaseName: "default"
-            collectionName: "vector_store"
-            embeddingDimension: 1536
-            indexType: IVF_FLAT
-            metricType: COSINE
-      
+#    vectorstore:
+#          milvus:
+#            client:
+#              host: in03-56cdbd2fa6bf6d3.serverless.ali-cn-hangzhou.cloud.zilliz.com.cn
+#              port: 443
+#              username: "root"
+#              password: "milvus"
+#            databaseName: "default"
+#            collectionName: "vector_store"
+#            embeddingDimension: 1536
+#            indexType: IVF_FLAT
+#            metricType: COSINE
+
 
 management:
   endpoint:
@@ -140,7 +140,7 @@ springdoc:
   swagger-ui:
     display-request-duration: true
     enabled: true
-#    path: /swagger.html
+    #    path: /swagger.html
     csrf:
       enabled: true
 #  show-actuator: true
@@ -150,19 +150,19 @@ eureka:
     enabled: false
     healthcheck:
       enabled: true
-#    service-url: 
+#    service-url:
 #      defaultZone: http://127.0.0.1:${server.port}/eureka/
 
 mailgun:
   domain: ENC(FUilrw7uoSPBUc7Weyzm7ifzei0dfZ4rwgPyXPrvR5gAcYxhXVr7Ixzf/zhMVBJx)
   base-url: https://api.mailgun.net/v3/${mailgun.domain}
   api-key: ENC(Q40HqUGYofLhrHaQjdF037T3XksYHkDumr+0Ng4h2kvtPcuHHbTKeGp6yFUhsJpf6m3Crnc1DTCwm5vmLuoG5r7wbHYQESMz6vYcsjaZI5Jbjfq3/oh8RKuhRT8Erma8)
-  
+
 wolfram:
   api-key: ENC(vVHSJ1WNlRIK+A32fm3NgcQFPGqae7W2taUuFjsmiMcjHKRGTHwzDMaYxVVeZWhoXkP22UY5UcTIYMqw992Hrw==)
 
-openai:
-  api-key: ENC(ij9JyrYMHXBYhAQXhnOoDD4cT3rScUrhlwzNGEyeJtFtSMpv1lsov3qE3tX329cgentwKwUI+ao513U/7wm8qfxFVCSJ7jdTRPbqh+3/WTmGXa49DEa7l7BMnscvVBSK)
+#openai:
+#  api-key: ENC(ij9JyrYMHXBYhAQXhnOoDD4cT3rScUrhlwzNGEyeJtFtSMpv1lsov3qE3tX329cgentwKwUI+ao513U/7wm8qfxFVCSJ7jdTRPbqh+3/WTmGXa49DEa7l7BMnscvVBSK)
 
 
 
@@ -174,7 +174,7 @@ spring:
       on-profile: test
   datasource:
     url: jdbc:shardingsphere:classpath:sharding-test.yaml
-  
+
   boot:
     admin:
       client:
@@ -202,9 +202,10 @@ spring:
     activate:
       on-profile: embedded
   datasource:
-    #url: jdbc:shardingsphere:classpath:sharding-test.yaml
+    driver-class-name: org.apache.shardingsphere.driver.ShardingSphereDriver
+    url: jdbc:shardingsphere:classpath:sharding-test.yaml
 #    url: jdbc:h2:~/h2/playground_test
-    url: jdbc:sqlite:${db_root:${user.home}/sqlite}/playground_test.db
+    #    url: jdbc:sqlite:${db_root:${user.home}/sqlite}/playground_test.db
     username: demo
     password: demo
 

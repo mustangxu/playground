@@ -17,42 +17,42 @@ dataSources:
     password: demo
 
 rules:
-- !SHARDING
-  autoTables:
-    users:
-      actualDataSources: ds_1, ds_2
-      shardingStrategy:
-        standard:
+  - !SHARDING
+    autoTables:
+      users:
+        actualDataSources: ds_1, ds_2
+        shardingStrategy:
+          standard:
             shardingColumn: id
             shardingAlgorithmName: mod
-    user_infos:
-      actualDataSources: ds_1, ds_2
-      shardingStrategy:
-        standard:
+      user_infos:
+        actualDataSources: ds_1, ds_2
+        shardingStrategy:
+          standard:
             shardingColumn: id
             shardingAlgorithmName: mod
-    orders:
-      actualDataSources: ds_1
-      shardingStrategy:
-        standard:
+      orders:
+        actualDataSources: ds_1
+        shardingStrategy:
+          standard:
             shardingColumn: createtime
             shardingAlgorithmName: daily
 
-  shardingAlgorithms:
-    user-id:
-      type: INLINE
-      props:
-        algorithm-expression: users_$->{id % 4}
-    mod:
-      type: MOD
-      props:
-        sharding-count: 4
-    daily:
-      type: AUTO_INTERVAL
-      props:
-        datetime-lower: '2023-02-20 00:00:00'
-        datetime-upper: '2023-03-01 00:00:00'
-        sharding-seconds: 86400
+    shardingAlgorithms:
+      user-id:
+        type: INLINE
+        props:
+          algorithm-expression: users_$->{id % 4}
+      mod:
+        type: MOD
+        props:
+          sharding-count: 4
+      daily:
+        type: AUTO_INTERVAL
+        props:
+          datetime-lower: '2023-02-20 00:00:00'
+          datetime-upper: '2023-03-01 00:00:00'
+          sharding-seconds: 86400
 
 #  broadcastTables:
 #    - users, orders
