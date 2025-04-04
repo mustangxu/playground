@@ -277,18 +277,17 @@
         <dependency>
             <groupId>org.springframework.ai</groupId>
             <artifactId>spring-ai-starter-model-openai</artifactId>
-            <!--version>1.0.0-SNAPSHOT</version-->
         </dependency>
-        <!--dependency>
+        <dependency>
             <groupId>org.springframework.ai</groupId>
-            <artifactId>spring-ai-milvus-store-spring-boot-starter</artifactId>
+            <artifactId>spring-ai-starter-vector-store-milvus</artifactId>
             <exclusions>
                 <exclusion>
                     <groupId>org.apache.hadoop</groupId>
                     <artifactId>hadoop-client</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency-->
+        </dependency>
         <dependency>
             <groupId>org.springframework.ai</groupId>
             <artifactId>spring-ai-starter-mcp-server-webflux</artifactId>
