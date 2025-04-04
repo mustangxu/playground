@@ -11,13 +11,13 @@ cd to main folder: `java-playground`, so far contains the following demos:
 
 * JDK 21 / 22 / 23 and spring boot 3.5.x
 * JDK new features:
-    * native memory access
-    * vector calculation
-    * record
-    * virtual thread
-    * ~~string templates~~
-    * unnamed variables
-    * scoped value
+  * native memory access
+  * vector calculation
+  * record
+  * virtual thread
+  * ~~string templates~~
+  * unnamed variables
+  * scoped value
 * eclipselink JPA
 * sharding sphere
 * openapi with swagger UI
@@ -40,8 +40,8 @@ cd to main folder: `java-playground`, so far contains the following demos:
 * AWS lambda function demo
 * zstd-jni lib
 * Spring AI
-    * deepseek
-    * milvus vector db on zilliz
+  * deepseek
+  * milvus vector db on zilliz
 * http2
 * http3 (~~enable by set `http3.enabled` property to `true`~~ under `http3` project)
 
