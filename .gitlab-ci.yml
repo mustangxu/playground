@@ -8,6 +8,12 @@
 stages:
 - build
 - test
+
+cache:
+  key: $CI_COMMIT_REF_SLUG
+  paths:
+    - .m2/
+
 sast:
   stage: test
 include:
