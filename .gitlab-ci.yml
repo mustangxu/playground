@@ -9,10 +9,12 @@ stages:
 - build
 - test
 
+variables:
+  MAVEN_OPTS: " -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -DskipTests "
+
 cache:
-  key: $CI_COMMIT_REF_SLUG
   paths:
-    - .m2/
+    - .m2/repository
 
 sast:
   stage: test
@@ -23,7 +25,7 @@ include:
 java-build:
   stage: build
   script:
-    - mvn -T1C -DskipTests clean package
+    - mvn clean package
   artifacts:
     paths:
       - java-playground/target/*.jar
