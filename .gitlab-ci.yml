@@ -24,3 +24,6 @@ java-build:
   stage: build
   script:
     - mvn -T1C -DskipTests clean package
+  artifacts:
+    paths:
+      - java-playground/target/*.jar
