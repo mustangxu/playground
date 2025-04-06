@@ -26,9 +26,8 @@ java-build:
     RUNNER_SCRIPT_TIMEOUT: 1h
   stage: build
   script:
-    - cd .m2
-    - pwd
-    - cat settings.xml
+    - cat ~/.m2/settings.xml
+    - cp ~/.m2/settings.xml $CI_PROJECT_DIR/.m2/
     - mvn -DskipTests -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository clean package
   artifacts:
     paths:
