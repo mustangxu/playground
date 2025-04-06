@@ -32,6 +32,11 @@
         <jmh.version>1.37</jmh.version>
         <maven.compiler.proc>full</maven.compiler.proc>
     </properties>
+    <modules>
+        <module>java-playground</module>
+        <!--module>lambda</module>
+        <module>http3</module-->
+    </modules>
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.eclipse.jdt/org.eclipse.jdt.annotation -->
         <dependency>
