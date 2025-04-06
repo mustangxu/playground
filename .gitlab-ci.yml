@@ -27,7 +27,7 @@ java-build:
     RUNNER_SCRIPT_TIMEOUT: 1h
   stage: build
   script:
-    - mvn -T1C -DskipTests -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository clean package
+    - mvn -DskipTests -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository clean package
   artifacts:
     paths:
       - java-playground/target/*.jar
