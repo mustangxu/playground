@@ -126,12 +126,6 @@
 		</pluginManagement> -->
     </build>
     <packaging>pom</packaging>
-    <modules>
-        <module>java-playground</module>
-        <!-- <module>java-newfeature</module> -->
-        <module>lambda</module>
-        <module>http3</module>
-    </modules>
     <pluginRepositories>
         <pluginRepository>
             <id>spring-milestones</id>
