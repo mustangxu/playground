@@ -10,11 +10,11 @@ stages:
 - test
 
 variables:
-  MAVEN_OPTS: " -DskipTests -Dmaven.repo.local=.m2/repository "
+  MAVEN_OPTS: " -DskipTests "
 
-cache:
-  paths:
-    - .m2/repository
+#cache:
+#  paths:
+#    - .m2/repository
 
 sast:
   stage: test
