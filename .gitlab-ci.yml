@@ -25,7 +25,7 @@ include:
 java-build:
   stage: build
   script:
-    - mvn clean package
+    - mvn -DskipTests -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository clean package
   artifacts:
     paths:
       - java-playground/target/*.jar
