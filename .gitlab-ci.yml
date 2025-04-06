@@ -11,9 +11,6 @@ stages:
 - build
 - test
 
-variables:
-  MAVEN_OPTS: -DskipTests -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository
-
 cache:
   paths:
     - .m2/repository
@@ -29,7 +26,7 @@ java-build:
     RUNNER_SCRIPT_TIMEOUT: 1h
   stage: build
   script:
-    - mvn -T2 -DskipTests -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository clean package
+    - mvn -DskipTests -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository clean package
   artifacts:
     paths:
       - java-playground/target/*.jar
