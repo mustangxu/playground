@@ -130,6 +130,12 @@
         <pluginRepository>
             <id>spring-milestones</id>
             <url>https://repo.spring.io/milestone</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
         </pluginRepository>
         <!--pluginRepository>
             <id>spring-release</id>
@@ -155,6 +161,12 @@
         <repository>
             <id>spring-milestones</id>
             <url>https://repo.spring.io/milestone</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
         </repository>
         <!--repository>
             <id>github</id>
