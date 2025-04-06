@@ -10,7 +10,7 @@ stages:
 - test
 
 variables:
-  MAVEN_OPTS: " -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -DskipTests "
+  MAVEN_OPTS: " -DskipTests -Dmaven.repo.local=.m2/repository "
 
 cache:
   paths:
