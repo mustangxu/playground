@@ -22,8 +22,8 @@ include:
 - template: Security/Secret-Detection.gitlab-ci.yml
 
 java-build:
-  variables:
-    RUNNER_SCRIPT_TIMEOUT: 1h
+#  variables:
+#    RUNNER_SCRIPT_TIMEOUT: 1h
   stage: build
   script:
     #- cp /root/.m2/settings.xml .m2/
