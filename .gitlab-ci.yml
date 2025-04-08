@@ -5,14 +5,11 @@
 # Container Scanning customization: https://docs.gitlab.com/ee/user/application_security/container_scanning/#customizing-the-container-scanning-settings
 # Note that environment variables can be set in several places
 # See https://docs.gitlab.com/ee/ci/variables/#cicd-variable-precedence
-image: maven:3.9-eclipse-temurin-23
+image: mustangxu/maven
 
 stages:
 - build
 - test
-
-variables:
-  MAVEN_OPTS: -DskipTests -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository
 
 cache:
   paths:
@@ -25,11 +22,12 @@ include:
 - template: Security/Secret-Detection.gitlab-ci.yml
 
 java-build:
-  variables:
-    RUNNER_SCRIPT_TIMEOUT: 1h
+#  variables:
+#    RUNNER_SCRIPT_TIMEOUT: 1h
   stage: build
   script:
-    - mvn -T2 -DskipTests -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository clean package
+    #- cp /root/.m2/settings.xml .m2/
+    - mvn -DskipTests -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository clean package
   artifacts:
     paths:
       - java-playground/target/*.jar
