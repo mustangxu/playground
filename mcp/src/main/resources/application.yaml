@@ -1,0 +1,5 @@
+spring:
+  ai:
+    mcp:
+      server:
+        type: ASYNC
