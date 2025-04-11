@@ -1,0 +1,254 @@
+<project xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+         xmlns = "http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation = "http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.jayxu.playground</groupId>
+    <artifactId>playground-parent</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <url>https://github.com/mustangxu/playground</url>
+    <name>Java coding playground</name>
+    <description>A playground project for all the open source projects I am
+        interested in. Always bases on the lastest Spring Boot
+    </description>
+    <contributors>
+        <contributor>
+            <name>Jay Xu</name>
+            <email>mustangxu@gmail.com</email>
+        </contributor>
+    </contributors>
+    <scm>
+        <url>https://github.com/mustangxu/playground.git</url>
+    </scm>
+    <issueManagement>
+        <system>Github</system>
+        <url>https://github.com/mustangxu/playground/issues</url>
+    </issueManagement>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.5.0-M3</version>
+    </parent>
+    <properties>
+        <jmh.version>1.37</jmh.version>
+        <maven.compiler.proc>full</maven.compiler.proc>
+    </properties>
+    <modules>
+        <module>java-playground</module>
+        <module>lambda</module>
+        <module>http3</module>
+        <module>mcp</module>
+    </modules>
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.eclipse.jdt/org.eclipse.jdt.annotation -->
+        <dependency>
+            <groupId>org.eclipse.jdt</groupId>
+            <artifactId>org.eclipse.jdt.annotation</artifactId>
+            <version>2.3.100</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-compress</artifactId>
+                <version>1.27.1</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java -->
+            <dependency>
+                <groupId>com.google.protobuf</groupId>
+                <artifactId>protobuf-java</artifactId>
+                <version>4.30.2</version>
+            </dependency>
+            <!--            <dependency>-->
+            <!--                <groupId>org.antlr</groupId>-->
+            <!--                <artifactId>antlr4-runtime</artifactId>-->
+            <!--                <version>4.9.2</version>-->
+            <!--            </dependency>-->
+            <!-- https://mvnrepository.com/artifact/com.github.jnr/jnr-posix -->
+            <dependency>
+                <groupId>com.github.jnr</groupId>
+                <artifactId>jnr-posix</artifactId>
+                <version>3.1.20</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.java-websocket/Java-WebSocket -->
+            <dependency>
+                <groupId>org.java-websocket</groupId>
+                <artifactId>Java-WebSocket</artifactId>
+                <version>1.6.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>33.4.7-jre</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>2025.0.0-M3</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.ai</groupId>
+                <artifactId>spring-ai-bom</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>logging-interceptor</artifactId>
+                <version>${okhttp.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>okhttp</artifactId>
+                <version>${okhttp.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcprov-jdk18on</artifactId>
+                <version>1.80</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.avro</groupId>
+                <artifactId>avro</artifactId>
+                <version>1.12.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.xerial.snappy</groupId>
+                <artifactId>snappy-java</artifactId>
+                <version>1.1.10.7</version>
+            </dependency>
+            <dependency>
+                <groupId>io.airlift</groupId>
+                <artifactId>aircompressor</artifactId>
+                <version>2.0.2</version>
+            </dependency>
+            <dependency>
+                <groupId>com.nimbusds</groupId>
+                <artifactId>nimbus-jose-jwt</artifactId>
+                <version>10.2</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>io.github.git-commit-id</groupId>
+                <artifactId>git-commit-id-maven-plugin</artifactId>
+                <configuration>
+                    <runOnlyOnce>true</runOnlyOnce>
+                    <failOnNoGitDirectory>false</failOnNoGitDirectory>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <!--annotationProcessorPaths>
+                        <path>
+                            <groupId>org.openjdk.jmh</groupId>
+                            <artifactId>jmh-generator-annprocess</artifactId>
+                            <version>${jmh.version}</version>
+                        </path>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                    </annotationProcessorPaths-->
+                </configuration>
+            </plugin>
+        </plugins>
+        <!-- <pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>com.spotify</groupId>
+					<artifactId>dockerfile-maven-plugin</artifactId>
+					<version>1.4.13</version>
+					<configuration>
+						<skipBuild>true</skipBuild>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement> -->
+    </build>
+    <packaging>pom</packaging>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>spring-milestones</id>
+            <url>https://repo.spring.io/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+        <!--pluginRepository>
+            <id>spring-release</id>
+            <url>https://repo.spring.io/release</url>
+        </pluginRepository-->
+        <pluginRepository>
+            <id>spring-snapshot</id>
+            <url>https://repo.spring.io/snapshot</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <!--snapshots>
+                <updatePolicy>always</updatePolicy>
+            </snapshots-->
+        </pluginRepository>
+    </pluginRepositories>
+    <repositories>
+        <!--repository>
+            <id>spring-release</id>
+            <name>Spring release</name>
+            <url>https://repo.spring.io/release</url>
+        </repository-->
+        <repository>
+            <id>spring-milestones</id>
+            <url>https://repo.spring.io/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <!--repository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/mustangxu/wolfram-client</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository-->
+        <repository>
+            <id>spring-snapshot</id>
+            <url>https://repo.spring.io/snapshot</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <!--snapshots>
+                <updatePolicy>always</updatePolicy>
+            </snapshots-->
+        </repository>
+        <!--repository>
+            <id>sonatype</id>
+            <url>https://s01.oss.sonatype.org/content/groups/public</url>
+        </repository-->
+        <!--		<repository>-->
+        <!--			<id>space-maven</id>-->
+        <!--			<url>https://maven.pkg.jetbrains.space/jayxu/p/playground/maven</url>-->
+        <!--		</repository>-->
+    </repositories>
+    <distributionManagement>
+        <!--repository>
+            <id>space-maven</id>
+            <url>https://maven.pkg.jetbrains.space/jayxu/p/playground/maven</url>
+        </repository-->
+        <!--repository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/mustangxu/playground</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository-->
+    </distributionManagement>
+</project>
