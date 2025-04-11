@@ -288,69 +288,12 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.ai</groupId>
-            <artifactId>spring-ai-starter-mcp-server-webflux</artifactId>
-        </dependency>
         <!-- https://mvnrepository.com/artifact/jakarta.persistence/jakarta.persistence-api -->
         <dependency>
             <groupId>jakarta.persistence</groupId>
             <artifactId>jakarta.persistence-api</artifactId>
         </dependency>
     </dependencies>
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>2025.0.0-M3</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.ai</groupId>
-                <artifactId>spring-ai-bom</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>com.squareup.okhttp3</groupId>
-                <artifactId>logging-interceptor</artifactId>
-                <version>${okhttp.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.squareup.okhttp3</groupId>
-                <artifactId>okhttp</artifactId>
-                <version>${okhttp.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.bouncycastle</groupId>
-                <artifactId>bcprov-jdk18on</artifactId>
-                <version>1.80</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.avro</groupId>
-                <artifactId>avro</artifactId>
-                <version>1.12.0</version>
-            </dependency>
-            <dependency>
-                <groupId>org.xerial.snappy</groupId>
-                <artifactId>snappy-java</artifactId>
-                <version>1.1.10.7</version>
-            </dependency>
-            <dependency>
-                <groupId>io.airlift</groupId>
-                <artifactId>aircompressor</artifactId>
-                <version>2.0.2</version>
-            </dependency>
-            <dependency>
-                <groupId>com.nimbusds</groupId>
-                <artifactId>nimbus-jose-jwt</artifactId>
-                <version>10.2</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
     <build>
         <plugins>
             <plugin>

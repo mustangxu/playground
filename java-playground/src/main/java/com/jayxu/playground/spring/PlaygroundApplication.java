@@ -13,10 +13,12 @@ import com.jayxu.playground.experiment.VirtualThreadDemo;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author jayxu
  */
+@Slf4j
 @SpringBootApplication
 // @EnableCaching
 // @EnableWebSocket
@@ -28,8 +30,8 @@ import io.swagger.v3.oas.annotations.security.SecurityScheme;
         in = SecuritySchemeIn.HEADER)
 //@EnableDiscoveryClient
 public class PlaygroundApplication {
-//    private static final String[] skipArgs = {
-//        "--spring.output.ansi.enabled=always" };
+    //    private static final String[] skipArgs = {
+    //        "--spring.output.ansi.enabled=always" };
 
     @SuppressWarnings("resource")
     public static void main(String[] args) {
