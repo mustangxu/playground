@@ -26,7 +26,7 @@ java-build:
   #    RUNNER_SCRIPT_TIMEOUT: 1h
   stage: build
   script:
-    - echo "<settings><mirrors><mirror><id>alimaven</id><name>aliyun maven</name><url>https://maven.aliyun.com/nexus/content/groups/public/</url><mirrorOf>central</mirrorOf></mirror></mirrors></settings>" > /root/.m2/setting.xml
+    - echo "<settings><mirrors><mirror><id>alimaven</id><name>aliyun maven</name><url>https://maven.aliyun.com/nexus/content/groups/public/</url><mirrorOf>central</mirrorOf></mirror></mirrors></settings>" > /root/.m2/settings.xml
     - mvn -DskipTests clean package
   artifacts:
     paths:
