@@ -24,7 +24,7 @@ java-build:
   #    RUNNER_SCRIPT_TIMEOUT: 1h
   image: 
     name: mustangxu/maven:3.9-eclipse-temurin-23-1.0.0
-    pull_policy: if-not-present
+    #pull_policy: if-not-present
   stage: build
   script:
     #- cp /root/.m2/settings.xml .m2/
