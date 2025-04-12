@@ -5,6 +5,8 @@
 # Container Scanning customization: https://docs.gitlab.com/ee/user/application_security/container_scanning/#customizing-the-container-scanning-settings
 # Note that environment variables can be set in several places
 # See https://docs.gitlab.com/ee/ci/variables/#cicd-variable-precedence
+image: mustangxu/maven:3.9-eclipse-temurin-23-1.0.0
+
 stages:
   - build
   - test
@@ -22,9 +24,6 @@ include:
 java-build:
   #  variables:
   #    RUNNER_SCRIPT_TIMEOUT: 1h
-  image: 
-    name: mustangxu/maven:3.9-eclipse-temurin-23-1.0.0
-    #pull_policy: if-not-present
   stage: build
   script:
     #- cp /root/.m2/settings.xml .m2/
