@@ -1,0 +1,17 @@
+FROM maven:3.9-eclipse-temurin-23 AS build
+
+WORKDIR /home/app
+COPY mcp/src ./
+COPY mcp/pom.xml ./
+COPY pom.xml ../
+COPY docker/settings.xml /root/.m2/
+RUN mvn -DskipTests clean package
+
+FROM bellsoft/liberica-openjdk-debian:24
+EXPOSE 8080
+
+COPY --from=build /home/app/target/mcp-1.0-SNAPSHOT.jar /app/app.jar
+#ENTRYPOINT ["mvn", "spring-boot:run"]
+ENTRYPOINT ["java","-Xmx2G",\
+    "-XX:+UnlockExperimentalVMOptions","-XX:+UseZGC",\
+    "-jar","/app/app.jar"]
