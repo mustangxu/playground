@@ -23,11 +23,11 @@ public class OpenApiConfig {
     private GitProperties git;
 
     @Bean
-    OpenAPI springShopOpenAPI() {
+    OpenAPI openAPI() {
         var info = new Info().title("Jay's Coding Playground");
         if (this.build != null && this.git != null) {
-            info.version(String.format("v%s-%s @%s", this.build.getVersion(),
-                this.git.getShortCommitId(), this.git.getCommitTime()));
+            info.version(String.format("v%s-%s @%s", this.build.getVersion(), this.git.getShortCommitId(),
+                this.git.getCommitTime()));
         }
 
         return new OpenAPI().info(info);
