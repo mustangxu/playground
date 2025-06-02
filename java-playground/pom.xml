@@ -322,7 +322,7 @@
                                     <!--tag>latest</tag-->
                                     <tag>%v-${git.commit.id.abbrev}</tag>
                                 </tags>
-                                <from>bellsoft/liberica-openjdk-debian:23</from>
+                                <from>eclipse-temurin:23-jre-ubi9-minimal</from>
                                 <!--from>apache/skywalking-java-agent:9.2.0-java21</from-->
                                 <workdir>/app</workdir>
                                 <!--<dockerFile>Dockerfile-maven</dockerFile>-->
