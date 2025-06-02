@@ -373,7 +373,7 @@
                     </images>
                 </configuration>
             </plugin>
-            <plugin>
+            <!--plugin>
                 <groupId>com.github.wvengen</groupId>
                 <artifactId>proguard-maven-plugin</artifactId>
                 <executions>
@@ -390,7 +390,7 @@
                     <outjar>${project.build.finalName}.jar</outjar>
                     <proguardInclude>proguard.conf</proguardInclude>
                 </configuration>
-            </plugin>
+            </plugin-->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

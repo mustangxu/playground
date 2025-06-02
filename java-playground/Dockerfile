@@ -5,7 +5,7 @@ FROM maven:3.9-eclipse-temurin-23 AS build
 COPY src /home/app/src
 COPY pom.xml /home/app
 COPY docker/parent-pom.xml /home/pom.xml
-RUN mvn -f /home/app/pom.xml -T1C -DskipTests clean package
+RUN --mount=type=cache,target=/root/.m2/repository mvn -f /home/app/pom.xml -T1C -DskipTests clean package
 
 #FROM apache/skywalking-java-agent:9.2.0-java21
 FROM eclipse-temurin:23-jre-ubi9-minimal
