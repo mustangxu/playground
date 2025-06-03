@@ -3,6 +3,8 @@
  */
 package com.jayxu.playground.spring;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.boot.info.GitProperties;
@@ -27,7 +29,7 @@ public class OpenApiConfig {
         var info = new Info().title("Jay's Coding Playground");
         if (this.build != null && this.git != null) {
             info.version(String.format("v%s-%s @%s", this.build.getVersion(), this.git.getShortCommitId(),
-                this.git.getCommitTime()));
+                Date.from(this.git.getCommitTime())));
         }
 
         return new OpenAPI().info(info);
