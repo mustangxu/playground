@@ -30,7 +30,7 @@ public class ClientDemo {
 
             log.info("Weather Forcast: {}", client.callTool(
                     new McpSchema.CallToolRequest("getWeatherForecastByLocation",
-                                                  Map.of("latitude", "47.6062", "longitude", "-122.3321"))));
+                            Map.of("latitude", "47.6062", "longitude", "-122.3321"))));
 
             log.info("Alerts: {}", client.callTool(new McpSchema.CallToolRequest("getAlerts", Map.of("state", "NY"))));
         }
