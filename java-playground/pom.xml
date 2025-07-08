@@ -256,7 +256,7 @@
         <dependency>
             <groupId>com.jayxu</groupId>
             <artifactId>jasypt-spring-aws-kms-starter</artifactId>
-            <version>0.8</version>
+            <version>0.9.1</version>
         </dependency>
         <!--dependency>
             <groupId>com.jayxu</groupId>
