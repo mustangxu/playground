@@ -7,6 +7,7 @@ package com.jayxu.playground.spring.ai.mcp;
 import java.util.Map;
 
 import org.springframework.web.reactive.function.client.WebClient;
+
 import io.modelcontextprotocol.client.McpClient;
 import io.modelcontextprotocol.client.transport.WebFluxSseClientTransport;
 import io.modelcontextprotocol.spec.McpSchema;
