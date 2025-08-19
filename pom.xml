@@ -26,7 +26,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.5.3</version>
+        <version>3.5.4</version>
     </parent>
     <properties>
         <jmh.version>1.37</jmh.version>
@@ -154,12 +154,12 @@
             <dependency>
                 <groupId>io.netty</groupId>
                 <artifactId>netty-codec-http2</artifactId>
-                <version>4.1.124.Final</version>
+                <version>4.2.4.Final</version>
             </dependency>
             <dependency>
                 <groupId>io.projectreactor.netty</groupId>
                 <artifactId>reactor-netty-http</artifactId>
-                <version>1.2.8</version>
+                <version>1.2.9</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
