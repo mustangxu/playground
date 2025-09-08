@@ -152,10 +152,13 @@
                 <artifactId>poi</artifactId>
                 <version>5.4.1</version>
             </dependency>
+            <!-- https://mvnrepository.com/artifact/io.netty/netty-bom -->
             <dependency>
                 <groupId>io.netty</groupId>
-                <artifactId>netty-codec-http2</artifactId>
+                <artifactId>netty-bom</artifactId>
                 <version>4.2.5.Final</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>io.projectreactor.netty</groupId>
