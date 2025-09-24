@@ -203,7 +203,7 @@
         <dependency>
             <groupId>org.web3j</groupId>
             <artifactId>core</artifactId>
-            <version>5.0.0</version>
+            <version>5.0.1</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.bouncycastle</groupId>
