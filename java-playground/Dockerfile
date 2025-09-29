@@ -1,7 +1,7 @@
 #
 # Build stage
 #
-FROM maven:3.9-eclipse-temurin-23 AS build
+FROM maven:3-eclipse-temurin-25 AS build
 COPY src /home/app/src
 COPY pom.xml /home/app
 COPY docker/parent-pom.xml /home/pom.xml
