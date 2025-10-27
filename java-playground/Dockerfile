@@ -1,14 +1,14 @@
 #
 # Build stage
 #
-FROM maven:3-eclipse-temurin-23 AS build
+FROM maven:3-eclipse-temurin-25 AS build
 COPY src /home/app/src
 COPY pom.xml /home/app
 COPY docker/parent-pom.xml /home/pom.xml
 RUN --mount=type=cache,target=/root/.m2/repository mvn -f /home/app/pom.xml -T1C -DskipTests clean package
 
 #FROM apache/skywalking-java-agent:9.2.0-java21
-FROM eclipse-temurin:24-jre-ubi9-minimal
+FROM eclipse-temurin:25-jre-ubi9-minimal
 #RUN apt -y update
 #RUN apt -y upgrade
 #RUN yum install -y sqlite3
