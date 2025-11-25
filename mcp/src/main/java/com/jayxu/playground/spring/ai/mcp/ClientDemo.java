@@ -8,8 +8,11 @@ import java.util.Map;
 
 import org.springframework.web.reactive.function.client.WebClient;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import io.modelcontextprotocol.client.McpClient;
 import io.modelcontextprotocol.client.transport.WebFluxSseClientTransport;
+import io.modelcontextprotocol.json.jackson.JacksonMcpJsonMapper;
 import io.modelcontextprotocol.spec.McpSchema;
 
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +25,8 @@ public class ClientDemo {
 
     public void start() {
         try (var client = McpClient.sync(
-                new WebFluxSseClientTransport(WebClient.builder().baseUrl("http://127.0.0.1:8080"))).build()) {
+                new WebFluxSseClientTransport(WebClient.builder().baseUrl("http://127.0.0.1:8080"),
+                        new JacksonMcpJsonMapper(new ObjectMapper()))).build()) {
 
             client.initialize();
             client.ping();
