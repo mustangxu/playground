@@ -103,13 +103,13 @@ spring:
       chat:
         options:
           model: deepseek-chat
-    vectorstore:
-      milvus:
-        client:
-          uri: https://in03-56cdbd2fa6bf6d3.serverless.ali-cn-hangzhou.cloud.zilliz.com.cn
-          token: ENC(1xfHKXgcfzxCNIynkzhhB/xZDfxu/nNDm4RYn+fO5y29w6jh16fd5DW44+F93r3bcuAeVvGMC+Z92XvZOxTLWLPRkzpAxnh74UlATYrl06CYahpe+M/kjdl8gVprpcMgVHkyRAnIMPBhVxzxPgDPr6w+aXB+8tS7U+ypltIo+XdP5cd2umquA/pQ60m/+h5O)
-          secure: true
-          collectionName: "book"
+#    vectorstore:
+#      milvus:
+#        client:
+#          uri: https://in03-56cdbd2fa6bf6d3.serverless.ali-cn-hangzhou.cloud.zilliz.com.cn
+#          token: ENC(1xfHKXgcfzxCNIynkzhhB/xZDfxu/nNDm4RYn+fO5y29w6jh16fd5DW44+F93r3bcuAeVvGMC+Z92XvZOxTLWLPRkzpAxnh74UlATYrl06CYahpe+M/kjdl8gVprpcMgVHkyRAnIMPBhVxzxPgDPr6w+aXB+8tS7U+ypltIo+XdP5cd2umquA/pQ60m/+h5O)
+#          secure: true
+#          collectionName: "book"
 
 
 management:
