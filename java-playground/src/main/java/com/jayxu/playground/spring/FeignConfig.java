@@ -28,24 +28,20 @@ public class FeignConfig {
     @Value("${mailgun.base-url}")
     private String baseUrl;
 
+    private static Feign.Builder feignBuilder() {
+        return Feign.builder().logLevel(Level.HEADERS).contract(new SpringMvcContract()).decoder(new JacksonDecoder())
+                .encoder(new SpringFormEncoder());
+    }
+
     @Bean
     MailgunService mailgunService() {
-        return feignBuilder()
-            .requestInterceptor(
-                new BasicAuthRequestInterceptor("api", this.apiKey))
-            .logger(new Slf4jLogger(MailgunService.class))
-            .target(MailgunService.class, this.baseUrl);
+        return feignBuilder().requestInterceptor(new BasicAuthRequestInterceptor("api", this.apiKey))
+                .logger(new Slf4jLogger(MailgunService.class)).target(MailgunService.class, this.baseUrl);
     }
 
     @Bean
     WolframService wolframService() {
         return feignBuilder().logger(new Slf4jLogger(WolframService.class))
-            .target(WolframService.class, WolframService.BASE_URL);
-    }
-
-    private static Feign.Builder feignBuilder() {
-        return Feign.builder().logLevel(Level.HEADERS)
-            .contract(new SpringMvcContract()).decoder(new JacksonDecoder())
-            .encoder(new SpringFormEncoder());
+                .target(WolframService.class, WolframService.BASE_URL);
     }
 }
