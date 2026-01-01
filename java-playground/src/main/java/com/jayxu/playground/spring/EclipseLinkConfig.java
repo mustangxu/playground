@@ -9,8 +9,8 @@ import java.util.Map;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration;
-import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
+import org.springframework.boot.jpa.autoconfigure.JpaBaseConfiguration;
+import org.springframework.boot.jpa.autoconfigure.JpaProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.orm.jpa.vendor.AbstractJpaVendorAdapter;
@@ -33,9 +33,9 @@ public class EclipseLinkConfig extends JpaBaseConfiguration {
         return new EclipseLinkJpaVendorAdapter();
     }
 
-//    @Override
-//    protected Map<String, Object> getVendorProperties() {
-//    }
+    //    @Override
+    //    protected Map<String, Object> getVendorProperties() {
+    //    }
 
     @Override
     protected Map<String, Object> getVendorProperties(DataSource dataSource) {
