@@ -269,7 +269,7 @@
             <groupId>org.springframework.ai</groupId>
             <artifactId>spring-ai-starter-model-openai</artifactId>
         </dependency>
-        <dependency>
+        <!--dependency>
             <groupId>org.springframework.ai</groupId>
             <artifactId>spring-ai-starter-vector-store-milvus</artifactId>
             <exclusions>
@@ -278,7 +278,7 @@
                     <artifactId>hadoop-client</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
+        </dependency-->
         <!-- https://mvnrepository.com/artifact/jakarta.persistence/jakarta.persistence-api -->
         <dependency>
             <groupId>jakarta.persistence</groupId>
@@ -296,7 +296,7 @@
                         <arg>jdk.incubator.vector</arg>
                     </compilerArgs>
                     <!--release>21</release-->
-                    <enablePreview>true</enablePreview>
+                    <enablePreview>false</enablePreview>
                 </configuration>
             </plugin>
             <plugin>
