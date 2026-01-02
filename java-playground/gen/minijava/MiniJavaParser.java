@@ -1,4 +1,4 @@
-// Generated from /Users/xujiajing/projects/playground/java-playground/src/main/resources/MiniJava.g4 by ANTLR 4.10.1
+// Generated from /Users/jay/projects/playground/java-playground/src/main/resources/MiniJava.g4 by ANTLR 4.13.2
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Iterator;
 import java.util.ArrayList;
 
-@SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
+@SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast", "CheckReturnValue", "this-escape"})
 public class MiniJavaParser extends Parser {
-	static { RuntimeMetaData.checkVersion("4.10.1", RuntimeMetaData.VERSION); }
+	static { RuntimeMetaData.checkVersion("4.13.2", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
@@ -101,6 +101,7 @@ public class MiniJavaParser extends Parser {
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ProgramContext extends ParserRuleContext {
 		public MainClassContext mainClass() {
 			return getRuleContext(MainClassContext.class,0);
@@ -166,6 +167,7 @@ public class MiniJavaParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class MainClassContext extends ParserRuleContext {
 		public List<TerminalNode> Identifier() { return getTokens(MiniJavaParser.Identifier); }
 		public TerminalNode Identifier(int i) {
@@ -257,6 +259,7 @@ public class MiniJavaParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ClassDeclarationContext extends ParserRuleContext {
 		public List<TerminalNode> Identifier() { return getTokens(MiniJavaParser.Identifier); }
 		public TerminalNode Identifier(int i) {
@@ -331,7 +334,7 @@ public class MiniJavaParser extends Parser {
 			setState(57);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__14) | (1L << T__15) | (1L << Identifier))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 68719575040L) != 0)) {
 				{
 				{
 				setState(54);
@@ -371,6 +374,7 @@ public class MiniJavaParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class VarDeclarationContext extends ParserRuleContext {
 		public TypeContext type() {
 			return getRuleContext(TypeContext.class,0);
@@ -420,6 +424,7 @@ public class MiniJavaParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class TypeContext extends ParserRuleContext {
 		public TerminalNode Identifier() { return getToken(MiniJavaParser.Identifier, 0); }
 		public TypeContext(ParserRuleContext parent, int invokingState) {
@@ -493,6 +498,7 @@ public class MiniJavaParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class MethodDeclarationContext extends ParserRuleContext {
 		public List<TypeContext> type() {
 			return getRuleContexts(TypeContext.class);
@@ -557,7 +563,7 @@ public class MiniJavaParser extends Parser {
 			setState(95);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__14) | (1L << T__15) | (1L << Identifier))) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 68719575040L) != 0)) {
 				{
 				setState(84);
 				type();
@@ -607,7 +613,7 @@ public class MiniJavaParser extends Parser {
 			setState(108);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__2) | (1L << T__18) | (1L << T__20) | (1L << T__21) | (1L << Identifier))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 68726292488L) != 0)) {
 				{
 				{
 				setState(105);
@@ -639,6 +645,7 @@ public class MiniJavaParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class StatementContext extends ParserRuleContext {
 		public List<StatementContext> statement() {
 			return getRuleContexts(StatementContext.class);
@@ -688,7 +695,7 @@ public class MiniJavaParser extends Parser {
 				setState(120);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__2) | (1L << T__18) | (1L << T__20) | (1L << T__21) | (1L << Identifier))) != 0)) {
+				while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 68726292488L) != 0)) {
 					{
 					{
 					setState(117);
@@ -747,7 +754,7 @@ public class MiniJavaParser extends Parser {
 				setState(141);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__6) | (1L << T__30) | (1L << T__31) | (1L << T__32) | (1L << T__33) | (1L << T__34) | (1L << Identifier) | (1L << NUMBER))) != 0)) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 272730423424L) != 0)) {
 					{
 					setState(140);
 					expression(0);
@@ -805,6 +812,7 @@ public class MiniJavaParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ExpressionContext extends ParserRuleContext {
 		public List<ExpressionContext> expression() {
 			return getRuleContexts(ExpressionContext.class);
@@ -947,7 +955,7 @@ public class MiniJavaParser extends Parser {
 						if (!(precpred(_ctx, 13))) throw new FailedPredicateException(this, "precpred(_ctx, 13)");
 						setState(185);
 						_la = _input.LA(1);
-						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__23) | (1L << T__24) | (1L << T__25) | (1L << T__26) | (1L << T__27))) != 0)) ) {
+						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 520093696L) != 0)) ) {
 						_errHandler.recoverInline(this);
 						}
 						else {
@@ -1000,7 +1008,7 @@ public class MiniJavaParser extends Parser {
 						setState(207);
 						_errHandler.sync(this);
 						_la = _input.LA(1);
-						if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__6) | (1L << T__30) | (1L << T__31) | (1L << T__32) | (1L << T__33) | (1L << T__34) | (1L << Identifier) | (1L << NUMBER))) != 0)) {
+						if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 272730423424L) != 0)) {
 							{
 							setState(199);
 							expression(0);

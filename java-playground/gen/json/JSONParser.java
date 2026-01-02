@@ -1,4 +1,4 @@
-// Generated from /Users/xujiajing/projects/playground/java-playground/src/main/resources/JSON.g4 by ANTLR 4.10.1
+// Generated from /Users/jay/projects/playground/java-playground/src/main/resources/JSON.g4 by ANTLR 4.13.2
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Iterator;
 import java.util.ArrayList;
 
-@SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
+@SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast", "CheckReturnValue", "this-escape"})
 public class JSONParser extends Parser {
-	static { RuntimeMetaData.checkVersion("4.10.1", RuntimeMetaData.VERSION); }
+	static { RuntimeMetaData.checkVersion("4.13.2", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
@@ -91,6 +91,7 @@ public class JSONParser extends Parser {
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class JsonContext extends ParserRuleContext {
 		public ValueContext value() {
 			return getRuleContext(ValueContext.class,0);
@@ -135,6 +136,7 @@ public class JSONParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ObjContext extends ParserRuleContext {
 		public List<PairContext> pair() {
 			return getRuleContexts(PairContext.class);
@@ -218,6 +220,7 @@ public class JSONParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class PairContext extends ParserRuleContext {
 		public TerminalNode STRING() { return getToken(JSONParser.STRING, 0); }
 		public ValueContext value() {
@@ -267,6 +270,7 @@ public class JSONParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ArrContext extends ParserRuleContext {
 		public List<ValueContext> value() {
 			return getRuleContexts(ValueContext.class);
@@ -350,6 +354,7 @@ public class JSONParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ValueContext extends ParserRuleContext {
 		public TerminalNode STRING() { return getToken(JSONParser.STRING, 0); }
 		public TerminalNode NUMBER() { return getToken(JSONParser.NUMBER, 0); }
