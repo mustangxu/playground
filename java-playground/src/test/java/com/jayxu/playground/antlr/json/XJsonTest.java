@@ -1,9 +1,6 @@
 /**
  * Authored by jayxu @2022
  */
-package com.jayxu.playground.antlr.json;
-
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
@@ -19,6 +16,8 @@ import org.openjdk.jmh.infra.Blackhole;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import lombok.extern.slf4j.XSlf4j;
 
 /**
@@ -31,22 +30,20 @@ import lombok.extern.slf4j.XSlf4j;
 // @Threads(2)
 @XSlf4j
 public class XJsonTest {
-    public static void main(String[] args) throws Exception {
-        var opt = new OptionsBuilder()
-            .include(XJsonTest.class.getSimpleName()).build();
+    static void main(String[] args) throws Exception {
+        var opt = new OptionsBuilder().include(XJsonTest.class.getSimpleName()).build();
         new Runner(opt).run();
+    }
+
+    private static Object parse(String filename) throws Exception {
+        try (var is = XJsonTest.class.getClassLoader().getResourceAsStream(filename)) {
+            return XJson.parse(is);
+        }
     }
 
     @Benchmark
     public void benchmark(Blackhole hole) throws Exception {
         hole.consume(parse("test.json"));
-    }
-
-    private static Object parse(String filename) throws Exception {
-        try (var is = XJsonTest.class.getClassLoader()
-            .getResourceAsStream(filename);) {
-            return XJson.parse(is);
-        }
     }
 
     @Test

@@ -1,5 +1,3 @@
-package com.jayxu.playground.antlr.json;
-
 import java.io.IOException;
 import java.io.InputStream;
 
