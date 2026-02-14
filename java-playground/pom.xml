@@ -5,7 +5,7 @@
     <artifactId>java-playground</artifactId>
     <properties>
         <java.version>25</java.version>
-        <graalvm.version>25.0.1</graalvm.version>
+        <graalvm.version>25.0.2</graalvm.version>
         <skywalking.version>9.6.0</skywalking.version>
         <!-- <spring.native.version>0.12.2</spring.native.version>-->
         <!-- <gson.version>2.9.0</gson.version> -->
@@ -194,12 +194,12 @@
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>jquery</artifactId>
-            <version>3.7.1</version>
+            <version>4.0.0</version>
         </dependency>
         <dependency>
             <groupId>org.web3j</groupId>
             <artifactId>core</artifactId>
-            <version>5.0.1</version>
+            <version>5.0.2</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.bouncycastle</groupId>
@@ -221,7 +221,7 @@
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>org.eclipse.persistence.jpa</artifactId>
-            <version>4.0.8</version>
+            <version>4.0.9</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -247,7 +247,7 @@
         <dependency>
             <groupId>com.jayxu</groupId>
             <artifactId>jasypt-spring-aws-kms-starter</artifactId>
-            <version>0.9.1</version>
+            <version>0.10.0</version>
         </dependency>
         <!--dependency>
             <groupId>com.jayxu</groupId>
@@ -263,7 +263,7 @@
         <dependency>
             <groupId>com.github.luben</groupId>
             <artifactId>zstd-jni</artifactId>
-            <version>1.5.7-6</version>
+            <version>1.5.7-7</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.ai</groupId>
@@ -302,7 +302,7 @@
             <plugin>
                 <groupId>io.fabric8</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
-                <version>0.48.0</version>
+                <version>0.48.1</version>
                 <configuration>
                     <verbose>true</verbose>
                     <images>
