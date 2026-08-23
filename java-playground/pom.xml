@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>java-playground</artifactId>
     <properties>
-        <java.version>25</java.version>
+        <java.version>26</java.version>
         <graalvm.version>25.2.4</graalvm.version>
         <skywalking.version>9.6.0</skywalking.version>
         <!-- <spring.native.version>0.12.2</spring.native.version>-->
@@ -318,7 +318,7 @@
                                     <!--tag>latest</tag-->
                                     <tag>%v-${git.commit.id.abbrev}</tag>
                                 </tags>
-                                <from>eclipse-temurin:23-jre-ubi9-minimal</from>
+                                <from>eclipse-temurin:26-jre-ubi9-minimal</from>
                                 <!--from>apache/skywalking-java-agent:9.2.0-java21</from-->
                                 <workdir>/app</workdir>
                                 <!--<dockerFile>Dockerfile-maven</dockerFile>-->
