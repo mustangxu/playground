@@ -246,11 +246,15 @@
         </pluginRepository>
     </pluginRepositories>
     <repositories>
-        <!--repository>
-            <id>spring-release</id>
-            <name>Spring release</name>
-            <url>https://repo.spring.io/release</url>
-        </repository-->
+        <!--<repository>-->
+        <!--    <id>central</id>-->
+        <!--    <url>https://repo.maven.apache.org/maven2</url>-->
+        <!--</repository>-->
+        <!--<repository>-->
+        <!--    <id>spring-release</id>-->
+        <!--    <name>Spring release</name>-->
+        <!--    <url>https://repo.spring.io/release</url>-->
+        <!--</repository>-->
         <repository>
             <id>spring-milestones</id>
             <url>https://repo.spring.io/milestone</url>

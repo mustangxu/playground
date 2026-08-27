@@ -3,7 +3,7 @@
  */
 package com.jayxu.playground.spring.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -19,9 +19,8 @@ import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import jakarta.persistence.Version;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -45,11 +44,9 @@ public class UserInfo {
     @Version
     private Integer version;
     @CreatedDate
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createTime;
+    private LocalDateTime createTime;
     @LastModifiedDate
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date updateTime;
+    private LocalDateTime updateTime;
 
     public enum Gender {
         MALE,
@@ -60,9 +57,9 @@ public class UserInfo {
         var faker = new Faker();
 
         var info = new UserInfo();
-        info.setGender(RandomUtils.randomEnum(UserInfo.Gender.class));
-        info.setAddress(faker.address().fullAddress());
-        info.setAge(faker.number().numberBetween(1, 100));
+        info.gender = RandomUtils.randomEnum(Gender.class);
+        info.address = faker.address().fullAddress();
+        info.age = faker.number().numberBetween(1, 100);
 
         return info;
     }

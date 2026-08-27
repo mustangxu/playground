@@ -5,7 +5,7 @@ package com.jayxu.playground.spring.model;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -23,12 +23,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Index;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import jakarta.persistence.Transient;
 import jakarta.persistence.Version;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.XSlf4j;
@@ -59,11 +58,9 @@ public class User implements Serializable {
     @Version
     private Integer version;
     @CreatedDate
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createTime;
+    private LocalDateTime createTime;
     @LastModifiedDate
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date updateTime;
+    private LocalDateTime updateTime;
     @Transient
     private Integer sequence;
 
@@ -79,8 +76,8 @@ public class User implements Serializable {
         var faker = new Faker();
 
         var user = new User(id, faker.name().username(), faker.crypto().md5());
-        user.setEmail(faker.internet().emailAddress());
-        user.setUserInfo(UserInfo.fake());
+        user.email = faker.internet().emailAddress();
+        user.userInfo = UserInfo.fake();
 
         return user;
     }

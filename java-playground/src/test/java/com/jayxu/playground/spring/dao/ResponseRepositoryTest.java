@@ -5,6 +5,7 @@ package com.jayxu.playground.spring.dao;
 
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
@@ -29,11 +30,9 @@ class ResponseRepositoryTest {
     void test() throws Exception {
         this.dao.deleteAll();
 
-        try (var res = this.getClass().getClassLoader()
-            .getResourceAsStream("response.json");) {
+        try (var res = this.getClass().getClassLoader().getResourceAsStream("response.json")) {
 
-            var map = new Gson().fromJson(new InputStreamReader(res),
-                Response.class);
+            var map = new Gson().fromJson(new InputStreamReader(res), Response.class);
             var list = map.getData().stream().map(d -> {
                 System.out.println(d.getLabels());
 
@@ -41,7 +40,8 @@ class ResponseRepositoryTest {
                     var resp = new Response();
                     resp.setAccount(d.getLabels().get("cost_account"));
                     resp.setResource(d.getLabels().get("cost_resource_type"));
-                    resp.setDate(new Date(obj[0].longValue() * 1000));
+                    resp.setDate(new Date(obj[0].longValue() * 1000).toInstant().atZone(ZoneId.systemDefault())
+                            .toLocalDateTime());
                     resp.setAmount(new BigDecimal(obj[1]));
 
                     return resp;

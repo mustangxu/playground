@@ -1,7 +1,7 @@
 package com.jayxu.playground.spring.model;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -10,16 +10,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotNull;
+
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "responses", indexes = { @Index(columnList = "resource"),
-    @Index(columnList = "account"), @Index(columnList = "date") })
+@Table(name = "responses",
+        indexes = { @Index(columnList = "resource"), @Index(columnList = "account"), @Index(columnList = "date") })
 public class Response {
     @Id
     private Long id;
@@ -39,9 +38,8 @@ public class Response {
     @Column(length = 32, nullable = false)
     @NotNull
     private String account;
-    @Temporal(TemporalType.DATE)
     @NotNull
-    private Date date;
+    private LocalDateTime date;
     @Column(precision = 16, scale = 2, nullable = false)
     @NotNull
     private BigDecimal amount;

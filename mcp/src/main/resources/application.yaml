@@ -2,4 +2,7 @@ spring:
   ai:
     mcp:
       server:
-        type: ASYNC
+        protocol: streamable
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: false

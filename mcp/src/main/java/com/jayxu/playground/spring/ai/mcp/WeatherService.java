@@ -9,7 +9,6 @@ import java.util.Map;
 import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,23 +20,18 @@ public class WeatherService {
 
     public WeatherService() {
         this.restClient = RestClient.builder().baseUrl(BASE_URL).defaultHeader("Accept", "application/geo+json")
-                                    .defaultHeader("User-Agent", "WeatherApiClient/1.0 (your@email.com)").build();
+                .defaultHeader("User-Agent", "WeatherApiClient/1.0 (your@email.com)").build();
     }
 
-    @JsonIgnoreProperties(ignoreUnknown = true)
     public record Points(Props properties) {
-        @JsonIgnoreProperties(ignoreUnknown = true)
         public record Props(String forecast) {
         }
     }
 
-    @JsonIgnoreProperties(ignoreUnknown = true)
     public record Forecast(Props properties) {
-        @JsonIgnoreProperties(ignoreUnknown = true)
         public record Props(List<Period> periods) {
         }
 
-        @JsonIgnoreProperties(ignoreUnknown = true)
         public record Period(Integer number,
                              String name,
                              String startTime,
@@ -55,14 +49,10 @@ public class WeatherService {
         }
     }
 
-    @JsonIgnoreProperties(ignoreUnknown = true)
     public record Alert(List<Feature> features) {
-
-        @JsonIgnoreProperties(ignoreUnknown = true)
         public record Feature(Properties properties) {
         }
 
-        @JsonIgnoreProperties(ignoreUnknown = true)
         public record Properties(String event,
                                  String areaDesc,
                                  String severity,
@@ -74,7 +64,7 @@ public class WeatherService {
     @Tool(description = "Get weather forecast for a specific latitude/longitude")
     public Forecast getWeatherForecastByLocation(double latitude, double longitude) {
         var points = restClient.get().uri("/points/{latitude},{longitude}", latitude, longitude).retrieve()
-                               .body(Points.class);
+                .body(Points.class);
         log.debug("{}", points);
         if (points.properties() == null) {
             return null;

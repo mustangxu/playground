@@ -4,7 +4,7 @@
 package com.jayxu.playground.spring.model;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Random;
 
 import org.eclipse.persistence.annotations.UuidGenerator;
@@ -22,9 +22,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Index;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import jakarta.persistence.Version;
+
 import lombok.Data;
 
 /**
@@ -32,8 +31,7 @@ import lombok.Data;
  */
 @Entity
 @Table(name = "orders",
-        indexes = { @Index(columnList = "userId"),
-            @Index(columnList = "createTime"), @Index(columnList = "state") })
+        indexes = { @Index(columnList = "userId"), @Index(columnList = "createTime"), @Index(columnList = "state") })
 @Data
 @EntityListeners(AuditingEntityListener.class)
 public class Order {
@@ -50,18 +48,16 @@ public class Order {
     @Column(precision = 18, scale = 2)
     private BigDecimal price;
     @CreatedDate
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createTime;
+    private LocalDateTime createTime;
     @LastModifiedDate
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date updateTime;
+    private LocalDateTime updateTime;
 
     public static Order fake(User user) {
         var r = new Random();
         var order = new Order();
-        order.setUser(user);
-        order.setPrice(BigDecimal.valueOf(r.nextDouble(1_000_000.)));
-        order.setState(RandomUtils.randomEnum(OrderState.class));
+        order.user = user;
+        order.price = BigDecimal.valueOf(r.nextDouble(1_000_000.0));
+        order.state = RandomUtils.randomEnum(OrderState.class);
 
         return order;
     }
