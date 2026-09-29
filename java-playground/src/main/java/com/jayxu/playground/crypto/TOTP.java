@@ -12,6 +12,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base32;
 import org.apache.commons.lang3.ArrayUtils;
+
 import com.google.common.primitives.Ints;
 import com.google.common.primitives.Longs;
 
@@ -67,7 +68,7 @@ public final class TOTP {
 
     @SneakyThrows
     public String generateCode(Date time) {
-        Long counter = time.getTime() / 1000 / this.period;
+        var counter = time.getTime() / 1000 / this.period;
         TOTP.log.entry(this.secret, counter);
 
         var hash = this.generateHash(TOTP.base32.decode(this.secret), Longs.toByteArray(counter));
@@ -126,7 +127,7 @@ public final class TOTP {
         truncatedHash &= 0x7FFFFFFF;
 
         // Modulo (%) truncatedHash by 10^codeLength
-        truncatedHash %= Math.pow(10, this.codeLength);
+        truncatedHash %= StrictMath.pow(10, this.codeLength);
 
         // Left pad with 0s for an n-digit code
         return String.format("%0" + this.codeLength + "d", truncatedHash);

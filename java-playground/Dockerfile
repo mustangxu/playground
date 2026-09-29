@@ -21,5 +21,5 @@ ENV jasypt.encryptor.password=helloworld
 ENTRYPOINT ["java","-Xmx2G",\
     "--enable-preview",\
     "-XX:+UnlockExperimentalVMOptions","-XX:+UseZGC",\
-    #"-javaagent:/skywalking/agent/skywalking-agent.jar",\
     "-jar","/app/app.jar"]
+    #"-javaagent:/skywalking/agent/skywalking-agent.jar",\

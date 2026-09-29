@@ -13,7 +13,6 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @ComponentScan(basePackages = "com.jayxu")
 public class Http3Application {
-    @SuppressWarnings("resource")
     public static void main(String[] args) {
         SpringApplication.run(Http3Application.class, args);
     }

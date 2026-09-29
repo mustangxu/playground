@@ -12,8 +12,8 @@ import lombok.experimental.UtilityClass;
  */
 @UtilityClass
 public class NumberUtils {
-    public static double fastLog10(BigInteger bNum) {
+    public double fastLog10(BigInteger bNum) {
         var str = "." + bNum;
-        return Math.log10(Double.parseDouble(str)) + str.length() - 1;
+        return StrictMath.log10(Double.parseDouble(str)) + str.length() - 1;
     }
 }

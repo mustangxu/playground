@@ -31,7 +31,6 @@ public class PlaygroundApplication {
     //    private static final String[] skipArgs = {
     //        "--spring.output.ansi.enabled=always" };
 
-    @SuppressWarnings("resource")
     static void main(String[] args) {
         SpringApplication.run(PlaygroundApplication.class, args);
     }
