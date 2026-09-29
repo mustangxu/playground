@@ -7,7 +7,7 @@ import java.util.List;
 
 public class ConsumerThread extends Thread {
     private final List<Integer> queue;
-    private long interval;
+    private final long interval;
 
     public ConsumerThread(List<Integer> queue, long interval) {
         super("Consumer");
@@ -31,8 +31,7 @@ public class ConsumerThread extends Thread {
                         Thread.currentThread().interrupt();
                     }
                 } else {
-                    System.out
-                        .println("Consumed [" + this.queue.remove(0) + "]");
+                    System.out.println("Consumed [" + this.queue.removeFirst() + "]");
                     this.queue.notifyAll();
                     System.out.println("Notified producers");
                 }

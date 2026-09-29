@@ -26,12 +26,11 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class MyRawTransaction extends RawTransaction {
     private SignatureData signature;
-    private byte chainId = 1;
+    private byte chainId;
     private boolean signed;
 
-    public MyRawTransaction(BigInteger nonce, BigInteger gasPrice,
-            BigInteger gasLimit, String to, BigInteger value, String data,
-            int chainId) {
+    public MyRawTransaction(BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit, String to, BigInteger value,
+            String data, int chainId) {
         super(nonce, gasPrice, gasLimit, to, value, data);
         this.chainId = (byte) chainId;
     }
@@ -41,8 +40,8 @@ public class MyRawTransaction extends RawTransaction {
     }
 
     protected byte[] getEncodedRaw(boolean includeSignature) {
-        return RlpEncoder.encode(new RlpList(TransactionEncoder
-            .asRlpValues(this, includeSignature ? this.signature : null)));
+        return RlpEncoder.encode(
+                new RlpList(TransactionEncoder.asRlpValues(this, includeSignature ? this.signature : null)));
     }
 
     public byte[] hash() {
@@ -58,8 +57,8 @@ public class MyRawTransaction extends RawTransaction {
     }
 
     protected void verify(BigInteger pubKey) {
-        var sig = new ECDSASignature(new BigInteger(1, this.signature.getR()),
-            new BigInteger(1, this.signature.getS()));
+        var sig =
+                new ECDSASignature(new BigInteger(1, this.signature.getR()), new BigInteger(1, this.signature.getS()));
         var header = this.signature.getV()[0];
         var pub = Sign.recoverFromSignature(header - 27, sig, this.hash());
 

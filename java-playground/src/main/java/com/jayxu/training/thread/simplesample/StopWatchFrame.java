@@ -18,102 +18,91 @@ import javax.swing.WindowConstants;
 
 public class StopWatchFrame extends JFrame {
 
-	@Serial
-	private static final long serialVersionUID = -8186549854034665566L;
-	private JLabel label;
-	private JButton buttonPause;
-	private JButton buttonResume;
-	private JButton buttonStop;
-	private volatile boolean running = true;
-	private Thread mainThread;
+    @Serial
+    private static final long serialVersionUID = -8186549854034665566L;
+    private JLabel label;
+    private JButton buttonPause;
+    private JButton buttonResume;
+    private JButton buttonStop;
+    private volatile boolean running = true;
+    private Thread mainThread;
 
-	public StopWatchFrame() {
-		this.initComponents();
-		this.initThreads();
-	}
+    public StopWatchFrame() {
+        this.initComponents();
+        this.initThreads();
+    }
 
-	private void initThreads() {
-		this.mainThread = new Thread() {
+    static void main() {
+        SwingUtilities.invokeLater(() -> new StopWatchFrame().setVisible(true));
+    }
 
-			@Override
-			public void run() {
-				while (!this.isInterrupted()) {
-					System.out.println("Checking running...");
-					if (StopWatchFrame.this.running) {
-						SwingUtilities
-								.invokeLater(() -> StopWatchFrame.this.label
-										.setText(new Date().toString()));
-					}
+    private void initThreads() {
+        this.mainThread = new Thread() {
 
-					if (!this.isInterrupted()) {
-						try {
-							Thread.sleep(5000);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-							this.interrupt();
-						}
-					}
-				}
-			}
-		};
-		this.mainThread.start();
-	}
+            @Override
+            public void run() {
+                while (!this.isInterrupted()) {
+                    System.out.println("Checking running...");
+                    if (StopWatchFrame.this.running) {
+                        SwingUtilities.invokeLater(() -> StopWatchFrame.this.label.setText(new Date().toString()));
+                    }
 
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(() -> new StopWatchFrame().setVisible(true));
-	}
+                    if (!this.isInterrupted()) {
+                        try {
+                            Thread.sleep(5000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                            this.interrupt();
+                        }
+                    }
+                }
+            }
+        };
+        this.mainThread.start();
+    }
 
-	private void initComponents() {
-		this.label = new JLabel();
-		this.buttonPause = new JButton("Pause");
-		this.buttonResume = new JButton("Resume");
-		this.buttonStop = new JButton("Stop");
+    private void initComponents() {
+        this.label = new JLabel();
+        this.buttonPause = new JButton("Pause");
+        this.buttonResume = new JButton("Resume");
+        this.buttonStop = new JButton("Stop");
 
-		var panelBottom = new JPanel();
-		this.buttonPause.addActionListener(e -> {
-			StopWatchFrame.this.running = false;
-			StopWatchFrame.this.buttonPause
-					.setEnabled(StopWatchFrame.this.running);
-			StopWatchFrame.this.buttonResume
-					.setEnabled(!StopWatchFrame.this.running);
-			StopWatchFrame.this.buttonStop
-					.setEnabled(StopWatchFrame.this.running);
-		});
-		panelBottom.add(this.buttonPause);
+        var panelBottom = new JPanel();
+        this.buttonPause.addActionListener(e -> {
+            this.running = false;
+            this.buttonPause.setEnabled(this.running);
+            this.buttonResume.setEnabled(!this.running);
+            this.buttonStop.setEnabled(this.running);
+        });
+        panelBottom.add(this.buttonPause);
 
-		this.buttonResume.addActionListener(e -> {
-			StopWatchFrame.this.running = true;
-			StopWatchFrame.this.buttonPause
-					.setEnabled(StopWatchFrame.this.running);
-			StopWatchFrame.this.buttonResume
-					.setEnabled(!StopWatchFrame.this.running);
-			StopWatchFrame.this.buttonStop
-					.setEnabled(StopWatchFrame.this.running);
-		});
-		this.buttonResume.setEnabled(false);
-		panelBottom.add(this.buttonResume);
+        this.buttonResume.addActionListener(_ -> {
+            this.running = true;
+            this.buttonPause.setEnabled(this.running);
+            this.buttonResume.setEnabled(!this.running);
+            this.buttonStop.setEnabled(this.running);
+        });
+        this.buttonResume.setEnabled(false);
+        panelBottom.add(this.buttonResume);
 
-		this.buttonStop.addActionListener(e -> {
-			StopWatchFrame.this.mainThread.interrupt();
-			StopWatchFrame.this.buttonPause.setEnabled(false);
-			StopWatchFrame.this.buttonResume.setEnabled(false);
-			StopWatchFrame.this.buttonStop.setEnabled(false);
-		});
-		panelBottom.add(this.buttonStop);
+        this.buttonStop.addActionListener(_ -> {
+            this.mainThread.interrupt();
+            this.buttonPause.setEnabled(false);
+            this.buttonResume.setEnabled(false);
+            this.buttonStop.setEnabled(false);
+        });
+        panelBottom.add(this.buttonStop);
 
-		this.add(panelBottom, BorderLayout.SOUTH);
+        this.add(panelBottom, BorderLayout.SOUTH);
 
-		this.label.setHorizontalAlignment(SwingConstants.CENTER);
-		this.label.setFont(this.label.getFont().deriveFont(32F));
-		this.add(this.label, BorderLayout.CENTER);
+        this.label.setHorizontalAlignment(SwingConstants.CENTER);
+        this.label.setFont(this.label.getFont().deriveFont(32.0F));
+        this.add(this.label, BorderLayout.CENTER);
 
-		this.setTitle("Stop Watch");
-		this.setSize(600, 200);
-		this.setLocation(
-				(Toolkit.getDefaultToolkit().getScreenSize().width
-						- this.getWidth()) / 2,
-				(Toolkit.getDefaultToolkit().getScreenSize().height
-						- this.getHeight()) / 2);
-		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-	}
+        this.setTitle("Stop Watch");
+        this.setSize(600, 200);
+        this.setLocation((Toolkit.getDefaultToolkit().getScreenSize().width - this.getWidth()) / 2,
+                (Toolkit.getDefaultToolkit().getScreenSize().height - this.getHeight()) / 2);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    }
 }

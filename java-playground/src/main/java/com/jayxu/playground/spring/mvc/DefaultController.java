@@ -38,29 +38,28 @@ public class DefaultController {
     }
 
     @GetMapping("/enc")
-    public Mono<String> encrypt(@RequestParam String raw) {
+    public Mono<String> encrypt(
+            @RequestParam String raw) {
         return Mono.just(this.encryptor.encrypt(raw));
     }
 
     @GetMapping("/env")
-    public Mono<String> getEnv(@RequestParam String key) {
+    public Mono<String> getEnv(
+            @RequestParam String key) {
         return Mono.just(this.env.getProperty(key));
     }
 
-    @GetMapping(path = "/sse/event",
-            produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    @GetMapping(path = "/sse/event", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<ServerSentEvent<Date>> sseEvent() {
         return Flux.interval(Duration.ofSeconds(5))
-            .map(sequence -> ServerSentEvent.<Date> builder()
-                .id(String.valueOf(sequence)).event("periodic-event")
-                .data(new Date()).build());
+                .map(sequence -> ServerSentEvent.<Date>builder().id(String.valueOf(sequence)).event("periodic-event")
+                        .data(new Date()).build());
     }
 
-    @GetMapping(path = "/sse/consume",
-            produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    @GetMapping(path = "/sse/consume", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<Long> consumeEvent() {
         var client = WebClient.create("http://localhost:8000");
-        ParameterizedTypeReference<ServerSentEvent<Date>> type = new ParameterizedTypeReference<>() {
+        var type = new ParameterizedTypeReference<ServerSentEvent<Date>>() {
         };
 
         var flux = client.get().uri("/sse/event").retrieve().bodyToFlux(type);

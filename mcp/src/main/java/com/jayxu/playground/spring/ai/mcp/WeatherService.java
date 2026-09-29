@@ -6,6 +6,7 @@ package com.jayxu.playground.spring.ai.mcp;
 import java.util.List;
 import java.util.Map;
 
+import org.jspecify.annotations.Nullable;
 import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
@@ -62,16 +63,16 @@ public class WeatherService {
     }
 
     @Tool(description = "Get weather forecast for a specific latitude/longitude")
-    public Forecast getWeatherForecastByLocation(double latitude, double longitude) {
-        var points = restClient.get().uri("/points/{latitude},{longitude}", latitude, longitude).retrieve()
+    public @Nullable Forecast getWeatherForecastByLocation(double latitude, double longitude) {
+        var points = this.restClient.get().uri("/points/{latitude},{longitude}", latitude, longitude).retrieve()
                 .body(Points.class);
         log.debug("{}", points);
         if (points.properties() == null) {
             return null;
         }
 
-        var forecast = restClient.get().uri(points.properties().forecast()).retrieve().body(Forecast.class);
-        if (forecast.properties() == null) {
+        var forecast = this.restClient.get().uri(points.properties().forecast()).retrieve().body(Forecast.class);
+        if (forecast == null || forecast.properties() == null) {
             return null;
         }
 
@@ -79,7 +80,7 @@ public class WeatherService {
     }
 
     @Tool(description = "Get weather alerts for a US state. Input is Two-letter US state code (e.g. CA, NY)")
-    public Alert getAlerts(String state) {
-        return restClient.get().uri("/alerts/active/area/{state}", state).retrieve().body(Alert.class);
+    public @Nullable Alert getAlerts(String state) {
+        return this.restClient.get().uri("/alerts/active/area/{state}", state).retrieve().body(Alert.class);
     }
 }

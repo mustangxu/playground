@@ -17,7 +17,7 @@ import sun.misc.Unsafe; // NOPMD
 /**
  * This class could be used for any object contents/memory layout printing.
  * Implementation referenced to
- * http://java-performance.info/memory-introspection-using-sun-misc-unsafe-and-reflection/
+ * <a href="http://java-performance.info/memory-introspection-using-sun-misc-unsafe-and-reflection/">...</a>
  *
  * @author jay
  */
@@ -45,20 +45,23 @@ public final class ClassIntrospector {
             field.setAccessible(true);
             UNSAFE = (Unsafe) field.get(null);
 
-            OBJ_REF_SIZE = ClassIntrospector.UNSAFE
-                .arrayIndexScale(Object[].class);
+            OBJ_REF_SIZE = UNSAFE.arrayIndexScale(Object[].class);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
         PRIM_TYPE_SIZES = Maps.mutable.withInitialCapacity(7);
-        ClassIntrospector.PRIM_TYPE_SIZES.put(byte.class, 1);
-        ClassIntrospector.PRIM_TYPE_SIZES.put(char.class, 2);
-        ClassIntrospector.PRIM_TYPE_SIZES.put(int.class, 4);
-        ClassIntrospector.PRIM_TYPE_SIZES.put(long.class, 8);
-        ClassIntrospector.PRIM_TYPE_SIZES.put(float.class, 4);
-        ClassIntrospector.PRIM_TYPE_SIZES.put(double.class, 8);
-        ClassIntrospector.PRIM_TYPE_SIZES.put(boolean.class, 1);
+        PRIM_TYPE_SIZES.put(byte.class, 1);
+        PRIM_TYPE_SIZES.put(char.class, 2);
+        PRIM_TYPE_SIZES.put(int.class, 4);
+        PRIM_TYPE_SIZES.put(long.class, 8);
+        PRIM_TYPE_SIZES.put(float.class, 4);
+        PRIM_TYPE_SIZES.put(double.class, 8);
+        PRIM_TYPE_SIZES.put(boolean.class, 1);
+    }
+
+    private ClassIntrospector() {
+        // EMPTY
     }
 
     /**
@@ -67,29 +70,50 @@ public final class ClassIntrospector {
      * will boxed and the information you will get will be related to a boxed
      * version of your value.
      *
-     * @param  obj
-     *                        Object to introspect
-     * @param  maxOutputLevel
+     * @param obj
+     *         Object to introspect
+     * @param maxOutputLevel
      *
-     * @return                Object info
+     * @return Object info
      */
     public static ObjectInfo introspect(Object obj, int maxOutputLevel) {
-        return new ClassIntrospector().introspect("<ROOT>",
-            ClassIntrospector.OOP_REF_OFFSET, obj, obj.getClass(),
-            maxOutputLevel);
+        return new ClassIntrospector().introspect("<ROOT>", OOP_REF_OFFSET, obj, obj.getClass(), maxOutputLevel);
     }
 
     public static ObjectInfo introspect(Object obj) {
-        return new ClassIntrospector().introspect("<ROOT>",
-            ClassIntrospector.OOP_REF_OFFSET, obj, null, -1);
+        return new ClassIntrospector().introspect("<ROOT>", OOP_REF_OFFSET, obj, null, -1);
     }
 
-    private ClassIntrospector() {
-        // EMPTY
+    // get all fields for this class, including all superclasses fields
+    private static List<Field> getNonStaticFields(Class<?> type) {
+        if (type.isPrimitive()) {
+            return Collections.emptyList();
+        }
+
+        List<Field> res = new LinkedList<>();
+        for (var cur = type; cur != null && cur != Object.class; cur = cur.getSuperclass()) {
+            Collections.addAll(res, cur.getDeclaredFields());
+        }
+
+        return res.parallelStream().filter(f -> (f.getModifiers() & Modifier.STATIC) == 0).toList();
     }
 
-    private ObjectInfo introspect(String name, long offset, Object obj,
-            Class<?> type, int maxOutputLevel) {
+    // check if it is an array of objects. I suspect there must be a more
+    // API-friendly way to make this check.
+    private static boolean isObjectArray(Class<?> type) {
+        return type.isArray() && !type.getComponentType().isPrimitive();
+    }
+
+    // obtain a shallow size of a field of given class (primitive or object
+    // reference size)
+    private static int getObjSize(Class<?> type) {
+        if (type.isPrimitive()) {
+            return PRIM_TYPE_SIZES.getOrDefault(type, 0);
+        }
+        return OBJ_REF_SIZE;
+    }
+
+    private ObjectInfo introspect(String name, long offset, Object obj, Class<?> type, int maxOutputLevel) {
         if (obj == null) {
             return ObjectInfo.nullObjectInfo(name, offset, type);
         }
@@ -107,44 +131,38 @@ public final class ClassIntrospector {
         var baseOffset = 0L;
         if (type.isArray()) {
             arrayLen = Array.getLength(obj);
-            arraySize = (long) ClassIntrospector.UNSAFE.arrayIndexScale(type)
-                * arrayLen;
+            arraySize = (long) ClassIntrospector.UNSAFE.arrayIndexScale(type) * arrayLen;
             baseOffset = ClassIntrospector.UNSAFE.arrayBaseOffset(type);
         }
 
-        var root = new ObjectInfo(name, type, offset,
-            ClassIntrospector.getObjSize(type), baseOffset, arrayLen,
-            arraySize);
+        var root =
+                new ObjectInfo(name, type, offset, ClassIntrospector.getObjSize(type), baseOffset, arrayLen, arraySize);
         root.setMaxOutputLevel(maxOutputLevel);
 
         if (!isRecursive) {
             if (ClassIntrospector.isObjectArray(type)) {
                 // introspect object arrays
                 var i = 0;
-                for (Object item : (Object[]) obj) {
+                for (var item : (Object[]) obj) {
                     if (item != null) {
-                        root.addChild(this.introspect(name + '[' + i + ']',
-                            ClassIntrospector.OBJ_REF_SIZE, item,
-                            item.getClass(), maxOutputLevel - 1));
+                        root.addChild(this.introspect(name + '[' + i + ']', ClassIntrospector.OBJ_REF_SIZE, item,
+                                item.getClass(), maxOutputLevel - 1));
                     }
 
                     i++;
                 }
             } else {
-                for (Field field : ClassIntrospector.getNonStaticFields(type)) {
+                for (var field : ClassIntrospector.getNonStaticFields(type)) {
                     try {
                         field.setAccessible(true);
 
                         var value = field.get(obj);
 
-                        root.addChild(this.introspect(field.getName(),
-                            ClassIntrospector.UNSAFE.objectFieldOffset(field),
-                            value,
-                            value == null || field.getType().isPrimitive()
-                                ? field.getType() : value.getClass(),
-                            maxOutputLevel - 1));
-                    } catch (ReflectiveOperationException
-                            | InaccessibleObjectException ex) {
+                        root.addChild(
+                                this.introspect(field.getName(), ClassIntrospector.UNSAFE.objectFieldOffset(field),
+                                        value, value == null || field.getType().isPrimitive() ? field.getType() :
+                                               value.getClass(), maxOutputLevel - 1));
+                    } catch (ReflectiveOperationException | InaccessibleObjectException ex) {
                         ex.printStackTrace();
                     }
                 }
@@ -154,36 +172,5 @@ public final class ClassIntrospector {
         root.snapshot();
 
         return root;
-    }
-
-    // get all fields for this class, including all superclasses fields
-    private static List<Field> getNonStaticFields(Class<?> type) {
-        if (type.isPrimitive()) {
-            return Collections.emptyList();
-        }
-
-        List<Field> res = new LinkedList<>();
-        for (Class<?> cur = type; cur != null
-            && cur != Object.class; cur = cur.getSuperclass()) {
-            Collections.addAll(res, cur.getDeclaredFields());
-        }
-
-        return res.parallelStream()
-            .filter(f -> (f.getModifiers() & Modifier.STATIC) == 0).toList();
-    }
-
-    // check if it is an array of objects. I suspect there must be a more
-    // API-friendly way to make this check.
-    private static boolean isObjectArray(Class<?> type) {
-        return type.isArray() && !type.getComponentType().isPrimitive();
-    }
-
-    // obtain a shallow size of a field of given class (primitive or object
-    // reference size)
-    private static int getObjSize(Class<?> type) {
-        if (type.isPrimitive()) {
-            return ClassIntrospector.PRIM_TYPE_SIZES.getOrDefault(type, 0);
-        }
-        return ClassIntrospector.OBJ_REF_SIZE;
     }
 }

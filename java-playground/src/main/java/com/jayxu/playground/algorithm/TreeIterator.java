@@ -19,7 +19,7 @@ public class TreeIterator<V> implements Iterator<V> {
         this.mapper = mapper;
 
         if (from != null) {
-            from.traverse(this.list::add, n -> n, order);
+            from.traverse(this.list::add, Function.identity(), order);
         }
     }
 

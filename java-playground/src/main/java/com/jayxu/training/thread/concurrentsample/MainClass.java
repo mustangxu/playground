@@ -5,19 +5,18 @@ package com.jayxu.training.thread.concurrentsample;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class MainClass {
-	public static void main(String[] args) {
-		BlockingQueue<Integer> queue = new LinkedBlockingQueue<>(10);
+    static void main() {
+        BlockingQueue<Integer> queue =
+                IntStream.range(0, 10).boxed().collect(Collectors.toCollection(() -> new LinkedBlockingQueue<>(10)));
 
-		for (var i = 0; i < 10; i++) {
-			queue.add(i);
-		}
+        var producer = new ProducerThread(queue, 5000);
+        var consumer = new ConsumeThread(queue, 500);
 
-		var producer = new ProducerThread(queue, 5000);
-		var consumer = new ConsumeThread(queue, 500);
-
-		producer.start();
-		consumer.start();
-	}
+        producer.start();
+        consumer.start();
+    }
 }

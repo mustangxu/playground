@@ -36,8 +36,7 @@ public final class ObjectInfo {
     private final int arrayLen;
     private final long arraySize;
     /** This object fields */
-    private MutableList<ObjectInfo> children = Lists.mutable
-        .<ObjectInfo> empty();
+    private MutableList<ObjectInfo> children = Lists.mutable.empty();
     private boolean snapshotDone;
     @Setter
     private int maxOutputLevel = -1;
@@ -57,6 +56,10 @@ public final class ObjectInfo {
         return new ObjectInfo(name, type, offset, 0, 0, 0, 0);
     }
 
+    private static long align(long l) {
+        return (l + 7) / 8 * 8;
+    }
+
     void addChild(ObjectInfo info) {
         if (info != null) {
             this.children.add(info);
@@ -64,14 +67,12 @@ public final class ObjectInfo {
     }
 
     private long calDeepSize() {
-        return this.getShallowSize()
-            + this.children.parallelStream().filter(c -> !c.type.isPrimitive())
+        return this.shallowSize + this.children.parallelStream().filter(c -> !c.type.isPrimitive())
                 .mapToLong(ObjectInfo::getDeepSize).sum();
     }
 
     private long calShallowSize() {
-        this.children = this.children
-            .toSortedList(Comparator.comparing(ObjectInfo::getOffset));
+        this.children = this.children.toSortedList(Comparator.comparing(ObjectInfo::getOffset));
 
         if (this.type == null || this.type.isPrimitive()) {
             return this.size;
@@ -103,38 +104,28 @@ public final class ObjectInfo {
         this.snapshotDone = true;
     }
 
-    private static long align(long l) {
-        return (l + 7) / 8 * 8;
-    }
-
     @Override
     public String toString() {
-        return ObjectInfo.TOSTRING_FORMAT.formatted(this.name, this.type,
-            this.deepSize);
+        return ObjectInfo.TOSTRING_FORMAT.formatted(this.name, this.type, this.deepSize);
     }
 
     public String toDetails() {
-        return "size: " + this.getDeepSize() + "\n"
-            + this.toStringHelper(new StringBuilder(), 0).toString();
+        return "size: " + this.deepSize + "\n" + this.toStringHelper(new StringBuilder(), 0);
     }
 
     private StringBuilder toStringHelper(StringBuilder sb, int depth) {
-        sb.append(StringUtils.repeat('\t', depth)).append("fieldName = ")
-            .append(this.name).append(", type = ").append(this.type)
-            .append(", offset = ").append(this.offset).append(", size = ")
-            .append(this.size);
+        sb.append(StringUtils.repeat('\t', depth)).append("fieldName = ").append(this.name).append(", type = ")
+                .append(this.type).append(", offset = ").append(this.offset).append(", size = ").append(this.size);
 
         if (this.arrayLen > 0) {
-            sb.append(", arrayBaseOffset = ").append(this.arrayBaseOffset)
-                .append(", arrayLen = ").append(this.arrayLen)
-                .append(", arraySize = ").append(this.arraySize);
+            sb.append(", arrayBaseOffset = ").append(this.arrayBaseOffset).append(", arrayLen = ").append(this.arrayLen)
+                    .append(", arraySize = ").append(this.arraySize);
         }
 
-        sb.append(", shallowSize = ").append(this.getShallowSize())
-            .append(", deepSize = ").append(this.getDeepSize());
+        sb.append(", shallowSize = ").append(this.shallowSize).append(", deepSize = ").append(this.deepSize);
 
         if (this.maxOutputLevel < 0 || depth <= this.maxOutputLevel) {
-            for (ObjectInfo child : this.children) {
+            for (var child : this.children) {
                 sb.append('\n');
                 child.toStringHelper(sb, depth + 1);
             }

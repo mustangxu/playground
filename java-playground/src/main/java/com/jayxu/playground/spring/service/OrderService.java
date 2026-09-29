@@ -40,9 +40,8 @@ public class OrderService {
             user = this.userDAO.save(User.fake(userId));
         }
 
-        final var u = user;
-        var orders = IntStream.range(0, size).mapToObj(_ -> Order.fake(u))
-            .toList();
+        var u = user;
+        var orders = IntStream.range(0, size).mapToObj(_ -> Order.fake(u)).toList();
         return this.dao.saveAll(orders).spliterator().getExactSizeIfKnown();
     }
 }

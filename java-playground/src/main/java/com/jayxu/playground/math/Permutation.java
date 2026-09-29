@@ -9,10 +9,27 @@ import java.util.List;
 import org.apache.commons.lang3.time.StopWatch;
 
 public class Permutation<T> {
-    private T[] array;
+    private final T[] array;
 
     public Permutation(T[] array) {
         this.array = array;
+    }
+
+    static void main() {
+        var w = new StopWatch();
+        w.start();
+        var res = new Permutation<>(new Integer[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }).getPermutation();
+        w.stop();
+
+        System.out.println(res.size() + ", " + w);
+
+        //		for (var a : res) {
+        //			for (var i : a) {
+        //				System.out.print(i + "\t");
+        //			}
+        //
+        //			System.out.println();
+        //		}
     }
 
     public List<T[]> getPermutation() {
@@ -38,24 +55,5 @@ public class Permutation<T> {
         }
 
         return objects;
-    }
-
-    public static void main(String[] args) {
-        var w = new StopWatch();
-        w.start();
-        var res = new Permutation<>(
-            new Integer[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 })
-                .getPermutation();
-        w.stop();
-
-        System.out.println(res.size() + ", " + w);
-
-//		for (var a : res) {
-//			for (var i : a) {
-//				System.out.print(i + "\t");
-//			}
-//
-//			System.out.println();
-//		}
     }
 }

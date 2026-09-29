@@ -25,9 +25,7 @@ public class LambdaHandler implements RequestHandler<SNSEvent, String> {
             log.log("Message: " + sns.getMessage() + "\n");
             log.log("Type: " + sns.getType() + "\n");
 
-            sns.getMessageAttributes().forEach((k, v) -> {
-                log.log(k + ": " + v + "\n");
-            });
+            sns.getMessageAttributes().forEach((k, v) -> log.log(k + ": " + v + "\n"));
         }
 
         return event.toString();

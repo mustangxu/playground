@@ -12,9 +12,9 @@ import lombok.Data;
  */
 @Data
 public class MailgunRequest {
-    String from;
-    List<String> to;
-    String subject;
-    String text;
-    String html;
+    private String from;
+    private List<String> to;
+    private String subject;
+    private String text;
+    private String html;
 }

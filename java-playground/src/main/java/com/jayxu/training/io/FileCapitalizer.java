@@ -16,15 +16,13 @@ import lombok.SneakyThrows;
 
 public class FileCapitalizer {
     @SneakyThrows
-    public static void main(String[] args) {
+    static void main() {
         var target = File.createTempFile("target", ".txt").toPath();
         System.out.println(target);
 
         try (var r = new BufferedReader(
-            new InputStreamReader(FileCapitalizer.class.getClassLoader()
-                .getResourceAsStream("io/original.txt")));
-                var w = Files.newBufferedWriter(target,
-                    StandardOpenOption.WRITE)) {
+                new InputStreamReader(FileCapitalizer.class.getClassLoader().getResourceAsStream("io/original.txt")));
+             var w = Files.newBufferedWriter(target, StandardOpenOption.WRITE)) {
             var c = new MutableInt();
             r.lines().map(String::toUpperCase).forEach(s -> {
                 try {

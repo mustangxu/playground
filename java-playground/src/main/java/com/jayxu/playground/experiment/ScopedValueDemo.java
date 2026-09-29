@@ -11,12 +11,12 @@ import java.util.concurrent.CountDownLatch;
 public class ScopedValueDemo {
     private static final ScopedValue<String> value = ScopedValue.newInstance();
 
-    private static String demo(String name) throws Exception {
-        return ScopedValue.where(ScopedValueDemo.value, name)
+    private static String demo(String name) {
+        return ScopedValue.where(value, name)
                 .call(() -> "hello world, " + value.get() + " in [" + Thread.currentThread().getName() + "]");
     }
 
-    void main() throws Exception {
+    void main() throws InterruptedException {
         var n = 10;
         var latch = new CountDownLatch(n);
 

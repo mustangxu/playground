@@ -34,7 +34,7 @@ public class HuffmanTree<T> extends Tree<T> {
 
         this.dest = Lists.newLinkedList();
         weightedMap.entrySet().stream().map(this::buildNode).sorted(Comparator.comparing(HuffmanTreeNode<T>::getWeight))
-                   .forEach(this.dest::add);
+                .forEach(this.dest::add);
 
         this.buildTree();
     }
@@ -166,7 +166,7 @@ public class HuffmanTree<T> extends Tree<T> {
     public T decode(byte[] code) {
         var node = this.root;
 
-        for (byte b : code) {
+        for (var b : code) {
             node = b == 0 ? node.left : node.right;
         }
 

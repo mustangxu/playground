@@ -12,7 +12,7 @@ import lombok.experimental.UtilityClass;
  */
 @UtilityClass
 public class RandomUtils {
-    public static <T extends Enum<T>> T randomEnum(Class<T> e) {
+    public <T extends Enum<T>> T randomEnum(Class<T> e) {
         var r = new Random();
         Enum<?>[] values = e.getEnumConstants();
 

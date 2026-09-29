@@ -11,6 +11,7 @@ import java.nio.file.StandardOpenOption;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.util.StopWatch;
+
 import com.github.luben.zstd.Zstd;
 
 import lombok.SneakyThrows;
@@ -22,7 +23,7 @@ public class ZstdDemo {
     private static final ByteBuffer buf = ByteBuffer.allocateDirect(64 * 1024);
     // 64K buffer
 
-    public static void main(String[] args) {
+    static void main() {
         var watch = new StopWatch("zstd");
         var demo = new ZstdDemo();
         demo.compress(0); // warm up
@@ -43,7 +44,8 @@ public class ZstdDemo {
 
         try (var in = FileChannel.open(
                 Paths.get(ZstdDemo.class.getClassLoader().getResource("large-file.json").toURI()),
-                StandardOpenOption.READ); var out = FileChannel.open(outFile, StandardOpenOption.WRITE)) {
+                StandardOpenOption.READ);
+             var out = FileChannel.open(outFile, StandardOpenOption.WRITE)) {
             while (in.read(buf) != -1) {
                 var compressed = Zstd.compress(buf, level);
                 out.write(compressed);
@@ -51,8 +53,8 @@ public class ZstdDemo {
             }
 
             System.out.println(
-                    "level: " + level + ", original: " + in.size() + ", compressed: " + out.size() + ", ratio: " +
-                            out.size() * 100.0 / in.size() + "%");
+                    "level: " + level + ", original: " + in.size() + ", compressed: " + out.size() + ", ratio: "
+                    + out.size() * 100.0 / in.size() + "%");
         }
     }
 }

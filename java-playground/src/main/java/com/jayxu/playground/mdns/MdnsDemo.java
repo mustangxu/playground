@@ -16,13 +16,13 @@ import javax.jmdns.ServiceListener;
 public class MdnsDemo {
     private static final String SERVICE = "_http._tcp.local.";
 
-    public static void main(String[] args) throws Exception {
-        try (var pool = Executors.newVirtualThreadPerTaskExecutor();) {
+    static void main() throws Exception {
+        try (var pool = Executors.newVirtualThreadPerTaskExecutor()) {
             var server = pool.submit(MdnsDemo::startServer);
             pool.submit(MdnsDemo::startClient);
 
             Thread.sleep(10_000);
-            try (var jmDNS = server.get();) {
+            try (var jmDNS = server.get()) {
                 jmDNS.unregisterAllServices();
                 System.out.println("Done");
             }
@@ -39,7 +39,7 @@ public class MdnsDemo {
             var jmdns = JmDNS.create(host);
 
             // Add a service listener
-            jmdns.addServiceListener(MdnsDemo.SERVICE, new ServiceListener() {
+            jmdns.addServiceListener(SERVICE, new ServiceListener() {
                 @Override
                 public void serviceAdded(ServiceEvent event) {
                     System.out.println("Service added: " + event.getInfo());
@@ -70,8 +70,7 @@ public class MdnsDemo {
             var jmdns = JmDNS.create(InetAddress.getLocalHost());
 
             // Register a service
-            var serviceInfo = ServiceInfo.create(MdnsDemo.SERVICE, "example",
-                1234, "path=index.html");
+            var serviceInfo = ServiceInfo.create(SERVICE, "example", 1234, "path=index.html");
             jmdns.registerService(serviceInfo);
 
             return jmdns;

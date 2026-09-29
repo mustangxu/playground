@@ -4,11 +4,11 @@
 package com.jayxu.training.reflection;
 
 public class MathTest {
-	private Math math = new Math();
+    private final Math math = new Math();
 
-	@Test
-	public void testAdd() {
-		var result = this.math.add(1, 2);
-		System.out.println(3 != result);
-	}
+    @Test
+    public void testAdd() {
+        var result = this.math.add(1, 2);
+        System.out.println(result != 3);
+    }
 }

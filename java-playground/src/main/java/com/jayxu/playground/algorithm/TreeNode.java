@@ -50,7 +50,7 @@ public abstract class TreeNode<T> implements Serializable, Cloneable {
     }
 
     protected <V> void traverseOrdered(Counter counter, BiConsumer<Counter, V> fun, Function<TreeNode<T>, V> mapper,
-                                       Order order) {
+            Order order) {
         var v = mapper.apply(this);
 
         switch (order) {
@@ -126,10 +126,11 @@ public abstract class TreeNode<T> implements Serializable, Cloneable {
     }
 
     public void traverseNode(Consumer<TreeNode<T>> fun, Order order) {
-        this.traverse(fun, n -> n, order);
+        this.traverse(fun, Function.identity(), order);
     }
 
-    public TreeNode<T> traverseMatch(@NonNull T v) {
+    public TreeNode<T> traverseMatch(
+            @NonNull T v) {
         if (v.equals(this.value)) {
             return this;
         }
@@ -142,14 +143,14 @@ public abstract class TreeNode<T> implements Serializable, Cloneable {
         }
 
         if (this.right != null) {
-            var ret = this.right.traverseMatch(v);
-            return ret;
+            return this.right.traverseMatch(v);
         }
 
         return null;
     }
 
-    protected TreeNode<T> insertLeft(@NonNull T v) {
+    protected TreeNode<T> insertLeft(
+            @NonNull T v) {
         if (this.left == null) {
             this.left = this.create(v);
             this.left.level = this.level + 1;
@@ -161,7 +162,8 @@ public abstract class TreeNode<T> implements Serializable, Cloneable {
         return this.left.insertChild(v);
     }
 
-    protected TreeNode<T> insertRight(@NonNull T v) {
+    protected TreeNode<T> insertRight(
+            @NonNull T v) {
         if (this.right == null) {
             this.right = this.create(v);
             this.right.level = this.level + 1;
@@ -173,7 +175,8 @@ public abstract class TreeNode<T> implements Serializable, Cloneable {
         return this.right.insertChild(v);
     }
 
-    public TreeNode<T> insertChild(@NonNull T v) {
+    public TreeNode<T> insertChild(
+            @NonNull T v) {
         if (this.chooseLeft(v)) {
             return this.insertLeft(v);
         }
@@ -181,7 +184,8 @@ public abstract class TreeNode<T> implements Serializable, Cloneable {
         return this.insertRight(v);
     }
 
-    protected TreeNode<T> replace(@NonNull T v) {
+    protected TreeNode<T> replace(
+            @NonNull T v) {
         try {
             var newNode = (TreeNode<T>) this.clone();
             newNode.value = v;

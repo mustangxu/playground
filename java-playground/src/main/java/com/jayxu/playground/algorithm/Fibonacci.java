@@ -18,22 +18,22 @@ import lombok.experimental.UtilityClass;
  */
 @UtilityClass
 public class Fibonacci {
-    static final Map<Integer, BigInteger> CACHE = new ConcurrentHashMap<>();
-    private static final BigDecimal SQRT_V = BigDecimal.valueOf(2.23606797749979);
-    private static final BigDecimal HALF = new BigDecimal("0.5");
-    private static final BigDecimal PHI = SQRT_V.add(BigDecimal.ONE).multiply(HALF);
+    final Map<Integer, BigInteger> CACHE = new ConcurrentHashMap<>();
+    private final BigDecimal SQRT_V = BigDecimal.valueOf(2.23606797749979);
+    private final BigDecimal HALF = new BigDecimal("0.5");
+    private final BigDecimal PHI = SQRT_V.add(BigDecimal.ONE).multiply(HALF);
 
     static {
         CACHE.put(1, BigInteger.ONE);
         CACHE.put(2, BigInteger.ONE);
     }
 
-    public static BigInteger fibonacci(int n) {
+    public BigInteger fibonacci(int n) {
         // precision loss above 70
         if (n <= 70) {
             // Math.floor(Math.pow(phi, n) / SQRT_V + 0.5)
             return CACHE.computeIfAbsent(n,
-                                         i -> PHI.pow(i).divide(SQRT_V, RoundingMode.HALF_UP).add(HALF).toBigInteger());
+                    i -> PHI.pow(i).divide(SQRT_V, RoundingMode.HALF_UP).add(HALF).toBigInteger());
         }
 
         var result = CACHE.get(n);
@@ -45,7 +45,7 @@ public class Fibonacci {
         return result;
     }
 
-    public static BigInteger fibonacciFromWolfram(int n) {
+    public BigInteger fibonacciFromWolfram(int n) {
         return WolframService.init().query("fibonacci(" + n + ")").extractPrimaryResult(BigInteger::new);
     }
 }

@@ -3,11 +3,9 @@
  */
 package com.jayxu.playground.blockchain;
 
-import java.io.IOException;
-
 /**
  * @author jayxu
  */
 public interface ChainService {
-    long getHeight() throws IOException;
+    long getHeight();
 }

@@ -8,7 +8,7 @@ import java.util.List;
 
 public class MainClass {
 
-    public static void main(String[] args) throws InterruptedException {
+    static void main() throws InterruptedException {
         List<Integer> queue = new LinkedList<>();
 
         for (var i = 0; i < 10; i++) {
@@ -16,9 +16,9 @@ public class MainClass {
             System.out.println(i);
         }
 
-//        for (Integer i : queue) {
-//            System.out.println(i);
-//        }
+        //        for (Integer i : queue) {
+        //            System.out.println(i);
+        //        }
 
         var producer = new ProducerThread(queue, 10, 5000);
         var consumer = new ConsumerThread(queue, 500);

@@ -4,27 +4,27 @@
 package com.jayxu.training.innerclass;
 
 public class InnerClass {
-	public void repeat(Runnable runnable, int times) {
-		for (var i = 0; i < times; i++) {
-			runnable.run();
-		}
+    static void main() {
+        var c = new InnerClass() {
 
-		System.out.println(runnable + " done");
-	}
+            @Override
+            public void repeat(Runnable runnable, int times) {
+                super.repeat(runnable, times);
+            }
 
-	public static void main(String[] args) {
-		InnerClass c = new InnerClass() {
+        };
 
-			@Override
-			public void repeat(Runnable runnable, int times) {
-				super.repeat(runnable, times);
-			}
+        Runnable runnable = () -> System.out.println("hello world");
+        new InnerClass().repeat(runnable, 3);
 
-		};
+        c.repeat(runnable, 3);
+    }
 
-		Runnable runnable = () -> System.out.println("hello world");
-		new InnerClass().repeat(runnable, 3);
+    public void repeat(Runnable runnable, int times) {
+        for (var i = 0; i < times; i++) {
+            runnable.run();
+        }
 
-		c.repeat(runnable, 3);
-	}
+        System.out.println(runnable + " done");
+    }
 }

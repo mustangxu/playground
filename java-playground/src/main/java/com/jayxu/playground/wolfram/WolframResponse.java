@@ -23,7 +23,7 @@ import lombok.Data;
  *      "timing": 3.6950000000000003,
  *      "parsetiming": 0.13,
  *      "parsetimedout": false,
- *      "recalculate": "https://www6b3.wolframalpha.com/api/v1/recalc.jsp?id=MSPa198011g4c5gic968891g00005431h9723491gfh86430556393126808734&output=JSON",
+ *      "recalculate": "<a href="https://www6b3.wolframalpha.com/api/v1/recalc.jsp?id=MSPa198011g4c5gic968891g00005431h9723491gfh86430556393126808734&output=JSON">...</a>",
  *      "id": "MSP198111g4c5gic968891g00001h29082a029ad2b6",
  *      "host": "https://www6b3.wolframalpha.com",
  *      "server": "4",
@@ -580,75 +580,75 @@ public class WolframResponse {
 
     @Data
     public static class QueryResult {
-        boolean success;
-        boolean error;
-        Integer numpods;
-        String datatypes;
-        String timedout;
-        String timedoutpods;
-        Double timing;
-        Double parsetiming;
-        Boolean parsetimedout;
-        String recalculate;
-        String id;
-        String host;
-        String server;
-        String related;
-        String version;
-        String inputstring;
-        List<Pod> pods;
+        private boolean success;
+        private boolean error;
+        private Integer numpods;
+        private String datatypes;
+        private String timedout;
+        private String timedoutpods;
+        private Double timing;
+        private Double parsetiming;
+        private Boolean parsetimedout;
+        private String recalculate;
+        private String id;
+        private String host;
+        private String server;
+        private String related;
+        private String version;
+        private String inputstring;
+        private List<Pod> pods;
     }
 
     @Data
     public static class Pod {
-        String title;
-        String scanner;
-        String id;
-        Integer position;
-        boolean error;
-        Integer numsubpods;
-        boolean primary;
-        Img img;
-        String plaintext;
-        List<Pod> subpods;
+        private String title;
+        private String scanner;
+        private String id;
+        private Integer position;
+        private boolean error;
+        private Integer numsubpods;
+        private boolean primary;
+        private Img img;
+        private String plaintext;
+        private List<Pod> subpods;
         // issue
         // Info infos;
     }
 
     @Data
     public static class Img {
-        String src;
-        String alt;
-        String title;
-        Integer width;
-        Integer height;
-        String type;
-        String themes;
-        Boolean colorinvertable;
-        String contenttype;
+        private String src;
+        private String alt;
+        private String title;
+        private Integer width;
+        private Integer height;
+        private String type;
+        private String themes;
+        private Boolean colorinvertable;
+        private String contenttype;
     }
 
     @Data
     public static class Info {
-        String text;
-        Img img;
-        List<Link> links;
+        private String text;
+        private Img img;
+        private List<Link> links;
     }
 
     @Data
     public static class Link {
-        String url;
-        String text;
-        String title;
+        private String url;
+        private String text;
+        private String title;
     }
 
     public <T> T extractPrimaryResult(Function<String, T> mapper) {
         return this.queryresult.pods.stream().filter(Pod::isPrimary).findFirst().map(Pod::getSubpods).orElseThrow()
-                                    .stream().findFirst().map(Pod::getPlaintext).map(mapper).orElseThrow();
+                .stream().findFirst().map(Pod::getPlaintext).map(mapper).orElseThrow();
     }
 
     public String extractRawResult() {
-        return this.extractPrimaryResult(o -> o);
+        return this.extractPrimaryResult(Function.identity());
     }
 
     public Map<String, String> extractAllResults() {

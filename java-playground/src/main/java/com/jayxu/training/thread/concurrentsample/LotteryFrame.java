@@ -21,15 +21,14 @@ import javax.swing.WindowConstants;
 public class LotteryFrame extends JFrame {
     @Serial
     private static final long serialVersionUID = -8186549854034665566L;
-
+    private final transient Lock readLockA;
+    private final transient Lock readLockB;
+    private final transient Lock writeLock;
+    private final Random r = new Random();
     private JLabel label;
     private JButton buttonWrite;
     private JButton buttonRead;
     private transient Thread mainThread;
-    private transient Lock readLockA;
-    private transient Lock readLockB;
-    private transient Lock writeLock;
-    private Random r = new Random();
 
     public LotteryFrame() {
         var lock = new ReentrantReadWriteLock();
@@ -41,31 +40,27 @@ public class LotteryFrame extends JFrame {
         this.initThreads();
     }
 
-    private void initThreads() {
-        this.mainThread = new Thread() {
-            @Override
-            public void run() {
-                while (true) {
-                    LotteryFrame.this.readLockA.lock();
-
-                    SwingUtilities.invokeLater(() -> LotteryFrame.this.label
-                        .setText("" + LotteryFrame.this.r.nextInt(100)));
-
-                    LotteryFrame.this.readLockA.unlock();
-
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        };
-        this.mainThread.start();
+    static void main() {
+        SwingUtilities.invokeLater(() -> new LotteryFrame().setVisible(true));
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new LotteryFrame().setVisible(true));
+    private void initThreads() {
+        this.mainThread = new Thread(() -> {
+            while (true) {
+                this.readLockA.lock();
+
+                SwingUtilities.invokeLater(() -> LotteryFrame.this.label.setText("" + this.r.nextInt(100)));
+
+                this.readLockA.unlock();
+
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        this.mainThread.start();
     }
 
     private void initComponents() {
@@ -74,51 +69,42 @@ public class LotteryFrame extends JFrame {
         this.buttonRead = new JButton("Read");
 
         var panelBottom = new JPanel();
-        this.buttonWrite.addActionListener(_ -> new Thread() {
-            @Override
-            public void run() {
-                LotteryFrame.this.writeLock.lock();
+        this.buttonWrite.addActionListener(_ -> new Thread(() -> {
+            this.writeLock.lock();
 
-                try {
-                    Thread.sleep(5000);
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
-                }
-
-                LotteryFrame.this.writeLock.unlock();
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
             }
-        }.start());
+
+            this.writeLock.unlock();
+        }).start());
         panelBottom.add(this.buttonWrite);
 
-        this.buttonRead.addActionListener(_ -> new Thread() {
-            @Override
-            public void run() {
-                LotteryFrame.this.readLockB.lock();
+        this.buttonRead.addActionListener(_ -> new Thread(() -> {
+            this.readLockB.lock();
 
-                try {
-                    Thread.sleep(5000);
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
-                }
-
-                LotteryFrame.this.readLockB.unlock();
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
             }
-        }.start());
+
+            this.readLockB.unlock();
+        }).start());
         panelBottom.add(this.buttonRead);
 
         this.add(panelBottom, BorderLayout.SOUTH);
 
         this.label.setHorizontalAlignment(SwingConstants.CENTER);
-        this.label.setFont(this.label.getFont().deriveFont(32F));
+        this.label.setFont(this.label.getFont().deriveFont(32.0F));
         this.add(this.label, BorderLayout.CENTER);
 
         this.setTitle("Stop Watch");
         this.setSize(600, 200);
-        this.setLocation(
-            (Toolkit.getDefaultToolkit().getScreenSize().width
-                - this.getWidth()) / 2,
-            (Toolkit.getDefaultToolkit().getScreenSize().height
-                - this.getHeight()) / 2);
+        this.setLocation((Toolkit.getDefaultToolkit().getScreenSize().width - this.getWidth()) / 2,
+                (Toolkit.getDefaultToolkit().getScreenSize().height - this.getHeight()) / 2);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 }

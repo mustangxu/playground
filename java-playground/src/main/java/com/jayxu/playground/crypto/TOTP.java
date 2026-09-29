@@ -61,9 +61,9 @@ public final class TOTP {
 
     public static String generateSecret(Algorithm algorithm) {
         var random = new byte[algorithm.bits() / 8];
-        TOTP.sr.nextBytes(random);
+        sr.nextBytes(random);
 
-        return TOTP.log.exit(TOTP.base32.encodeToString(random));
+        return log.exit(base32.encodeToString(random));
     }
 
     @SneakyThrows
